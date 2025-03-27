@@ -31,12 +31,16 @@ void Game::render()
 
 void Game::processEvent()
 {
-    while(const std::optional event = _window.pollEvent())
+    while(const std::optional<sf::Event> event = _window.pollEvent())
     {
         if(event->is<sf::Event::Closed>()){ _window.close(); }
-    }
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-    {
-        _mainState.onLeftClick(sf::Mouse::getPosition(_window));
+        if(const auto* mouseEvent = event->getIf<sf::Event::MouseButtonReleased>())
+        {
+            if(mouseEvent->button == sf::Mouse::Button::Right)
+            {
+                _mainState.onRightClick(sf::Mouse::getPosition(_window));
+            }
+        }
     }
 }
+

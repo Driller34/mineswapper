@@ -11,6 +11,7 @@ public:
           const sf::Vector2f startPosition);
 
     void setFlag(const sf::Vector2i position);
+    void unsetFlag(const sf::Vector2i position);
     Cell getCell(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameData.hpp"
 #include "Board.hpp"
+#include "Cell.hpp"
 #include "GameState.hpp"
 
 class MainState : public GameState

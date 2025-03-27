@@ -22,6 +22,11 @@ void Board::setFlag(const sf::Vector2i position)
     _grid[position.x][position.y].setState(State::FLAG);
 }
 
+void Board::unsetFlag(const sf::Vector2i position)
+{
+    _grid[position.x][position.y].setState(State::HIDE);
+}
+
 Cell Board::getCell(const sf::Vector2i position) const
 {
     return _grid[position.x][position.y];
