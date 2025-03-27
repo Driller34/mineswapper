@@ -10,6 +10,7 @@ public:
     void setState(State state);
     State getState() const;
     void setNumber(const unsigned int number);
+    void addBomb();
     unsigned int getNumber() const;
     void setBomb();
     bool isBomb() const;

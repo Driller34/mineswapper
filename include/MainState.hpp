@@ -25,5 +25,5 @@ private:
 
     Board _board;
     const GameData& _gameData;
-    bool gameOver{false};
+    bool _gameOver{false};
 };

@@ -1,4 +1,5 @@
 #include "Board.hpp"
+#include <iostream>
 
 Board::Board(const GameData& gameData,
              const sf::Vector2f startPosition)
@@ -9,6 +10,7 @@ Board::Board(const GameData& gameData,
 {
     setMines();
     mixMines();
+    setNumbers();
 }
 
 bool Board::isCellInGrid(const sf::Vector2i position) const 
@@ -60,9 +62,26 @@ void Board::setNumbers()
     {
         for(int j = 0; j < _gameData.columns; j++)
         {
-            
+            if(_grid[i][j].isBomb()){ addBombs({i, j}); }
         }
     }
+}
+
+void Board::addBombs(const sf::Vector2i position)
+{
+    if(isCellInGrid({position.x + 1, position.y})){ _grid[position.x + 1][position.y].addBomb(); }
+    if(isCellInGrid({position.x + 1, position.y + 1})){ _grid[position.x + 1][position.y + 1].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y})){ _grid[position.x - 1][position.y].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y - 1})){ _grid[position.x - 1][position.y - 1].addBomb(); }
+    if(isCellInGrid({position.x, position.y + 1})){ _grid[position.x][position.y + 1].addBomb(); }
+    if(isCellInGrid({position.x, position.y - 1})){ _grid[position.x][position.y - 1].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y + 1})){ _grid[position.x - 1][position.y + 1].addBomb(); }
+    if(isCellInGrid({position.x + 1, position.y - 1})){ _grid[position.x + 1][position.y - 1].addBomb(); }
+}
+
+void Board::showCell(const sf::Vector2i position)
+{
+    _grid[position.x][position.y].setState(State::UNHIDE);
 }
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
@@ -108,7 +127,9 @@ void Board::draw(sf::RenderTarget& target,
         for(int j = 0; j < _gameData.columns; j++)
         {
             addCell({i, j});
+            std::cout<<_grid[i][j].getNumber()<<" ";
         }
+        std::cout<<std::endl;
     }
     target.draw(_cells);
 }

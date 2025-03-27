@@ -35,3 +35,8 @@ bool Cell::isBomb() const
     return _bomb;
 }
 
+void Cell::addBomb()
+{
+    _number++;
+}
+
