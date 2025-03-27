@@ -31,6 +31,7 @@ function(add_game_library name type)
 endfunction()
 
 add_game_library(GameData INTERFACE)
+add_game_library(GameState INTERFACE)
 
 add_library(Cell STATIC src/Cell.cpp)
 target_include_directories(Cell PUBLIC include)
@@ -39,9 +40,13 @@ add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
 target_link_libraries(Board PUBLIC GameData Cell ${SFML_DEPENDENCIES})
 
+add_library(MainState STATIC src/MainState.cpp)
+target_include_directories(MainState PUBLIC include)
+target_link_libraries(MainState PUBLIC GameData Cell Board GameState ${SFML_DEPENDENCIES})
+
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)
-target_link_libraries(Game PUBLIC GameData Board ${SFML_DEPENDENCIES})
+target_link_libraries(Game PUBLIC GameData MainState ${SFML_DEPENDENCIES})
 
 add_executable(main src/main.cpp)
 target_include_directories(main PRIVATE src)

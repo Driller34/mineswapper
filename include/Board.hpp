@@ -12,7 +12,7 @@ public:
 
     void setFlag(const sf::Vector2i position);
     Cell getCell(const sf::Vector2i position) const;
-    sf::Vector2i getCellFormPosition(const sf::Vector2f position) const;
+    sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
 
 private:
     virtual void draw(sf::RenderTarget& target, 

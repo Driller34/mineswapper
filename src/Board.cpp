@@ -60,6 +60,16 @@ void Board::setNumbers()
     }
 }
 
+sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
+{
+    sf::Vector2i relativePosition = position - sf::Vector2i(_startPosition.x, _startPosition.y);
+    
+    const int column = relativePosition.x / _gameData.cellSize;
+    const int row = relativePosition.y / _gameData.cellSize;
+
+    return { column, row };
+}
+
 sf::Vector2f Board::getPostion(const sf::Vector2i position) const
 {
     return { _startPosition.x + (position.x * _gameData.cellSize),
@@ -71,6 +81,7 @@ void Board::addCell(const sf::Vector2i position) const
     sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
     sf::Color color = sf::Color::Red;
     if(_grid[position.x][position.y].isBomb()){ color = sf::Color::Green; }
+    if(_grid[position.x][position.y].getState() == State::FLAG){ color = sf::Color::Blue; }
     sf::Vector2f realPosition = getPostion(position);
 
     _cells.append({realPosition, color});

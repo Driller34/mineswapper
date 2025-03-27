@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GameData.hpp"
-#include "Board.hpp"
+#include "MainState.hpp"
 
 class Game
 {
@@ -16,5 +16,5 @@ public:
 private:
     sf::RenderWindow _window;
     GameData _gameData;
-    Board _board;
+    MainState _mainState;
 };
