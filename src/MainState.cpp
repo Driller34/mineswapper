@@ -1,8 +1,10 @@
 #include "MainState.hpp"
 #include <iostream>
 
-MainState::MainState(const GameData& gameData) 
+MainState::MainState(const GameData& gameData,
+                     ResourceManager& resourceManager) 
     : _gameData(gameData),
+    _resourceManager(resourceManager),
     _board(_gameData, {0.0f, 0.0f})
 {
 

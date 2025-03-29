@@ -2,8 +2,9 @@
 
 Game::Game()
  : _gameData(), 
+   _resourceManager("../resources"),
    _window(sf::VideoMode({_gameData.width, _gameData.height}), "Mineswapper"),
-   _mainState(_gameData)
+   _mainState(_gameData, _resourceManager)
 {
 }
 

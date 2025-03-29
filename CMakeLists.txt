@@ -16,7 +16,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-set(SFML_DEPENDENCIES SFML::Graphics SFML::Window SFML::System)
+set(SFML_DEPENDENCIES SFML::Graphics SFML::Window SFML::System SFML::Audio)
 
 function(add_game_library name type)
   if(type STREQUAL "INTERFACE")
@@ -36,17 +36,21 @@ add_game_library(GameState INTERFACE)
 add_library(Cell STATIC src/Cell.cpp)
 target_include_directories(Cell PUBLIC include)
 
+add_library(ResourceManager STATIC src/ResourceManager.cpp)
+target_include_directories(ResourceManager PUBLIC include)
+target_link_libraries(ResourceManager PUBLIC ${SFML_DEPENDENCIES})
+
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
-target_link_libraries(Board PUBLIC GameData Cell ${SFML_DEPENDENCIES})
+target_link_libraries(Board PUBLIC GameData Cell ResourceManager ${SFML_DEPENDENCIES})
 
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)
-target_link_libraries(MainState PUBLIC GameData Cell Board GameState ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData Cell Board GameState ResourceManager ${SFML_DEPENDENCIES})
 
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)
-target_link_libraries(Game PUBLIC GameData MainState ${SFML_DEPENDENCIES})
+target_link_libraries(Game PUBLIC GameData MainState ResourceManager ${SFML_DEPENDENCIES})
 
 add_executable(main src/main.cpp)
 target_include_directories(main PRIVATE src)

@@ -1,15 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <stack>
 #include "GameData.hpp"
 #include "Board.hpp"
 #include "Cell.hpp"
 #include "GameState.hpp"
-#include <stack>
+#include "ResourceManager.hpp"
 
 class MainState : public GameState
 {
 public:
-    MainState(const GameData& gameData);
+    MainState(const GameData& gameData,
+              ResourceManager& resourceManager);
 
     virtual void init() override;
     virtual void update() override;
@@ -24,6 +26,7 @@ private:
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameOver() const;
 
+    ResourceManager& _resourceManager;
     Board _board;
     const GameData& _gameData;
     bool _gameOver{false};
