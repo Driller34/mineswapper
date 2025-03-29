@@ -5,7 +5,7 @@ MainState::MainState(const GameData& gameData,
                      ResourceManager& resourceManager) 
     : _gameData(gameData),
     _resourceManager(resourceManager),
-    _board(_gameData, {0.0f, 0.0f})
+    _board(_gameData, _resourceManager, {0.0f, 0.0f})
 {
 
 }

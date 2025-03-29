@@ -2,8 +2,10 @@
 #include <iostream>
 
 Board::Board(const GameData& gameData,
+             const ResourceManager& resourceManager,
              const sf::Vector2f startPosition)
      : _gameData(gameData),
+     _resourceManager(resourceManager),
      _startPosition(startPosition),
      _grid(_gameData.rows, std::vector<Cell>(_gameData.columns)),
      _cells(sf::PrimitiveType::Triangles)
@@ -100,35 +102,35 @@ sf::Vector2f Board::getPostion(const sf::Vector2i position) const
              _startPosition.y+ (position.y * _gameData.cellSize) };
 } 
 
-void Board::addCell(const sf::Vector2i position) const
+sf::RectangleShape Board::addCell(const sf::Vector2i position) const
 {
     sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
-    sf::Color color = sf::Color::Red;
-    if(_grid[position.x][position.y].isBomb()){ color = sf::Color::Green; }
-    if(_grid[position.x][position.y].getState() == State::FLAG){ color = sf::Color::Blue; }
-    if(_grid[position.x][position.y].getState() == State::UNHIDE){ color = sf::Color::Yellow; } 
+    
+    std::string texturePath = "hiddenCell.png";
+    auto cell = _grid[position.x][position.y];
+    if(cell.isBomb()){ texturePath = "mineCell.png"; }
+    else if(cell.getState() == State::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
+    else if(cell.getState() == State::FLAG){ texturePath = "flagCell.png"; }
+
+    sf::Texture& texture = _resourceManager.getTexture(texturePath);
     sf::Vector2f realPosition = getPostion(position);
 
-    _cells.append({realPosition, color});
-    _cells.append({{realPosition.x + size.x, realPosition.y}, color});
-    _cells.append({{realPosition.x + size.x, realPosition.y + size.y}, color});
+    sf::RectangleShape rectangle(size);
+    rectangle.setTexture(&texture);
+    rectangle.setPosition(realPosition);
 
-    _cells.append({realPosition, color});
-    _cells.append({{realPosition.x + size.x, realPosition.y + size.y}, color});
-    _cells.append({{realPosition.x, realPosition.y + size.y}, color});
+    return rectangle;
 }
-
 
 void Board::draw(sf::RenderTarget& target, 
                  sf::RenderStates states) const
 {
-    _cells.clear();
     for(int i = 0; i < _gameData.rows; i++)
     {
         for(int j = 0; j < _gameData.columns; j++)
         {
-            addCell({i, j});
+            sf::RectangleShape rec = addCell({i, j});
+            target.draw(rec);
         }
     }
-    target.draw(_cells);
 }

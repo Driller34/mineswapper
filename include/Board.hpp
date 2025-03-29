@@ -1,13 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <random>
+#include <map>
 #include "Cell.hpp"
 #include "GameData.hpp"
-#include <random>
+#include "ResourceManager.hpp"
 
 class Board : public sf::Drawable
 {
 public:
     Board(const GameData& gameData,
+          const ResourceManager& resourceManager,
           const sf::Vector2f startPosition);
 
     void setFlag(const sf::Vector2i position);
@@ -21,7 +24,7 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
     
-    void addCell(const sf::Vector2i position) const;
+    sf::RectangleShape addCell(const sf::Vector2i position) const;
     void setMines();
     void mixMines();
     void setNumbers();
@@ -30,6 +33,7 @@ private:
 
     sf::Vector2f getPostion(const sf::Vector2i position) const;
 
+    const ResourceManager& _resourceManager;
     const GameData& _gameData;
     const sf::Vector2f _startPosition;
     mutable sf::VertexArray _cells;
