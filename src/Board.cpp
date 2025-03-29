@@ -128,9 +128,7 @@ void Board::draw(sf::RenderTarget& target,
         for(int j = 0; j < _gameData.columns; j++)
         {
             addCell({i, j});
-            //std::cout<<_grid[i][j].getNumber()<<" ";
         }
-        std::cout<<std::endl;
     }
     target.draw(_cells);
 }

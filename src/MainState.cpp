@@ -27,8 +27,16 @@ void MainState::onRightClick(const sf::Vector2i mousePosition)
 {
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
-    if(cell.getState() == State::FLAG){ _board.unsetFlag(cellPosition); }
-    else if(cell.getState() == State::HIDE){ _board.setFlag(cellPosition); }   
+    if(cell.getState() == State::FLAG && _flags > 0)
+    { 
+        _board.unsetFlag(cellPosition); 
+        _flags--;
+    }
+    else if(cell.getState() == State::HIDE && _flags < _gameData.mines)
+    { 
+        _board.setFlag(cellPosition); 
+        _flags++;
+    }   
 }
 
 void MainState::onLeftClick(const sf::Vector2i mousePosition)
