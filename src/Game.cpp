@@ -40,6 +40,10 @@ void Game::processEvent()
             {
                 _mainState.onRightClick(sf::Mouse::getPosition(_window));
             }
+            if(mouseEvent->button == sf::Mouse::Button::Left)
+            {
+                _mainState.onLeftClick(sf::Mouse::getPosition(_window));
+            }
         }
     }
 }

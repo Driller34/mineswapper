@@ -106,6 +106,7 @@ void Board::addCell(const sf::Vector2i position) const
     sf::Color color = sf::Color::Red;
     if(_grid[position.x][position.y].isBomb()){ color = sf::Color::Green; }
     if(_grid[position.x][position.y].getState() == State::FLAG){ color = sf::Color::Blue; }
+    if(_grid[position.x][position.y].getState() == State::UNHIDE){ color = sf::Color::Yellow; } 
     sf::Vector2f realPosition = getPostion(position);
 
     _cells.append({realPosition, color});
@@ -127,7 +128,7 @@ void Board::draw(sf::RenderTarget& target,
         for(int j = 0; j < _gameData.columns; j++)
         {
             addCell({i, j});
-            std::cout<<_grid[i][j].getNumber()<<" ";
+            //std::cout<<_grid[i][j].getNumber()<<" ";
         }
         std::cout<<std::endl;
     }

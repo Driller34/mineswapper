@@ -15,6 +15,7 @@ public:
     void showCell(const sf::Vector2i position);
     Cell getCell(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
+    bool isCellInGrid(const sf::Vector2i position) const;
 
 private:
     virtual void draw(sf::RenderTarget& target, 
@@ -28,7 +29,6 @@ private:
     void addBombs(const sf::Vector2i position);
 
     sf::Vector2f getPostion(const sf::Vector2i position) const;
-    bool isCellInGrid(const sf::Vector2i position) const;
 
     const GameData& _gameData;
     const sf::Vector2f _startPosition;

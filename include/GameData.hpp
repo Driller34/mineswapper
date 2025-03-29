@@ -3,10 +3,11 @@
 
 struct GameData
 {
-   static constexpr unsigned int width{800};
-   static constexpr unsigned int height{800};
-   static constexpr unsigned int cellSize{20};
+   static constexpr unsigned int cellSize{30};
    static constexpr unsigned int rows{20};
    static constexpr unsigned int columns{20}; 
-   static constexpr unsigned int mines{20};
+   static constexpr unsigned int mines{40};
+
+   static constexpr unsigned int width{cellSize * columns};
+   static constexpr unsigned int height{cellSize * rows};
 };

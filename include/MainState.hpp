@@ -4,6 +4,7 @@
 #include "Board.hpp"
 #include "Cell.hpp"
 #include "GameState.hpp"
+#include <stack>
 
 class MainState : public GameState
 {
@@ -26,4 +27,5 @@ private:
     Board _board;
     const GameData& _gameData;
     bool _gameOver{false};
+    int _flags{0};
 };
