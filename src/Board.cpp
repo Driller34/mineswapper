@@ -69,6 +69,11 @@ void Board::setNumbers()
     }
 }
 
+void Board::showMines()
+{
+    _showMines = true;
+}
+
 void Board::addBombs(const sf::Vector2i position)
 {
     if(isCellInGrid({position.x + 1, position.y})){ _grid[position.x + 1][position.y].addBomb(); }
@@ -102,57 +107,69 @@ sf::Vector2f Board::getPostion(const sf::Vector2i position) const
              _startPosition.y+ (position.y * _gameData.cellSize) };
 } 
 
-sf::VertexArray Board::addCell(const sf::Vector2i position) const
+void Board::addCell(const sf::Vector2i position,
+                    std::unordered_map<std::string, sf::VertexArray>& textureBatches) const
 {
-    sf::Vector2f size = {static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2)};
-    
     std::string texturePath = "hiddenCell.png";
-    const auto& cell = _grid[position.x][position.y];
-    if (cell.isBomb()) texturePath = "mineCell.png";
-    else if (cell.getState() == State::UNHIDE) texturePath = _gameData.cellNumberTexture[cell.getNumber()];
-    else if (cell.getState() == State::FLAG) texturePath = "flagCell.png";
-
-    sf::Texture& texture = _resourceManager.getTexture(texturePath);
+    auto cell = _grid[position.x][position.y];
+    if(cell.isBomb() && _showMines){ texturePath = "mineCell.png"; }
+    else if(cell.getState() == State::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
+    else if(cell.getState() == State::FLAG){ texturePath = "flagCell.png"; }
+            
+    sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
     sf::Vector2f realPosition = getPostion(position);
 
-    // Wierzchołki prostokąta
-    sf::VertexArray vertices(sf::Quads, 4);
+    sf::Vector2f topLeft = realPosition;
+    sf::Vector2f topRight = sf::Vector2f(realPosition.x + size.x, realPosition.y);
+    sf::Vector2f bottomLeft = sf::Vector2f(realPosition.x, realPosition.y + size.y);
+    sf::Vector2f bottomRight = sf::Vector2f(realPosition.x + size.x, realPosition.y + size.y);
+            
+    sf::Texture& texture = _resourceManager.getTexture(texturePath);
+    sf::Vector2f texSize = sf::Vector2f(texture.getSize());
+    sf::Vector2f texTopLeft = sf::Vector2f(0.f, 0.f);
+    sf::Vector2f texTopRight = sf::Vector2f(texSize.x, 0.f);
+    sf::Vector2f texBottomLeft = sf::Vector2f(0.f, texSize.y);
+    sf::Vector2f texBottomRight = sf::Vector2f(texSize.x, texSize.y);
+            
+    auto& batch = textureBatches[texturePath];
+    batch.append(sf::Vertex(topLeft, sf::Color::White, texTopLeft));
+    batch.append(sf::Vertex(bottomLeft, sf::Color::White, texBottomLeft));
+    batch.append(sf::Vertex(bottomRight, sf::Color::White, texBottomRight));
 
-    vertices[0].position = realPosition;
-    vertices[1].position = {realPosition.x + size.x, realPosition.y};
-    vertices[2].position = {realPosition.x, realPosition.y + size.y};
-    vertices[3].position = {realPosition.x + size.x, realPosition.y + size.y};
-
-    // Ustawienie tekstury
-    for (int i = 0; i < 4; ++i)
-    {
-        vertices[i].texCoords = vertices[i].position; // Właściwe mapowanie tekstury na wierzchołki
-    }
-
-    // Ustawienie tekstury dla wierzchołków
-    for (int i = 0; i < 4; ++i)
-    {
-        vertices[i].color = sf::Color::White;  // Ustawienie koloru wierzchołków na biały (tekstura je ożywi)
-    }
-
-    return vertices;
+    batch.append(sf::Vertex(topLeft, sf::Color::White, texTopLeft));
+    batch.append(sf::Vertex(bottomRight, sf::Color::White, texBottomRight));
+    batch.append(sf::Vertex(topRight, sf::Color::White, texTopRight));
 }
 
-void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Board::draw(sf::RenderTarget& target, 
+                 sf::RenderStates states) const
 {
-    sf::VertexArray vertexArray(sf::Quads);
-
-    for (int i = 0; i < _gameData.rows; i++)
+    _cells.clear();
+    std::unordered_map<std::string, sf::VertexArray> textureBatches;
+    textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    textureBatches["flagCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    for(int i = 0; i < _gameData.cellNumberTexture.size(); i++)
     {
-        for (int j = 0; j < _gameData.columns; j++)
+        textureBatches[_gameData.cellNumberTexture[i]] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    }
+    for(int i = 0; i < _gameData.rows; i++)
+    {
+        for(int j = 0; j < _gameData.columns; j++)
         {
-            sf::VertexArray cellVertices = addCell({i, j});
-            for (size_t k = 0; k < cellVertices.getVertexCount(); ++k)
-            {
-                vertexArray.append(cellVertices[k]);
-            }
+            addCell({i, j}, textureBatches);
         }
     }
-
-    target.draw(vertexArray, states);
+    for(const auto& pair : textureBatches) 
+    {
+        const std::string& texturePath = pair.first;
+        const sf::VertexArray& batch = pair.second;
+        
+        if(batch.getVertexCount() > 0) 
+        {
+            sf::RenderStates batchStates = states;
+            batchStates.texture = &_resourceManager.getTexture(texturePath);
+            target.draw(batch, batchStates);
+        }
+    }
 }

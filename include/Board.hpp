@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <random>
-#include <map>
+#include <utility>
+#include <unordered_map>
 #include "Cell.hpp"
 #include "GameData.hpp"
 #include "ResourceManager.hpp"
@@ -16,6 +17,7 @@ public:
     void setFlag(const sf::Vector2i position);
     void unsetFlag(const sf::Vector2i position);
     void showCell(const sf::Vector2i position);
+    void showMines();
     Cell getCell(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
     bool isCellInGrid(const sf::Vector2i position) const;
@@ -24,7 +26,8 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
     
-    sf::VertexArray addCell(const sf::Vector2i position) const;
+    void addCell(const sf::Vector2i position,
+                 std::unordered_map<std::string, sf::VertexArray>& textureBatches) const;
     void setMines();
     void mixMines();
     void setNumbers();
@@ -38,4 +41,6 @@ private:
     const sf::Vector2f _startPosition;
     mutable sf::VertexArray _cells;
     std::vector<std::vector<Cell>> _grid;
+    
+    bool _showMines{false};
 };

@@ -19,7 +19,7 @@ void MainState::update()
 {
     if(_gameOver)
     {
-        std::cout<<"gameOver\n";
+        _board.showMines();
     }
 }
 
