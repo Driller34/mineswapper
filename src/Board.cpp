@@ -102,35 +102,57 @@ sf::Vector2f Board::getPostion(const sf::Vector2i position) const
              _startPosition.y+ (position.y * _gameData.cellSize) };
 } 
 
-sf::RectangleShape Board::addCell(const sf::Vector2i position) const
+sf::VertexArray Board::addCell(const sf::Vector2i position) const
 {
-    sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
+    sf::Vector2f size = {static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2)};
     
     std::string texturePath = "hiddenCell.png";
-    auto cell = _grid[position.x][position.y];
-    if(cell.isBomb()){ texturePath = "mineCell.png"; }
-    else if(cell.getState() == State::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
-    else if(cell.getState() == State::FLAG){ texturePath = "flagCell.png"; }
+    const auto& cell = _grid[position.x][position.y];
+    if (cell.isBomb()) texturePath = "mineCell.png";
+    else if (cell.getState() == State::UNHIDE) texturePath = _gameData.cellNumberTexture[cell.getNumber()];
+    else if (cell.getState() == State::FLAG) texturePath = "flagCell.png";
 
     sf::Texture& texture = _resourceManager.getTexture(texturePath);
     sf::Vector2f realPosition = getPostion(position);
 
-    sf::RectangleShape rectangle(size);
-    rectangle.setTexture(&texture);
-    rectangle.setPosition(realPosition);
+    // Wierzchołki prostokąta
+    sf::VertexArray vertices(sf::Quads, 4);
 
-    return rectangle;
+    vertices[0].position = realPosition;
+    vertices[1].position = {realPosition.x + size.x, realPosition.y};
+    vertices[2].position = {realPosition.x, realPosition.y + size.y};
+    vertices[3].position = {realPosition.x + size.x, realPosition.y + size.y};
+
+    // Ustawienie tekstury
+    for (int i = 0; i < 4; ++i)
+    {
+        vertices[i].texCoords = vertices[i].position; // Właściwe mapowanie tekstury na wierzchołki
+    }
+
+    // Ustawienie tekstury dla wierzchołków
+    for (int i = 0; i < 4; ++i)
+    {
+        vertices[i].color = sf::Color::White;  // Ustawienie koloru wierzchołków na biały (tekstura je ożywi)
+    }
+
+    return vertices;
 }
 
-void Board::draw(sf::RenderTarget& target, 
-                 sf::RenderStates states) const
+void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    for(int i = 0; i < _gameData.rows; i++)
+    sf::VertexArray vertexArray(sf::Quads);
+
+    for (int i = 0; i < _gameData.rows; i++)
     {
-        for(int j = 0; j < _gameData.columns; j++)
+        for (int j = 0; j < _gameData.columns; j++)
         {
-            sf::RectangleShape rec = addCell({i, j});
-            target.draw(rec);
+            sf::VertexArray cellVertices = addCell({i, j});
+            for (size_t k = 0; k < cellVertices.getVertexCount(); ++k)
+            {
+                vertexArray.append(cellVertices[k]);
+            }
         }
     }
+
+    target.draw(vertexArray, states);
 }

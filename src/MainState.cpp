@@ -17,7 +17,10 @@ void MainState::init()
 
 void MainState::update()
 {
-
+    if(_gameOver)
+    {
+        std::cout<<"gameOver\n";
+    }
 }
 
 void MainState::draw(sf::RenderWindow& window)
@@ -45,6 +48,11 @@ void MainState::onLeftClick(const sf::Vector2i mousePosition)
 {
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
+    if(cell.isBomb())
+    {
+        _gameOver = true;
+        return;
+    }
     if(cell.getState() == State::HIDE)
     { 
         searchNearbyMines(cellPosition);

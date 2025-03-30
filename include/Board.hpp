@@ -24,7 +24,7 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
     
-    sf::RectangleShape addCell(const sf::Vector2i position) const;
+    sf::VertexArray addCell(const sf::Vector2i position) const;
     void setMines();
     void mixMines();
     void setNumbers();
