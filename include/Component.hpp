@@ -1,22 +1,22 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-namespace GUI
-{
-
-class Component
+class Component : public sf::Drawable, public sf::Transformable
 {
 public:
     ~Component() = default;
+    virtual sf::FloatRect getLocalBounds() const
+    {
+        return sf::FloatRect(getPosition(), _size);
+    }
+    sf::FloatRect getGlobalBounds() const
+        return getTransform().transformRect(getLocalBounds());
+    }
 
-    virtual void isActive() const;
-    virtual void activate();
-    virtual void deactivate();
+    //virtual void handleEvent(const sf::Event& event) = 0;
+    virtual void setSize(const sf::Vector2f& size){ _size = size; }
+    virtual sf::Vector2f getSize() const { return _size; }
 
-    virtual void handleEvent(const sf::Event& event) = 0;
 private:
-    bool _isActivate{false};
-
+    sf::Vector2f _size;
 };
-
-}

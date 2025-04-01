@@ -6,8 +6,10 @@
 #include "Cell.hpp"
 #include "GameData.hpp"
 #include "ResourceManager.hpp"
+#include "Component.hpp"
 
-class Board : public sf::Drawable, public sf::Transformable
+//mines is logic
+class Board : public Component
 {
 public:
     Board(const GameData& gameData,
@@ -33,7 +35,7 @@ private:
 
     void addBombs(const sf::Vector2i position);
 
-    sf::Vector2f getPostion(const sf::Vector2i position) const;
+    sf::Vector2f getRealPosition(const sf::Vector2i position) const;
 
     const ResourceManager& _resourceManager;
     const GameData& _gameData;

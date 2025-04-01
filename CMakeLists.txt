@@ -33,6 +33,9 @@ endfunction()
 add_game_library(GameData INTERFACE)
 add_game_library(GameState INTERFACE)
 
+add_library(Component INTERFACE)
+target_include_directories(Component INTERFACE ${CMAKE_SOURCE_DIR}/include)
+
 add_library(Cell STATIC src/Cell.cpp)
 target_include_directories(Cell PUBLIC include)
 
@@ -42,15 +45,15 @@ target_link_libraries(ResourceManager PUBLIC ${SFML_DEPENDENCIES})
 
 add_library(Button STATIC src/Button.cpp)
 target_include_directories(Button PUBLIC include)
-target_link_libraries(Button PUBLIC ${SFML_DEPENDENCIES})
+target_link_libraries(Button PUBLIC Component ${SFML_DEPENDENCIES})
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
-target_link_libraries(Panel PUBLIC Button ${SFML_DEPENDENCIES})
+target_link_libraries(Panel PUBLIC Button Component ${SFML_DEPENDENCIES})
 
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
-target_link_libraries(Board PUBLIC GameData Cell ResourceManager ${SFML_DEPENDENCIES})
+target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component ${SFML_DEPENDENCIES})
 
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)

@@ -32,6 +32,7 @@ void MainState::draw(sf::RenderWindow& window)
 
 void MainState::onRightClick(const sf::Vector2i mousePosition)
 {
+    if(!_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
     if(cell.getState() == State::FLAG && _flags > 0)
@@ -48,6 +49,7 @@ void MainState::onRightClick(const sf::Vector2i mousePosition)
 
 void MainState::onLeftClick(const sf::Vector2i mousePosition)
 {
+    if(!_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)
