@@ -32,7 +32,22 @@ void MainState::draw(sf::RenderWindow& window)
 
 void MainState::onRightClick(const sf::Vector2i mousePosition)
 {
-    if(!_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ return; }
+   if(_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ boardRightClick(mousePosition); }
+   if(_panel.getLocalBounds().contains(sf::Vector2f(mousePosition)))
+   {
+        std::cout<<"click\n";
+        _panel.onRightClick(mousePosition);
+   }
+}
+
+void MainState::onLeftClick(const sf::Vector2i mousePosition)
+{
+    if(_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ boardLeftClick(mousePosition); }
+}
+
+void MainState::boardRightClick(const sf::Vector2i mousePosition)
+{
+    if(_gameOver){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
     if(cell.getState() == State::FLAG && _flags > 0)
@@ -47,9 +62,9 @@ void MainState::onRightClick(const sf::Vector2i mousePosition)
     }   
 }
 
-void MainState::onLeftClick(const sf::Vector2i mousePosition)
+void MainState::boardLeftClick(const sf::Vector2i mousePosition)
 {
-    if(!_board.getLocalBounds().contains(sf::Vector2f(mousePosition))){ return; }
+    if(_gameOver){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)

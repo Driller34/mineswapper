@@ -7,9 +7,10 @@ public:
     ~Component() = default;
     virtual sf::FloatRect getLocalBounds() const
     {
-        return sf::FloatRect(getPosition(), _size);
+        return sf::FloatRect(getPosition(), getSize());
     }
     sf::FloatRect getGlobalBounds() const
+    {
         return getTransform().transformRect(getLocalBounds());
     }
 

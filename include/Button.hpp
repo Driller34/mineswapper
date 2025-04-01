@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Component.hpp"
 
-class Button : public sf::Drawable, public sf::Transformable
+class Button : public Component
 {
 public:
     Button(const sf::Vector2f size, 

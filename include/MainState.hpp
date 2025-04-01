@@ -20,12 +20,14 @@ public:
 
     void onRightClick(const sf::Vector2i mousePosition);
     void onLeftClick(const sf::Vector2i mousePosition);
-
 private:
 
     void setFlag(const sf::Vector2i position);
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameOver() const;
+
+    void boardRightClick(const sf::Vector2i mousePosition);
+    void boardLeftClick(const sf::Vector2i mousePosition);
 
     ResourceManager& _resourceManager;
     Board _board;
