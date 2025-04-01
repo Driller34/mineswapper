@@ -6,6 +6,7 @@
 #include "Cell.hpp"
 #include "GameState.hpp"
 #include "ResourceManager.hpp"
+#include "Panel.hpp"
 
 class MainState : public GameState
 {
@@ -28,6 +29,7 @@ private:
 
     ResourceManager& _resourceManager;
     Board _board;
+    Panel _panel;
     const GameData& _gameData;
     bool _gameOver{false};
     int _flags{0};

@@ -7,12 +7,11 @@
 #include "GameData.hpp"
 #include "ResourceManager.hpp"
 
-class Board : public sf::Drawable
+class Board : public sf::Drawable, public sf::Transformable
 {
 public:
     Board(const GameData& gameData,
-          const ResourceManager& resourceManager,
-          const sf::Vector2f startPosition);
+          const ResourceManager& resourceManager);
 
     void setFlag(const sf::Vector2i position);
     void unsetFlag(const sf::Vector2i position);
@@ -38,7 +37,6 @@ private:
 
     const ResourceManager& _resourceManager;
     const GameData& _gameData;
-    const sf::Vector2f _startPosition;
     mutable sf::VertexArray _cells;
     std::vector<std::vector<Cell>> _grid;
     

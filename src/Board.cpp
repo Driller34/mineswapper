@@ -2,11 +2,9 @@
 #include <iostream>
 
 Board::Board(const GameData& gameData,
-             const ResourceManager& resourceManager,
-             const sf::Vector2f startPosition)
+             const ResourceManager& resourceManager)
      : _gameData(gameData),
      _resourceManager(resourceManager),
-     _startPosition(startPosition),
      _grid(_gameData.rows, std::vector<Cell>(_gameData.columns)),
      _cells(sf::PrimitiveType::Triangles)
 {
@@ -93,7 +91,8 @@ void Board::showCell(const sf::Vector2i position)
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 {
-    sf::Vector2i relativePosition = position - sf::Vector2i(_startPosition.x, _startPosition.y);
+    const sf::Vector2f startPosition = getPosition();
+    const sf::Vector2i relativePosition = position - sf::Vector2i(startPosition.x, startPosition.y);
     
     const int column = relativePosition.x / _gameData.cellSize;
     const int row = relativePosition.y / _gameData.cellSize;
@@ -103,8 +102,9 @@ sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 
 sf::Vector2f Board::getPostion(const sf::Vector2i position) const
 {
-    return { _startPosition.x + (position.x * _gameData.cellSize),
-             _startPosition.y+ (position.y * _gameData.cellSize) };
+    const sf::Vector2f startPosition = getPosition();
+    return { startPosition.x + (position.x * _gameData.cellSize),
+             startPosition.y+ (position.y * _gameData.cellSize) };
 } 
 
 void Board::addCell(const sf::Vector2i position,
@@ -165,11 +165,9 @@ void Board::draw(sf::RenderTarget& target,
         const std::string& texturePath = pair.first;
         const sf::VertexArray& batch = pair.second;
         
-        if(batch.getVertexCount() > 0) 
-        {
-            sf::RenderStates batchStates = states;
-            batchStates.texture = &_resourceManager.getTexture(texturePath);
-            target.draw(batch, batchStates);
-        }
+        if(batch.getVertexCount() <= 0){ continue; }
+        sf::RenderStates batchStates = states;
+        batchStates.texture = &_resourceManager.getTexture(texturePath);
+        target.draw(batch, batchStates);
     }
 }

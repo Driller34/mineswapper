@@ -8,8 +8,13 @@ struct GameData
    static constexpr unsigned int columns{20}; 
    static constexpr unsigned int mines{40};
 
+   static constexpr unsigned int PanelWidth{cellSize * columns};
+   static constexpr unsigned int PanelHeight{cellSize * 4};
+
    static constexpr unsigned int width{cellSize * columns};
-   static constexpr unsigned int height{cellSize * rows};
+   static constexpr unsigned int height{(cellSize * rows) + PanelHeight};
+
+   static constexpr sf::Vector2f startPosition = {0.0f, static_cast<float>(PanelHeight)};
 
    static constexpr std::array<std::string, 9> cellNumberTexture = {
          "emptyCell.png",

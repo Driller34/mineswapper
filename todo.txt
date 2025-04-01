@@ -1,0 +1,10 @@
+panel
+    button
+        setSize
+        setPosition
+    counter
+        font
+        update
+        setData
+
+sf::transformable

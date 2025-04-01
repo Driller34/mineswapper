@@ -5,9 +5,10 @@ MainState::MainState(const GameData& gameData,
                      ResourceManager& resourceManager) 
     : _gameData(gameData),
     _resourceManager(resourceManager),
-    _board(_gameData, _resourceManager, {0.0f, 0.0f})
+    _board(_gameData, _resourceManager),
+    _panel(sf::Vector2f(_gameData.PanelWidth, _gameData.PanelHeight), {0.0f, 0.0f})
 {
-
+    _board.setPosition(_gameData.startPosition);
 }
 
 void MainState::init()
@@ -25,6 +26,7 @@ void MainState::update()
 
 void MainState::draw(sf::RenderWindow& window)
 {
+    window.draw(_panel);
     window.draw(_board);
 }
 
@@ -48,7 +50,7 @@ void MainState::onLeftClick(const sf::Vector2i mousePosition)
 {
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition);
     Cell cell = _board.getCell(cellPosition);
-    if(cell.isBomb())
+    if(cell.isBomb() && cell.getState() != State::FLAG)
     {
         _gameOver = true;
         return;
