@@ -2,22 +2,27 @@
 #include <iostream>
 
 Button::Button(const sf::Vector2f size, 
-               const std::string text)
-    : _shape(size)
+               const ResourceManager& resourceManager,
+               const std::string text,
+               std::function<void()> onClick)
+    : _shape(size),
+      _resourceManager(resourceManager),
+      _onClick(std::move(onClick))
 {
     setSize(size);
     _shape.setFillColor(sf::Color::Red);
-
 }
 
 void Button::onClick()
 {
-    std::cout<<"button\n";
+    if(_onClick){ _onClick(); }
 }
 
-void Button::draw(sf::RenderTarget& target,
+void Button::draw(sf::RenderTarget& target, 
                   sf::RenderStates states) const
 {
     states.transform *= getTransform();
+    sf::Text _text(_resourceManager.getFont("digital-7.ttf"), "text", 24);
     target.draw(_shape, states);
+    target.draw(_text, states);
 }

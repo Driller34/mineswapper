@@ -45,19 +45,24 @@ target_link_libraries(ResourceManager PUBLIC ${SFML_DEPENDENCIES})
 
 add_library(Button STATIC src/Button.cpp)
 target_include_directories(Button PUBLIC include)
-target_link_libraries(Button PUBLIC Component ${SFML_DEPENDENCIES})
+target_link_libraries(Button PUBLIC Component ResourceManager ${SFML_DEPENDENCIES})
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
-target_link_libraries(Panel PUBLIC Button Component ${SFML_DEPENDENCIES})
+target_link_libraries(Panel PUBLIC Button Component ResourceManager ${SFML_DEPENDENCIES})
+
 
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
 target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component ${SFML_DEPENDENCIES})
 
+add_library(GameCore STATIC src/GameCore.cpp)
+target_include_directories(GameCore PUBLIC include)
+target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board ${SFML_DEPENDENCIES})
+
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)
-target_link_libraries(MainState PUBLIC GameData Cell Board GameState ResourceManager Panel ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData Cell Board GameState ResourceManager Panel GameCore ${SFML_DEPENDENCIES})
 
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)

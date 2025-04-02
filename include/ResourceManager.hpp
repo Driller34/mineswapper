@@ -8,6 +8,7 @@ class ResourceManager
 {
 public:
     ResourceManager(const std::string resources);
+    ~ResourceManager();
 
     sf::Font& getFont(const std::string fileName) const;
     sf::SoundBuffer& getSound(const std::string fileName) const;

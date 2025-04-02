@@ -3,9 +3,16 @@
 ResourceManager::ResourceManager(const std::string resources)
     : _resources(resources) {}
 
+ResourceManager::~ResourceManager() 
+{
+    _textures.clear();
+    _fonts.clear();
+    _sounds.clear();
+}
+
 sf::Font& ResourceManager::getFont(const std::string fileName) const
 {
-    if(!_fonts.contains(fileName) && !_fonts[fileName].openFromFile(_resources + "/font/" + fileName)) 
+    if(!_fonts.contains(fileName) && !_fonts[fileName].openFromFile(_resources + "/fonts/" + fileName)) 
     {
         throw std::runtime_error("Failed to load font: " + fileName);
     }
@@ -14,7 +21,7 @@ sf::Font& ResourceManager::getFont(const std::string fileName) const
 
 sf::SoundBuffer& ResourceManager::getSound(const std::string fileName) const
 {
-    if(!_sounds.contains(fileName) && !_sounds[fileName].loadFromFile(_resources + "/sound/" + fileName))
+    if(!_sounds.contains(fileName) && !_sounds[fileName].loadFromFile(_resources + "/sounds/" + fileName))
     {
         throw std::runtime_error("Failed to load sound: " + fileName);
     }

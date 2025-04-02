@@ -1,8 +1,13 @@
 #include "Panel.hpp"
+#include <iostream>
 
 Panel::Panel(const sf::Vector2f size,
+             const ResourceManager& resourceManager,
              const sf::Vector2f startPosition)
-    : _restart({100.0f, 60.0f}, "Restart")
+    : _resourceManager(resourceManager), 
+    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [](){
+        std::cout<<"asdf\n";
+    })
 {
     setSize(size);
     setPosition(startPosition);
@@ -11,15 +16,14 @@ Panel::Panel(const sf::Vector2f size,
 
 void Panel::onRightClick(const sf::Vector2i mousePosition)
 {
-    if(_restart.getLocalBounds().contains(sf::Vector2f(mousePosition)))
-    {
-        _restart.onClick();
-    }
 }
 
 void Panel::onLeftClick(const sf::Vector2i mousePosition)
 {
-
+    if(_restart.getLocalBounds().contains(sf::Vector2f(mousePosition)))
+    {
+        _restart.onClick();
+    }
 }
 
 void Panel::draw(sf::RenderTarget& target, 

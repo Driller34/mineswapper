@@ -19,5 +19,5 @@ public:
     virtual sf::Vector2f getSize() const { return _size; }
 
 private:
-    sf::Vector2f _size;
+    sf::Vector2f _size = {0.0f, 0.0f};
 };

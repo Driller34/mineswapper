@@ -8,7 +8,6 @@ Board::Board(const GameData& gameData,
      _grid(_gameData.rows, std::vector<Cell>(_gameData.columns)),
      _cells(sf::PrimitiveType::Triangles)
 {
-    setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
     setMines();
     mixMines();
     setNumbers();
@@ -21,7 +20,7 @@ bool Board::isCellInGrid(const sf::Vector2i position) const
 
 void Board::setFlag(const sf::Vector2i position)
 {
-    if(!isCellInGrid(position)){ return; }
+    //if(!isCellInGrid(position)){ return; }
     _grid[position.x][position.y].setState(State::FLAG);
 }
 
@@ -92,8 +91,8 @@ void Board::showCell(const sf::Vector2i position)
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 {
-    const sf::Vector2f startPosition = getPosition();
-    const sf::Vector2i relativePosition = position - sf::Vector2i(startPosition.x, startPosition.y);
+    //const sf::Vector2f startPosition = getPosition();
+    const sf::Vector2i relativePosition = position;
     
     const int column = relativePosition.x / _gameData.cellSize;
     const int row = relativePosition.y / _gameData.cellSize;
@@ -145,7 +144,6 @@ void Board::draw(sf::RenderTarget& target,
                  sf::RenderStates states) const
 {
     _cells.clear();
-    states.transform *= getTransform();
     std::unordered_map<std::string, sf::VertexArray> textureBatches;
     textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
     textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);

@@ -7,12 +7,13 @@
 #include "GameState.hpp"
 #include "ResourceManager.hpp"
 #include "Panel.hpp"
+#include "GameCore.hpp"
 
 class MainState : public GameState
 {
 public:
     MainState(const GameData& gameData,
-              ResourceManager& resourceManager);
+              const ResourceManager& resourceManager);
 
     virtual void init() override;
     virtual void update() override;
@@ -29,10 +30,9 @@ private:
     void boardRightClick(const sf::Vector2i mousePosition);
     void boardLeftClick(const sf::Vector2i mousePosition);
 
-    ResourceManager& _resourceManager;
-    Board _board;
-    Panel _panel;
+    const ResourceManager& _resourceManager;
     const GameData& _gameData;
-    bool _gameOver{false};
-    int _flags{0};
+    Panel _panel;
+
+    GameCore _gameCore;
 };

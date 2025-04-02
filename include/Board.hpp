@@ -9,7 +9,7 @@
 #include "Component.hpp"
 
 //mines is logic
-class Board : public Component
+class Board : public sf::Drawable
 {
 public:
     Board(const GameData& gameData,

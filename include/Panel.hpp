@@ -2,11 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include "Button.hpp"
 #include "Component.hpp"
+#include "ResourceManager.hpp"
 
 class Panel : public Component
 {
 public:
     Panel(const sf::Vector2f size,
+          const ResourceManager& resourceManager,
           const sf::Vector2f startPosition);
 
     void init();
@@ -19,6 +21,7 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
 
+    const ResourceManager& _resourceManager;
     Button _restart;
     //Counter _mines;
     //Counter _time;
