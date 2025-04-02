@@ -14,6 +14,7 @@ public:
     unsigned int getNumber() const;
     void setBomb();
     bool isBomb() const;
+    void reset();
 private:
     bool _bomb{false};
     unsigned int _number{0};

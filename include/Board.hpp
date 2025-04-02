@@ -15,10 +15,12 @@ public:
     Board(const GameData& gameData,
           const ResourceManager& resourceManager);
 
+    void reset();
     void setFlag(const sf::Vector2i position);
     void unsetFlag(const sf::Vector2i position);
     void showCell(const sf::Vector2i position);
     void showMines();
+    void hideMines();
     Cell getCell(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
     bool isCellInGrid(const sf::Vector2i position) const;

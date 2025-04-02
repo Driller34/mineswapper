@@ -5,6 +5,13 @@ Cell::Cell()
     
 }
 
+void Cell::reset()
+{
+    _state = State::HIDE;
+    _bomb = false;
+    _number = 0;
+}
+
 void Cell::setState(State state)
 {
     _state = state;

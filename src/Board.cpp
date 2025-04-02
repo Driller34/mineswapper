@@ -8,6 +8,16 @@ Board::Board(const GameData& gameData,
      _grid(_gameData.rows, std::vector<Cell>(_gameData.columns)),
      _cells(sf::PrimitiveType::Triangles)
 {
+    reset();
+}
+
+void Board::reset()
+{
+    for(auto& row : _grid)
+    {
+        for(auto& cell : row){ cell.reset(); }
+    }
+    hideMines();
     setMines();
     mixMines();
     setNumbers();
@@ -67,10 +77,9 @@ void Board::setNumbers()
     }
 }
 
-void Board::showMines()
-{
-    _showMines = true;
-}
+void Board::showMines(){ _showMines = true; }
+
+void Board::hideMines(){ _showMines = false; }
 
 void Board::addBombs(const sf::Vector2i position)
 {
@@ -102,8 +111,8 @@ sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 
 sf::Vector2f Board::getRealPosition(const sf::Vector2i position) const
 {
-    return { (position.x * _gameData.cellSize),
-             (position.y * _gameData.cellSize) };
+    return { (static_cast<float>(position.x) * _gameData.cellSize),
+             (static_cast<float>(position.y) * _gameData.cellSize) };
 } 
 
 void Board::addCell(const sf::Vector2i position,

@@ -3,12 +3,14 @@
 #include "Button.hpp"
 #include "Component.hpp"
 #include "ResourceManager.hpp"
+#include "GameCore.hpp"
 
 class Panel : public Component
 {
 public:
     Panel(const sf::Vector2f size,
           const ResourceManager& resourceManager,
+          GameCore& gameCore,
           const sf::Vector2f startPosition);
 
     void init();
@@ -22,6 +24,7 @@ private:
                       sf::RenderStates states) const override;
 
     const ResourceManager& _resourceManager;
+    GameCore& _gameCore;
     Button _restart;
     //Counter _mines;
     //Counter _time;

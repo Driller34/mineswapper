@@ -28,6 +28,7 @@ private:
     void setMines();
     void mixMines();
     void setNumbers();
+    void setGameOver();
 
     const ResourceManager& _resourceManager;
     Board _board;

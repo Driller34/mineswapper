@@ -13,7 +13,16 @@ GameCore::GameCore(const GameData& gameData,
 
 void GameCore::init()
 {
+    _board.reset();
+    
+    _gameOver = false;
+    _flags = 0;
+}
 
+void GameCore::setGameOver()
+{
+    _board.showMines();
+    _gameOver = true;
 }
 
 void GameCore::onRightClick(const sf::Vector2i mousePosition)
@@ -40,8 +49,7 @@ void GameCore::onLeftClick(const sf::Vector2i mousePosition)
     Cell cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)
     {
-        _board.showMines();
-        _gameOver = true;
+        setGameOver();
         return;
     }
     if(cell.getState() == State::HIDE){ searchNearbyMines(cellPosition); }
@@ -74,19 +82,6 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
 bool GameCore::isGameOver() const
 {
     return _gameOver;
-}
-
-void GameCore::setMines()
-{
-
-}
-void GameCore::mixMines()
-{
-
-}
-void GameCore::setNumbers()
-{
-
 }
 
 void GameCore::draw(sf::RenderTarget& target, 

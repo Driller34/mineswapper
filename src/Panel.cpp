@@ -3,10 +3,12 @@
 
 Panel::Panel(const sf::Vector2f size,
              const ResourceManager& resourceManager,
+             GameCore& gameCore,
              const sf::Vector2f startPosition)
     : _resourceManager(resourceManager), 
-    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [](){
-        std::cout<<"asdf\n";
+    _gameCore(gameCore),
+    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){
+        return _gameCore.init();
     })
 {
     setSize(size);
