@@ -7,13 +7,14 @@ Panel::Panel(const sf::Vector2f size,
              const sf::Vector2f startPosition)
     : _resourceManager(resourceManager), 
     _gameCore(gameCore),
-    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){
-        return _gameCore.init();
-    })
+    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){ return _gameCore.init(); }),
+    _mines({180.0f, 100.0f}, _resourceManager)
 {
     setSize(size);
     setPosition(startPosition);
     _restart.setPosition({40.0f, 20.0f});
+    _mines.setPosition({150.0f, 20.0f});
+    _mines.setValue(_gameCore.getHiddenMines());
 }
 
 void Panel::onRightClick(const sf::Vector2i mousePosition)
@@ -37,6 +38,7 @@ void Panel::draw(sf::RenderTarget& target,
     rec.setFillColor(sf::Color::Black);
     target.draw(rec, states);
     target.draw(_restart, states);
+    target.draw(_mines, states);
 }
 
 

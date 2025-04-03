@@ -17,7 +17,8 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
     
-    sf::RectangleShape _shape;
     const ResourceManager& _resourceManager;
+    sf::Text _text;
+    sf::RectangleShape _shape;
     std::function<void()> _onClick;
 };

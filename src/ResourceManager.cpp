@@ -1,7 +1,9 @@
 #include "ResourceManager.hpp"
 
 ResourceManager::ResourceManager(const std::string resources)
-    : _resources(resources) {}
+    : _resources(resources)
+{
+}
 
 ResourceManager::~ResourceManager() 
 {
@@ -12,9 +14,12 @@ ResourceManager::~ResourceManager()
 
 sf::Font& ResourceManager::getFont(const std::string fileName) const
 {
-    if(!_fonts.contains(fileName) && !_fonts[fileName].openFromFile(_resources + "/fonts/" + fileName)) 
+    if(!_fonts.contains(fileName)) 
     {
-        throw std::runtime_error("Failed to load font: " + fileName);
+        if(!_fonts[fileName].openFromFile(_resources + "/fonts/" + fileName)) 
+        {
+            throw std::runtime_error("Failed to load font: " + fileName);
+        }
     }
     return _fonts[fileName];
 }

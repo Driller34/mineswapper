@@ -14,7 +14,6 @@ GameCore::GameCore(const GameData& gameData,
 void GameCore::init()
 {
     _board.reset();
-    
     _gameOver = false;
     _flags = 0;
 }
@@ -83,6 +82,8 @@ bool GameCore::isGameOver() const
 {
     return _gameOver;
 }
+
+int GameCore::getHiddenMines() const { return _gameData.mines - _flags; }
 
 void GameCore::draw(sf::RenderTarget& target, 
                     sf::RenderStates states) const

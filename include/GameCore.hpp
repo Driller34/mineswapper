@@ -21,6 +21,8 @@ public:
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameOver() const;
 
+    int getHiddenMines() const;
+
 private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;

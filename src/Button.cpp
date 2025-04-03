@@ -7,6 +7,7 @@ Button::Button(const sf::Vector2f size,
                std::function<void()> onClick)
     : _shape(size),
       _resourceManager(resourceManager),
+      _text(_resourceManager.getFont("digital-7.ttf"), text, 24),
       _onClick(std::move(onClick))
 {
     setSize(size);
@@ -22,7 +23,6 @@ void Button::draw(sf::RenderTarget& target,
                   sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    sf::Text _text(_resourceManager.getFont("digital-7.ttf"), "text", 24);
     target.draw(_shape, states);
     target.draw(_text, states);
 }

@@ -4,6 +4,7 @@
 #include "Component.hpp"
 #include "ResourceManager.hpp"
 #include "GameCore.hpp"
+#include "Counter.hpp"
 
 class Panel : public Component
 {
@@ -26,6 +27,6 @@ private:
     const ResourceManager& _resourceManager;
     GameCore& _gameCore;
     Button _restart;
-    //Counter _mines;
+    Counter _mines;
     //Counter _time;
 };
