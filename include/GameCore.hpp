@@ -22,7 +22,7 @@ public:
     bool isGameOver() const;
     bool isGameWin() const;
 
-    int getHiddenMines() const;
+    size_t countFlags() const;
 
 private:
     virtual void draw(sf::RenderTarget& target, 
@@ -42,7 +42,7 @@ private:
     const GameData& _gameData;
     mutable sf::VertexArray _cells;
     bool _gameOver{false};
-    int _flags{0};
+    size_t _flags{0};
     bool _showMines{false};
 
     static constexpr std::array<sf::Vector2i, 8> directions = {

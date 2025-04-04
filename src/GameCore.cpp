@@ -83,8 +83,7 @@ void GameCore::showMines(){ _showMines = true; }
 
 void GameCore::hideMines(){ _showMines = false; }
 
-//bad name
-int GameCore::getHiddenMines() const { return _gameData.mines - _flags; }
+size_t GameCore::countFlags() const { return _gameData.mines - _flags; }
 
 sf::Vector2f GameCore::getRealPosition(const sf::Vector2i position) const
 {

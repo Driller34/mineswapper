@@ -15,6 +15,11 @@ public:
     sf::Texture& getTexture(const std::string fileName) const;
 
 private:
+    template<typename T>
+    T& getResource(const std::string& fileName,
+                   std::unordered_map<std::string, T>& container,
+                   const std::string& subfolder) const;
+
     const std::string _resources;
     mutable std::unordered_map<std::string, sf::Font> _fonts;
     mutable std::unordered_map<std::string, sf::SoundBuffer> _sounds;

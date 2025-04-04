@@ -12,32 +12,45 @@ ResourceManager::~ResourceManager()
     _sounds.clear();
 }
 
-sf::Font& ResourceManager::getFont(const std::string fileName) const
+template<typename T>
+T& ResourceManager::getResource(const std::string& fileName,
+                                std::unordered_map<std::string, T>& container,
+                                const std::string& subfolder) const
 {
-    if(!_fonts.contains(fileName)) 
+    if(!container.contains(fileName)) 
     {
-        if(!_fonts[fileName].openFromFile(_resources + "/fonts/" + fileName)) 
+        auto& resource = container[fileName];
+        bool condition;
+
+        if constexpr (std::is_same_v<T, sf::Font>)
         {
-            throw std::runtime_error("Failed to load font: " + fileName);
+            condition = resource.openFromFile(_resources + subfolder + fileName);
+        }
+        else
+        {
+            condition = resource.loadFromFile(_resources + subfolder + fileName);
+        }
+
+        if(!condition)
+        {
+            throw std::runtime_error("Failed to load " + subfolder + " : " + fileName);
         }
     }
-    return _fonts[fileName];
+
+    return container[fileName];
+}
+
+sf::Font& ResourceManager::getFont(const std::string fileName) const
+{
+    return getResource<sf::Font>(fileName, _fonts, "/fonts/");
 }
 
 sf::SoundBuffer& ResourceManager::getSound(const std::string fileName) const
 {
-    if(!_sounds.contains(fileName) && !_sounds[fileName].loadFromFile(_resources + "/sounds/" + fileName))
-    {
-        throw std::runtime_error("Failed to load sound: " + fileName);
-    }
-    return _sounds[fileName];
+    return getResource<sf::SoundBuffer>(fileName, _sounds, "/sounds/");
 }
 
 sf::Texture& ResourceManager::getTexture(const std::string fileName) const
 {
-    if(!_textures.contains(fileName) && !_textures[fileName].loadFromFile(_resources + "/textures/" + fileName))
-    {
-        throw std::runtime_error("Failed to load sound: " + fileName);
-    }
-    return _textures[fileName];
+    return getResource<sf::Texture>(fileName, _textures, "/textures/");
 }

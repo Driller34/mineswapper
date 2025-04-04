@@ -18,7 +18,7 @@ Panel::Panel(const sf::Vector2f size,
 
 void Panel::update()
 {
-    _flags.setValue(_gameCore.getHiddenMines());
+    _flags.setValue(_gameCore.countFlags());
 }
 
 void Panel::onRightClick(const sf::Vector2i mousePosition)
