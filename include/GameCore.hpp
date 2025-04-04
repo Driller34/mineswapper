@@ -27,14 +27,25 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
 
-    void setMines();
-    void mixMines();
-    void setNumbers();
+    void addCell(const sf::Vector2i position,
+                 std::unordered_map<std::string, sf::VertexArray>& textureBatches) const;
+
     void setGameOver();
+
+    void showMines();
+    void hideMines();
+    sf::Vector2f getRealPosition(const sf::Vector2i position) const;
 
     const ResourceManager& _resourceManager;
     Board _board;
     const GameData& _gameData;
+    mutable sf::VertexArray _cells;
     bool _gameOver{false};
     int _flags{0};
+    bool _showMines{false};
+
+    static constexpr std::array<sf::Vector2i, 8> directions = {
+        sf::Vector2i(1, 0), sf::Vector2i(-1, 0), sf::Vector2i(0, 1), sf::Vector2i(0, -1), 
+        sf::Vector2i(1, 1), sf::Vector2i(-1, -1), sf::Vector2i(-1, 1), sf::Vector2i(1, -1)
+    };
 };
