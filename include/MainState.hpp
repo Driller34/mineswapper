@@ -6,8 +6,8 @@
 #include "Cell.hpp"
 #include "GameState.hpp"
 #include "ResourceManager.hpp"
-#include "Panel.hpp"
 #include "GameCore.hpp"
+#include "Panel.hpp"
 
 class MainState : public GameState
 {
@@ -32,7 +32,6 @@ private:
 
     const ResourceManager& _resourceManager;
     const GameData& _gameData;
-    Panel _panel;
-
     GameCore _gameCore;
+    Panel _panel;
 };

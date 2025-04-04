@@ -26,7 +26,6 @@ bool Board::isCellInGrid(const sf::Vector2i position) const
 
 void Board::setFlag(const sf::Vector2i position)
 {
-    //if(!isCellInGrid(position)){ return; }
     _grid[position.x][position.y].setState(State::FLAG);
 }
 
@@ -35,7 +34,7 @@ void Board::unsetFlag(const sf::Vector2i position)
     _grid[position.x][position.y].setState(State::HIDE);
 }
 
-Cell Board::getCell(const sf::Vector2i position) const
+const Cell& Board::getCell(const sf::Vector2i position) const
 {
     return _grid[position.x][position.y];
 }

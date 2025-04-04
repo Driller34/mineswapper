@@ -27,6 +27,6 @@ private:
     const ResourceManager& _resourceManager;
     GameCore& _gameCore;
     Button _restart;
-    Counter _mines;
+    Counter _flags;
     //Counter _time;
 };

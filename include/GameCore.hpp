@@ -20,6 +20,7 @@ public:
 
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameOver() const;
+    bool isGameWin() const;
 
     int getHiddenMines() const;
 

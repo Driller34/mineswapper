@@ -8,7 +8,6 @@ GameCore::GameCore(const GameData& gameData,
     _board(_gameData)
 {
     setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
-    //_board.setPosition(getPosition());
 }
 
 void GameCore::init()
@@ -29,7 +28,7 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
 {
     if(_gameOver){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
-    Cell cell = _board.getCell(cellPosition);
+    const Cell& cell = _board.getCell(cellPosition);
     if(cell.getState() == State::FLAG && _flags > 0)
     { 
         _board.unsetFlag(cellPosition); 
@@ -46,7 +45,7 @@ void GameCore::onLeftClick(const sf::Vector2i mousePosition)
 {
     if(_gameOver){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
-    Cell cell = _board.getCell(cellPosition);
+    const Cell& cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)
     {
         setGameOver();
@@ -63,7 +62,7 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
     {
         auto pos = st.top();
         st.pop();
-        auto cell = _board.getCell(pos);
+        const Cell& cell = _board.getCell(pos);
         if(cell.getState() != State::HIDE || cell.isBomb()){ continue; }
         _board.showCell(pos);
         if(cell.getNumber() > 0){ continue; }
@@ -97,7 +96,7 @@ void GameCore::addCell(const sf::Vector2i position,
                        std::unordered_map<std::string, sf::VertexArray>& textureBatches) const
 {
     std::string texturePath = "hiddenCell.png";
-    auto cell = _board.getCell(position);
+    const Cell& cell = _board.getCell(position);
     if(cell.isBomb() && _showMines){ texturePath = "mineCell.png"; }
     else if(cell.getState() == State::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
     else if(cell.getState() == State::FLAG){ texturePath = "flagCell.png"; }

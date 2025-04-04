@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include "Cell.hpp"
 #include "GameData.hpp"
-#include "ResourceManager.hpp"
 #include "Component.hpp"
 
 class Board
@@ -17,10 +16,8 @@ public:
     void setFlag(const sf::Vector2i position);
     void unsetFlag(const sf::Vector2i position);
 
-    void toggleFlag(const sf::Vector2i position);
-
     void showCell(const sf::Vector2i position);
-    Cell getCell(const sf::Vector2i position) const;
+    const Cell& getCell(const sf::Vector2i position) const;
     bool isCellInGrid(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
 

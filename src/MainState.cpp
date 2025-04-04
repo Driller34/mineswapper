@@ -18,6 +18,7 @@ void MainState::init()
 
 void MainState::update()
 {
+    _panel.update();
 }
 
 void MainState::draw(sf::RenderWindow& window)
