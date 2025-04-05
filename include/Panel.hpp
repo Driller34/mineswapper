@@ -28,5 +28,6 @@ private:
     GameCore& _gameCore;
     Button _restart;
     Counter _flags;
-    //Counter _time;
+    Counter _timer;
+    sf::Clock _clock;
 };

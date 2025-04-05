@@ -10,11 +10,12 @@ public:
     Game();
 
     void run();
+
+private:
     void update();
     void render();
     void processEvent();
 
-private:
     sf::RenderWindow _window;
     ResourceManager _resourceManager;
     GameData _gameData;

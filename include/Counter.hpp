@@ -21,5 +21,4 @@ private:
     const ResourceManager& _resourceManager;
     size_t _value{0};
     mutable sf::Text _text;
-    sf::Font _font;
 };
