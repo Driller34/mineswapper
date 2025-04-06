@@ -1,5 +1,3 @@
-panel
-    counter
-        font
-        update
-        setData
+restart clock
+timer
+clickable
