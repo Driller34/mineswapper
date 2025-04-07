@@ -7,7 +7,7 @@ class StopWatch : public Counter
 public:
     StopWatch(const sf::Vector2f& size,
               const ResourceManager& resourceManager,
-              float delaySeconds = 1.0f);
+              sf::Time delay = sf::seconds(1.0f));
 
 
     void update();
@@ -16,7 +16,7 @@ public:
     void start();
 
 private:
-    float _delaySeconds;
+    sf::Time _delay;
     bool _stop{false};
     sf::Clock _clock;
 };

@@ -2,9 +2,9 @@
 
 StopWatch::StopWatch(const sf::Vector2f& size,
                      const ResourceManager& resourceManager,
-                     float delaySeconds)
+                     sf::Time delay)
     : Counter(size, resourceManager),
-    _delaySeconds(delaySeconds),
+    _delay(delay),
     _clock()
 {
 }
@@ -18,7 +18,7 @@ void StopWatch::restart()
 void StopWatch::update()
 {
     if(_stop){ return; }
-    if(_clock.getElapsedTime().asSeconds() >= _delaySeconds)
+    if(_clock.getElapsedTime() >= _delay)
     {
         incrementValue();
         _clock.restart();
