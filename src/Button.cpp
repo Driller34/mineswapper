@@ -14,8 +14,9 @@ Button::Button(const sf::Vector2f size,
     _shape.setFillColor(sf::Color::Red);
 }
 
-void Button::onClick()
+void Button::onLeftClick(const sf::Vector2i mousePosition)
 {
+    if(!isClicked(mousePosition)){ return; }
     if(_onClick){ _onClick(); }
 }
 

@@ -6,8 +6,9 @@
 #include "Cell.hpp"
 #include "GameData.hpp"
 #include "Board.hpp"
+#include "Clickable.hpp"
 
-class GameCore : public Component
+class GameCore : public Component, public Clickable
 {
 public:
     GameCore(const GameData& gameData,
@@ -15,8 +16,8 @@ public:
 
     void init();
 
-    void onRightClick(const sf::Vector2i mousePosition);
-    void onLeftClick(const sf::Vector2i mousePosition);
+    virtual void onRightClick(const sf::Vector2i mousePosition) override;
+    virtual void onLeftClick(const sf::Vector2i mousePosition) override;
 
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameOver() const;

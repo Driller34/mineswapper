@@ -36,6 +36,9 @@ add_game_library(GameState INTERFACE)
 add_library(Component INTERFACE)
 target_include_directories(Component INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
+add_library(Clickable INTERFACE)
+target_include_directories(Clickable INTERFACE ${CMAKE_SOURCE_DIR}/include)
+
 add_library(Cell STATIC src/Cell.cpp)
 target_include_directories(Cell PUBLIC include)
 
@@ -45,7 +48,7 @@ target_link_libraries(ResourceManager PUBLIC ${SFML_DEPENDENCIES})
 
 add_library(Button STATIC src/Button.cpp)
 target_include_directories(Button PUBLIC include)
-target_link_libraries(Button PUBLIC Component ResourceManager ${SFML_DEPENDENCIES})
+target_link_libraries(Button PUBLIC Component ResourceManager Clickable ${SFML_DEPENDENCIES})
 
 add_library(Counter STATIC src/Counter.cpp)
 target_include_directories(Counter PUBLIC include)
@@ -61,11 +64,11 @@ target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component ${SFM
 
 add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)
-target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board ${SFML_DEPENDENCIES})
+target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable ${SFML_DEPENDENCIES})
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
-target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter StopWatch ${SFML_DEPENDENCIES})
+target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter StopWatch Clickable ${SFML_DEPENDENCIES})
 
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)

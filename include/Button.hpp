@@ -2,8 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "Component.hpp"
 #include "ResourceManager.hpp"
+#include "Clickable.hpp"
 
-class Button : public Component
+class Button : public Component, public Clickable
 {
 public:
     Button(const sf::Vector2f size, 
@@ -11,7 +12,7 @@ public:
            const std::string text,
            std::function<void()> onClick);
 
-    void onClick();
+    virtual void onLeftClick(const sf::Vector2i mousePosition) override;
 
 private:
     virtual void draw(sf::RenderTarget& target, 

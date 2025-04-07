@@ -17,6 +17,10 @@ public:
     virtual void setSize(const sf::Vector2f& size){ _size = size; }
     virtual sf::Vector2f getSize() const { return _size; }
 
+    virtual bool isClicked(const sf::Vector2i& mousePosition) const 
+    {
+        return getLocalBounds().contains(sf::Vector2f(mousePosition));
+    }
 private:
     sf::Vector2f _size = {0.0f, 0.0f};
 };

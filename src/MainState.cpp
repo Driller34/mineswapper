@@ -29,14 +29,11 @@ void MainState::draw(sf::RenderWindow& window)
 
 void MainState::onRightClick(const sf::Vector2i mousePosition)
 {
-   if(_gameCore.getLocalBounds().contains(sf::Vector2f(mousePosition))){ _gameCore.onRightClick(mousePosition); }
+    _gameCore.onRightClick(mousePosition); 
 }
 
 void MainState::onLeftClick(const sf::Vector2i mousePosition)
 {
-    if(_gameCore.getLocalBounds().contains(sf::Vector2f(mousePosition))){ _gameCore.onLeftClick(mousePosition); }
-    if(_panel.getLocalBounds().contains(sf::Vector2f(mousePosition)))
-    {
-        _panel.onLeftClick(mousePosition);
-    }
+    _gameCore.onLeftClick(mousePosition);
+    _panel.onLeftClick(mousePosition);
 }

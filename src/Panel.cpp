@@ -24,16 +24,10 @@ void Panel::update()
     _stopWatch.update();    
 }
 
-void Panel::onRightClick(const sf::Vector2i mousePosition)
-{
-}
-
 void Panel::onLeftClick(const sf::Vector2i mousePosition)
 {
-    if(_restart.getLocalBounds().contains(sf::Vector2f(mousePosition)))
-    {
-        _restart.onClick();
-    }
+    if(!isClicked(mousePosition)){ return; }
+    _restart.onLeftClick(mousePosition);
 }
 
 

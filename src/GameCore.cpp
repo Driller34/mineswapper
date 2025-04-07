@@ -26,7 +26,7 @@ void GameCore::setGameOver()
 
 void GameCore::onRightClick(const sf::Vector2i mousePosition)
 {
-    if(_gameOver){ return; }
+    if(_gameOver || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
     if(cell.getState() == State::FLAG && _flags > 0)
@@ -43,7 +43,7 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
 
 void GameCore::onLeftClick(const sf::Vector2i mousePosition)
 {
-    if(_gameOver){ return; }
+    if(_gameOver || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)

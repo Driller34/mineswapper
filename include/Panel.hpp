@@ -6,8 +6,9 @@
 #include "GameCore.hpp"
 #include "Counter.hpp"
 #include "StopWatch.hpp"
+#include "Clickable.hpp"
 
-class Panel : public Component
+class Panel : public Component, public Clickable
 {
 public:
     Panel(const sf::Vector2f size,
@@ -18,8 +19,7 @@ public:
     void init();
     void update();
 
-    void onRightClick(const sf::Vector2i mousePosition);
-    void onLeftClick(const sf::Vector2i mousePosition);
+    virtual void onLeftClick(const sf::Vector2i mousePosition) override;
 
 private:
     virtual void draw(sf::RenderTarget& target, 
