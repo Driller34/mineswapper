@@ -5,6 +5,7 @@
 #include "ResourceManager.hpp"
 #include "GameCore.hpp"
 #include "Counter.hpp"
+#include "StopWatch.hpp"
 
 class Panel : public Component
 {
@@ -28,6 +29,5 @@ private:
     GameCore& _gameCore;
     Button _restart;
     Counter _flags;
-    Counter _timer;
-    sf::Clock _clock;
+    StopWatch _stopWatch;
 };

@@ -51,6 +51,10 @@ add_library(Counter STATIC src/Counter.cpp)
 target_include_directories(Counter PUBLIC include)
 target_link_libraries(Counter PUBLIC Component ResourceManager ${SFML_DEPENDENCIES})
 
+add_library(StopWatch STATIC src/StopWatch.cpp)
+target_include_directories(StopWatch PUBLIC include)
+target_link_libraries(StopWatch PUBLIC Counter)
+
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
 target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component ${SFML_DEPENDENCIES})
@@ -61,7 +65,7 @@ target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Bo
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
-target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter ${SFML_DEPENDENCIES})
+target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter StopWatch ${SFML_DEPENDENCIES})
 
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)
