@@ -14,19 +14,25 @@ void GameCore::init()
 {
     hideMines();
     _board.reset();
-    _gameOver = false;
+    _gameLost = false;
+    _gameWin = false;
     _flags = 0;
 }
 
-void GameCore::setGameOver()
+void GameCore::setGameLost()
 {
     showMines();
-    _gameOver = true;
+    _gameLost = true;
+}
+
+void GameCore::setGameWin()
+{
+    _gameWin = true;
 }
 
 void GameCore::onRightClick(const sf::Vector2i mousePosition)
 {
-    if(_gameOver || !isClicked(mousePosition)){ return; }
+    if(_gameLost || _gameWin || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
     if(cell.getState() == State::FLAG && _flags > 0)
@@ -39,16 +45,17 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
         _board.setFlag(cellPosition); 
         _flags++;
     }   
+    if(_flags == 0){ setGameWin(); }
 }
 
 void GameCore::onLeftClick(const sf::Vector2i mousePosition)
 {
-    if(_gameOver || !isClicked(mousePosition)){ return; }
+    if(_gameLost || _gameWin || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
     if(cell.isBomb() && cell.getState() != State::FLAG)
     {
-        setGameOver();
+        setGameLost();
         return;
     }
     if(cell.getState() == State::HIDE){ searchNearbyMines(cellPosition); }
@@ -74,9 +81,14 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
     }
 }
 
-bool GameCore::isGameOver() const
+bool GameCore::isGameLost() const
 {
-    return _gameOver;
+    return _gameLost;
+}
+
+bool GameCore::isGameWin() const
+{
+    return _gameWin;
 }
 
 void GameCore::showMines(){ _showMines = true; }

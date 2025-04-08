@@ -9,7 +9,6 @@ public:
               const ResourceManager& resourceManager,
               sf::Time delay = sf::seconds(1.0f));
 
-
     void update();
     void restart();
     void stop();

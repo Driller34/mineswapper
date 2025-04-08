@@ -1,3 +1,4 @@
-clickable
 game loss
 single array
+references
+after first click

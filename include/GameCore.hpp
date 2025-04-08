@@ -20,7 +20,7 @@ public:
     virtual void onLeftClick(const sf::Vector2i mousePosition) override;
 
     void searchNearbyMines(const sf::Vector2i position);
-    bool isGameOver() const;
+    bool isGameLost() const;
     bool isGameWin() const;
 
     size_t countFlags() const;
@@ -32,7 +32,8 @@ private:
     void addCell(const sf::Vector2i position,
                  std::unordered_map<std::string, sf::VertexArray>& textureBatches) const;
 
-    void setGameOver();
+    void setGameLost();
+    void setGameWin();
 
     void showMines();
     void hideMines();
@@ -42,7 +43,10 @@ private:
     Board _board;
     const GameData& _gameData;
     mutable sf::VertexArray _cells;
-    bool _gameOver{false};
+
+    bool _gameLost{false};
+    bool _gameWin{false};
+    
     size_t _flags{0};
     bool _showMines{false};
 
