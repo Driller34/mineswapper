@@ -2,3 +2,5 @@ game loss
 single array
 references
 after first click
+
+enum RUN LOST WIN

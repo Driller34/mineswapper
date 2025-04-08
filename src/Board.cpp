@@ -91,7 +91,6 @@ void Board::showCell(const sf::Vector2i position)
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 {
-    //const sf::Vector2f startPosition = getPosition();
     const sf::Vector2i relativePosition = position;
     
     const int column = relativePosition.x / _gameData.cellSize;
@@ -100,3 +99,14 @@ sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
     return { column, row };
 }
 
+bool Board::isAnyHiddenCell() const
+{
+    for(const auto& row : _grid)
+    {
+        for(const auto& cell : row)
+        {
+            if(cell.getState() == State::HIDE){ return true; }
+        }
+    }
+    return false;
+}

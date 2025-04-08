@@ -15,7 +15,7 @@ Panel::Panel(const sf::Vector2f size,
     setPosition(startPosition);
     _restart.setPosition({40.0f, 20.0f});
     _flags.setPosition({150.0f, 20.0f});
-    _stopWatch.setPosition({350.0f, 20.0f});
+    _stopWatch.setPosition({250.0f, 20.0f});
 }
 
 void Panel::update()

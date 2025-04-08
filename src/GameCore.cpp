@@ -35,6 +35,8 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
     if(_gameLost || _gameWin || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
+    if(!_board.isAnyHiddenCell()){ setGameWin(); }
+
     if(cell.getState() == State::FLAG && _flags > 0)
     { 
         _board.unsetFlag(cellPosition); 
@@ -45,7 +47,6 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
         _board.setFlag(cellPosition); 
         _flags++;
     }   
-    if(_flags == 0){ setGameWin(); }
 }
 
 void GameCore::onLeftClick(const sf::Vector2i mousePosition)
@@ -53,6 +54,7 @@ void GameCore::onLeftClick(const sf::Vector2i mousePosition)
     if(_gameLost || _gameWin || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     const Cell& cell = _board.getCell(cellPosition);
+
     if(cell.isBomb() && cell.getState() != State::FLAG)
     {
         setGameLost();

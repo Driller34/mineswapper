@@ -4,9 +4,9 @@
 struct GameData
 {
    static constexpr unsigned int cellSize{30};
-   static constexpr unsigned int rows{20};
-   static constexpr unsigned int columns{20}; 
-   static constexpr unsigned int mines{40};
+   static constexpr unsigned int rows{10};
+   static constexpr unsigned int columns{10}; 
+   static constexpr unsigned int mines{10};
 
    static constexpr unsigned int PanelWidth{cellSize * columns};
    static constexpr unsigned int PanelHeight{cellSize * 4};
