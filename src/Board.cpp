@@ -11,9 +11,6 @@ Board::Board(const GameData& gameData)
 void Board::reset()
 {
     for(auto& cell : _grid){ cell.reset(); }
-    setMines();
-    mixMines();
-    setNumbers();
 }
 
 bool Board::isCellInGrid(const sf::Vector2i position) const 
@@ -36,15 +33,31 @@ const Cell& Board::getCell(const sf::Vector2i position) const
     return _grid[getIndex(position)];
 }
 
-void Board::setMines()
+void Board::initializeMines(const sf::Vector2i& banedPosition)
 {
-    for(int i = 0; i < _gameData.mines; i++)
+    const size_t index = getIndex(banedPosition);
+    setMines(index);
+    mixMines(index);
+    setNumbers();
+}
+
+void Board::setMines(const size_t bannedIndex)
+{
+    int index = 0;
+    int mines = _gameData.mines;
+    const int n = _grid.size();
+    while(index < n && mines > 0)
     {
-        _grid[i].setBomb();
+        if(index != bannedIndex)
+        {
+            _grid[index].setBomb();
+            mines--;
+        }
+        index++;
     }
 }
 
-void Board::mixMines()
+void Board::mixMines(const size_t bannedIndex)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -53,6 +66,7 @@ void Board::mixMines()
     for(int i = 0; i < _gameData.mines; i++)
     {
         int random_number = dis(gen);
+        if(random_number == bannedIndex){ continue; }
         std::swap(_grid[i], _grid[random_number]);
     }
 }

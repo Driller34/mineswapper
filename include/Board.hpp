@@ -21,11 +21,12 @@ public:
     bool isCellInGrid(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
 
-    void setMines();
+    void initializeMines(const sf::Vector2i& banedPosition);
 
     bool isAnyHiddenCell() const;
 private:
-    void mixMines();
+    void setMines(const size_t bannedIndex);
+    void mixMines(const size_t bannedIndex);
     void setNumbers();
 
     void addBombs(const sf::Vector2i position);

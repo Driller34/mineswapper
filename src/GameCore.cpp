@@ -15,6 +15,7 @@ void GameCore::init()
     _board.reset();
     _gameStatus = Status::RUN;
     _flags = 0;
+    _firstMove = false;
 }
 
 void GameCore::toggleFlag(const sf::Vector2i& position)
@@ -55,6 +56,11 @@ void GameCore::onLeftClick(const sf::Vector2i mousePosition)
 {
     if(_gameStatus != Status::RUN || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
+    if(!_firstMove)
+    {
+        _board.initializeMines(cellPosition);
+        _firstMove = true;
+    }
     if(checkExplosion(cellPosition)){ return; }
     searchNearbyMines(cellPosition);
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
