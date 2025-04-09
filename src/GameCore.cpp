@@ -43,7 +43,6 @@ bool GameCore::checkExplosion(const sf::Vector2i& position)
     return false;
 }
 
-
 void GameCore::onRightClick(const sf::Vector2i mousePosition)
 {
     if(_gameStatus != Status::RUN || !isClicked(mousePosition)){ return; }
@@ -88,6 +87,8 @@ void GameCore::setGameWin(){ _gameStatus = Status::WIN; }
 bool GameCore::isGameLost() const{ return _gameStatus == Status::LOST; }
 
 bool GameCore::isGameWin() const { return _gameStatus == Status::WIN; }
+
+bool GameCore::isGameRunning() const { return _gameStatus == Status::RUN; }
 
 size_t GameCore::countFlags() const { return _gameData.mines - _flags; }
 

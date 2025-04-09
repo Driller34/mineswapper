@@ -1,6 +1,7 @@
-game loss
 single array
 references
 after first click
+
+State Status (namespaces)
 
 enum RUN LOST WIN

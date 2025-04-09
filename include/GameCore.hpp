@@ -23,7 +23,7 @@ public:
     void searchNearbyMines(const sf::Vector2i position);
     bool isGameLost() const;
     bool isGameWin() const;
-
+    bool isGameRunning() const;
     size_t countFlags() const;
 
 private:
@@ -38,6 +38,7 @@ private:
 
     void toggleFlag(const sf::Vector2i& position);
     bool checkExplosion(const sf::Vector2i& position);
+
     sf::Vector2f getRealPosition(const sf::Vector2i position) const;
 
     const ResourceManager& _resourceManager;

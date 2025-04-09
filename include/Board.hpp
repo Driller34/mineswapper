@@ -21,9 +21,10 @@ public:
     bool isCellInGrid(const sf::Vector2i position) const;
     sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
 
+    void setMines();
+
     bool isAnyHiddenCell() const;
 private:
-    void setMines();
     void mixMines();
     void setNumbers();
 

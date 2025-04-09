@@ -21,7 +21,7 @@ Panel::Panel(const sf::Vector2f size,
 void Panel::update()
 {
     _flags.setValue(_gameCore.countFlags());
-    if(!_gameCore.isGameLost() && !_gameCore.isGameWin()){ _stopWatch.update(); }
+    if(_gameCore.isGameRunning()){ _stopWatch.update(); }
 }
 
 void Panel::onLeftClick(const sf::Vector2i mousePosition)
@@ -29,7 +29,6 @@ void Panel::onLeftClick(const sf::Vector2i mousePosition)
     if(!isClicked(mousePosition)){ return; }
     _restart.onLeftClick(mousePosition);
 }
-
 
 void Panel::draw(sf::RenderTarget& target, 
                  sf::RenderStates states) const

@@ -43,7 +43,9 @@ void Board::setMines()
 {
     for(int i = 0; i < _gameData.mines; i++)
     {
-        _grid[i % _gameData.rows][i / _gameData.rows].setBomb();
+        const int row = i % _gameData.rows;
+        const int col = i / _gameData.rows;  
+        _grid[row][col].setBomb();
     }
 }
 
