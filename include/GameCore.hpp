@@ -10,6 +10,7 @@
 
 class GameCore : public Component, public Clickable
 {
+    enum class Status {RUN, LOST, WIN};
 public:
     GameCore(const GameData& gameData,
              const ResourceManager& resourceManager);
@@ -35,20 +36,17 @@ private:
     void setGameLost();
     void setGameWin();
 
-    void showMines();
-    void hideMines();
+    void toggleFlag(const sf::Vector2i& position);
+    bool checkExplosion(const sf::Vector2i& position);
     sf::Vector2f getRealPosition(const sf::Vector2i position) const;
 
     const ResourceManager& _resourceManager;
     Board _board;
     const GameData& _gameData;
     mutable sf::VertexArray _cells;
-
-    bool _gameLost{false};
-    bool _gameWin{false};
+    Status _gameStatus;
     
     size_t _flags{0};
-    bool _showMines{false};
 
     static constexpr std::array<sf::Vector2i, 8> directions = {
         sf::Vector2i(1, 0), sf::Vector2i(-1, 0), sf::Vector2i(0, 1), sf::Vector2i(0, -1), 
