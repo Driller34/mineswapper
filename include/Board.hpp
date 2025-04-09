@@ -30,6 +30,8 @@ private:
 
     void addBombs(const sf::Vector2i position);
 
+    size_t getIndex(const sf::Vector2i position) const;
+
     const GameData& _gameData;
-    std::vector<std::vector<Cell>> _grid;
+    std::vector<Cell> _grid;
 };

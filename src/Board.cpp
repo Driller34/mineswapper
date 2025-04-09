@@ -3,17 +3,14 @@
 
 Board::Board(const GameData& gameData)
      : _gameData(gameData),
-     _grid(_gameData.rows, std::vector<Cell>(_gameData.columns))
+     _grid(_gameData.rows * _gameData.columns)
 {
     reset();
 }
 
 void Board::reset()
 {
-    for(auto& row : _grid)
-    {
-        for(auto& cell : row){ cell.reset(); }
-    }
+    for(auto& cell : _grid){ cell.reset(); }
     setMines();
     mixMines();
     setNumbers();
@@ -26,26 +23,24 @@ bool Board::isCellInGrid(const sf::Vector2i position) const
 
 void Board::setFlag(const sf::Vector2i position)
 {
-    _grid[position.x][position.y].setState(State::FLAG);
+    _grid[getIndex(position)].setState(State::FLAG);
 }
 
 void Board::unsetFlag(const sf::Vector2i position)
 {
-    _grid[position.x][position.y].setState(State::HIDE);
+    _grid[getIndex(position)].setState(State::HIDE);
 }
 
 const Cell& Board::getCell(const sf::Vector2i position) const
 {
-    return _grid[position.x][position.y];
+    return _grid[getIndex(position)];
 }
 
 void Board::setMines()
 {
     for(int i = 0; i < _gameData.mines; i++)
     {
-        const int row = i % _gameData.rows;
-        const int col = i / _gameData.rows;  
-        _grid[row][col].setBomb();
+        _grid[i].setBomb();
     }
 }
 
@@ -53,13 +48,12 @@ void Board::mixMines()
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, _gameData.rows * _gameData.columns);
+    std::uniform_int_distribution<> dis(0, _grid.size() - 1);
 
     for(int i = 0; i < _gameData.mines; i++)
     {
         int random_number = dis(gen);
-        std::swap(_grid[i % _gameData.rows][i / _gameData.rows],
-                  _grid[random_number % _gameData.rows][random_number / _gameData.rows]);
+        std::swap(_grid[i], _grid[random_number]);
     }
 }
 
@@ -69,26 +63,26 @@ void Board::setNumbers()
     {
         for(int j = 0; j < _gameData.columns; j++)
         {
-            if(_grid[i][j].isBomb()){ addBombs({i, j}); }
+            if(_grid[getIndex({i, j})].isBomb()){ addBombs({i, j}); }
         }
     }
 }
 
 void Board::addBombs(const sf::Vector2i position)
 {
-    if(isCellInGrid({position.x + 1, position.y})){ _grid[position.x + 1][position.y].addBomb(); }
-    if(isCellInGrid({position.x + 1, position.y + 1})){ _grid[position.x + 1][position.y + 1].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y})){ _grid[position.x - 1][position.y].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y - 1})){ _grid[position.x - 1][position.y - 1].addBomb(); }
-    if(isCellInGrid({position.x, position.y + 1})){ _grid[position.x][position.y + 1].addBomb(); }
-    if(isCellInGrid({position.x, position.y - 1})){ _grid[position.x][position.y - 1].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y + 1})){ _grid[position.x - 1][position.y + 1].addBomb(); }
-    if(isCellInGrid({position.x + 1, position.y - 1})){ _grid[position.x + 1][position.y - 1].addBomb(); }
+    if(isCellInGrid({position.x + 1, position.y})){ _grid[getIndex(position + sf::Vector2i(1, 0))].addBomb(); }
+    if(isCellInGrid({position.x + 1, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(1, 1))].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y})){ _grid[getIndex(position + sf::Vector2i(-1, 0))].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(-1, -1))].addBomb(); }
+    if(isCellInGrid({position.x, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(0, 1))].addBomb(); }
+    if(isCellInGrid({position.x, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(0, -1))].addBomb(); }
+    if(isCellInGrid({position.x - 1, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(-1, 1))].addBomb(); }
+    if(isCellInGrid({position.x + 1, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(1, -1))].addBomb(); }
 }
 
 void Board::showCell(const sf::Vector2i position)
 {
-    _grid[position.x][position.y].setState(State::UNHIDE);
+    _grid[getIndex(position)].setState(State::UNHIDE);
 }
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
@@ -103,12 +97,14 @@ sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
 
 bool Board::isAnyHiddenCell() const
 {
-    for(const auto& row : _grid)
+    for(const auto& cell : _grid)
     {
-        for(const auto& cell : row)
-        {
-            if(cell.getState() == State::HIDE){ return true; }
-        }
+        if(cell.getState() == State::HIDE){ return true; }
     }
     return false;
+}
+
+size_t Board::getIndex(const sf::Vector2i position) const
+{
+    return (position.x * _gameData.columns) + position.y;
 }
