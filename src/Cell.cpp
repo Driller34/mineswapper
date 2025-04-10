@@ -7,17 +7,17 @@ Cell::Cell()
 
 void Cell::reset()
 {
-    _state = State::HIDE;
+    _state = CellState::HIDE;
     _bomb = false;
     _number = 0;
 }
 
-void Cell::setState(State state)
+void Cell::setState(CellState state)
 {
     _state = state;
 }
 
-State Cell::getState() const
+CellState Cell::getState() const
 {
     return _state;
 }

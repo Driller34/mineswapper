@@ -20,12 +20,12 @@ bool Board::isCellInGrid(const sf::Vector2i position) const
 
 void Board::setFlag(const sf::Vector2i position)
 {
-    _grid[getIndex(position)].setState(State::FLAG);
+    _grid[getIndex(position)].setState(CellState::FLAG);
 }
 
 void Board::unsetFlag(const sf::Vector2i position)
 {
-    _grid[getIndex(position)].setState(State::HIDE);
+    _grid[getIndex(position)].setState(CellState::HIDE);
 }
 
 const Cell& Board::getCell(const sf::Vector2i position) const
@@ -96,7 +96,7 @@ void Board::addBombs(const sf::Vector2i position)
 
 void Board::showCell(const sf::Vector2i position)
 {
-    _grid[getIndex(position)].setState(State::UNHIDE);
+    _grid[getIndex(position)].setState(CellState::UNHIDE);
 }
 
 sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
@@ -113,12 +113,12 @@ bool Board::isAnyHiddenCell() const
 {
     for(const auto& cell : _grid)
     {
-        if(cell.getState() == State::HIDE){ return true; }
+        if(cell.getState() == CellState::HIDE){ return true; }
     }
     return false;
 }
 
 size_t Board::getIndex(const sf::Vector2i position) const
 {
-    return (position.x * _gameData.columns) + position.y;
+    return (position.y * _gameData.columns) + position.x;
 }

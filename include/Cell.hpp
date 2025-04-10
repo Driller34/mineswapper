@@ -1,14 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-enum class State {HIDE, UNHIDE, FLAG};
+enum class CellState {HIDE, UNHIDE, FLAG};
 
 class Cell
 {
 public:
     Cell();
-    void setState(State state);
-    State getState() const;
+    void setState(CellState state);
+    CellState getState() const;
     void setNumber(const unsigned int number);
     void addBomb();
     unsigned int getNumber() const;
@@ -18,5 +18,5 @@ public:
 private:
     bool _bomb{false};
     unsigned int _number{0};
-    State _state{State::HIDE};
+    CellState _state{CellState::HIDE};
 };

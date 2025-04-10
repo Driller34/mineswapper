@@ -10,7 +10,7 @@
 
 class GameCore : public Component, public Clickable
 {
-    enum class Status {RUN, LOST, WIN};
+    enum class PlayState {RUN, LOST, WIN};
 public:
     GameCore(const GameData& gameData,
              const ResourceManager& resourceManager);
@@ -45,7 +45,7 @@ private:
     Board _board;
     const GameData& _gameData;
     mutable sf::VertexArray _cells;
-    Status _gameStatus;
+    PlayState _gameStatus;
     
     size_t _flags{0};
 

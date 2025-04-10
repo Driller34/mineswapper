@@ -5,7 +5,7 @@ GameCore::GameCore(const GameData& gameData,
     : _gameData(gameData),
     _resourceManager(resourceManager),
     _board(_gameData),
-    _gameStatus(Status::RUN)
+    _gameStatus(PlayState::RUN)
 {
     setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
 }
@@ -13,7 +13,7 @@ GameCore::GameCore(const GameData& gameData,
 void GameCore::init()
 {
     _board.reset();
-    _gameStatus = Status::RUN;
+    _gameStatus = PlayState::RUN;
     _flags = 0;
     _firstMove = false;
 }
@@ -21,12 +21,12 @@ void GameCore::init()
 void GameCore::toggleFlag(const sf::Vector2i& position)
 {
     const Cell& cell = _board.getCell(position);
-    if(cell.getState() == State::FLAG && _flags > 0)
+    if(cell.getState() == CellState::FLAG && _flags > 0)
     { 
         _board.unsetFlag(position); 
         _flags--;
     }
-    else if(cell.getState() == State::HIDE && _flags < _gameData.mines)
+    else if(cell.getState() == CellState::HIDE && _flags < _gameData.mines)
     { 
         _board.setFlag(position); 
         _flags++;
@@ -36,7 +36,7 @@ void GameCore::toggleFlag(const sf::Vector2i& position)
 bool GameCore::checkExplosion(const sf::Vector2i& position)
 {
     const Cell& cell = _board.getCell(position);
-    if(cell.isBomb() && cell.getState() != State::FLAG)
+    if(cell.isBomb() && cell.getState() != CellState::FLAG)
     {
         setGameLost();
         return true;
@@ -46,7 +46,7 @@ bool GameCore::checkExplosion(const sf::Vector2i& position)
 
 void GameCore::onRightClick(const sf::Vector2i mousePosition)
 {
-    if(_gameStatus != Status::RUN || !isClicked(mousePosition)){ return; }
+    if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     toggleFlag(cellPosition);    
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
@@ -54,7 +54,7 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
 
 void GameCore::onLeftClick(const sf::Vector2i mousePosition)
 {
-    if(_gameStatus != Status::RUN || !isClicked(mousePosition)){ return; }
+    if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
     if(!_firstMove)
     {
@@ -75,7 +75,7 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
         auto pos = st.top();
         st.pop();
         const Cell& cell = _board.getCell(pos);
-        if(cell.getState() != State::HIDE || cell.isBomb()){ continue; }
+        if(cell.getState() != CellState::HIDE || cell.isBomb()){ continue; }
         _board.showCell(pos);
         if(cell.getNumber() > 0){ continue; }
         for(const auto& dir : directions)
@@ -86,15 +86,15 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
     }
 }
 
-void GameCore::setGameLost(){ _gameStatus = Status::LOST; }
+void GameCore::setGameLost(){ _gameStatus = PlayState::LOST; }
 
-void GameCore::setGameWin(){ _gameStatus = Status::WIN; }
+void GameCore::setGameWin(){ _gameStatus = PlayState::WIN; }
 
-bool GameCore::isGameLost() const{ return _gameStatus == Status::LOST; }
+bool GameCore::isGameLost() const{ return _gameStatus == PlayState::LOST; }
 
-bool GameCore::isGameWin() const { return _gameStatus == Status::WIN; }
+bool GameCore::isGameWin() const { return _gameStatus == PlayState::WIN; }
 
-bool GameCore::isGameRunning() const { return _gameStatus == Status::RUN; }
+bool GameCore::isGameRunning() const { return _gameStatus == PlayState::RUN; }
 
 size_t GameCore::countFlags() const { return _gameData.mines - _flags; }
 
@@ -110,8 +110,8 @@ void GameCore::addCell(const sf::Vector2i position,
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);
     if(cell.isBomb() && isGameLost()){ texturePath = "mineCell.png"; }
-    else if(cell.getState() == State::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
-    else if(cell.getState() == State::FLAG){ texturePath = "flagCell.png"; }
+    else if(cell.getState() == CellState::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
+    else if(cell.getState() == CellState::FLAG){ texturePath = "flagCell.png"; }
             
     sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
     sf::Vector2f realPosition = getRealPosition(position);
