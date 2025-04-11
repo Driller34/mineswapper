@@ -19,8 +19,8 @@ public:
     virtual void update() override;
     virtual void draw(sf::RenderWindow& window) override;
 
-    void onRightClick(const sf::Vector2i mousePosition);
-    void onLeftClick(const sf::Vector2i mousePosition);
+    void onRightClick(const sf::Vector2i& mousePosition);
+    void onLeftClick(const sf::Vector2i& mousePosition);
 private:
 
     const ResourceManager& _resourceManager;

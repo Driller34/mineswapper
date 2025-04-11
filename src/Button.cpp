@@ -1,9 +1,9 @@
 #include "Button.hpp"
 #include <iostream>
 
-Button::Button(const sf::Vector2f size, 
+Button::Button(const sf::Vector2f& size, 
                const ResourceManager& resourceManager,
-               const std::string text,
+               const std::string& text,
                std::function<void()> onClick)
     : _shape(size),
       _resourceManager(resourceManager),
@@ -14,7 +14,7 @@ Button::Button(const sf::Vector2f size,
     _shape.setFillColor(sf::Color::Red);
 }
 
-void Button::onLeftClick(const sf::Vector2i mousePosition)
+void Button::onLeftClick(const sf::Vector2i& mousePosition)
 {
     if(!isClicked(mousePosition)){ return; }
     if(_onClick){ _onClick(); }

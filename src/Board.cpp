@@ -13,22 +13,22 @@ void Board::reset()
     for(auto& cell : _grid){ cell.reset(); }
 }
 
-bool Board::isCellInGrid(const sf::Vector2i position) const 
+bool Board::isCellInGrid(const sf::Vector2i& position) const 
 {
     return position.x >= 0 && position.x < _gameData.rows && position.y >= 0 && position.y < _gameData.columns;
 }
 
-void Board::setFlag(const sf::Vector2i position)
+void Board::setFlag(const sf::Vector2i& position)
 {
     _grid[getIndex(position)].setState(CellState::FLAG);
 }
 
-void Board::unsetFlag(const sf::Vector2i position)
+void Board::unsetFlag(const sf::Vector2i& position)
 {
     _grid[getIndex(position)].setState(CellState::HIDE);
 }
 
-const Cell& Board::getCell(const sf::Vector2i position) const
+const Cell& Board::getCell(const sf::Vector2i& position) const
 {
     return _grid[getIndex(position)];
 }
@@ -82,7 +82,7 @@ void Board::setNumbers()
     }
 }
 
-void Board::addBombs(const sf::Vector2i position)
+void Board::addBombs(const sf::Vector2i& position)
 {
     for(const auto& direction : gridUtils::directions)
     {
@@ -91,12 +91,12 @@ void Board::addBombs(const sf::Vector2i position)
     }
 }
 
-void Board::showCell(const sf::Vector2i position)
+void Board::showCell(const sf::Vector2i& position)
 {
     _grid[getIndex(position)].setState(CellState::UNHIDE);
 }
 
-sf::Vector2i Board::getCellFormPosition(const sf::Vector2i position) const
+sf::Vector2i Board::getCellFormPosition(const sf::Vector2i& position) const
 {
     const sf::Vector2i relativePosition = position;
     
@@ -115,7 +115,7 @@ bool Board::isAnyHiddenCell() const
     return false;
 }
 
-size_t Board::getIndex(const sf::Vector2i position) const
+size_t Board::getIndex(const sf::Vector2i& position) const
 {
     return (position.y * _gameData.columns) + position.x;
 }

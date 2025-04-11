@@ -1,10 +1,10 @@
 #include "Panel.hpp"
 #include <iostream>
 
-Panel::Panel(const sf::Vector2f size,
+Panel::Panel(const sf::Vector2f& size,
              const ResourceManager& resourceManager,
              GameCore& gameCore,
-             const sf::Vector2f startPosition)
+             const sf::Vector2f& startPosition)
     : _resourceManager(resourceManager), 
     _gameCore(gameCore),
     _flags({180.0f, 100.0f}, _resourceManager),
@@ -24,7 +24,7 @@ void Panel::update()
     if(_gameCore.isGameRunning()){ _stopWatch.update(); }
 }
 
-void Panel::onLeftClick(const sf::Vector2i mousePosition)
+void Panel::onLeftClick(const sf::Vector2i& mousePosition)
 {
     if(!isClicked(mousePosition)){ return; }
     _restart.onLeftClick(mousePosition);

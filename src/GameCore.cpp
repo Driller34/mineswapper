@@ -52,7 +52,7 @@ bool GameCore::checkExplosion(const sf::Vector2i& position)
     return false;
 }
 
-void GameCore::onRightClick(const sf::Vector2i mousePosition)
+void GameCore::onRightClick(const sf::Vector2i& mousePosition)
 {
     if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
@@ -60,7 +60,7 @@ void GameCore::onRightClick(const sf::Vector2i mousePosition)
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
 }
 
-void GameCore::onLeftClick(const sf::Vector2i mousePosition)
+void GameCore::onLeftClick(const sf::Vector2i& mousePosition)
 {
     if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
@@ -74,7 +74,7 @@ void GameCore::onLeftClick(const sf::Vector2i mousePosition)
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
 }
 
-void GameCore::searchNearbyMines(const sf::Vector2i position)
+void GameCore::searchNearbyMines(const sf::Vector2i& position)
 {
     std::stack<sf::Vector2i> st;
     st.push(position);
@@ -106,13 +106,13 @@ bool GameCore::isGameRunning() const { return _gameStatus == PlayState::RUN; }
 
 size_t GameCore::countFlags() const { return _gameData.mines - _flags; }
 
-sf::Vector2f GameCore::getRealPosition(const sf::Vector2i position) const
+sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
 {
     return { (static_cast<float>(position.x) * _gameData.cellSize),
               (static_cast<float>(position.y) * _gameData.cellSize) };
 }
 
-void GameCore::addCell(const sf::Vector2i position) const
+void GameCore::addCell(const sf::Vector2i& position) const
 {
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);

@@ -11,15 +11,15 @@
 class Panel : public Component, public Clickable
 {
 public:
-    Panel(const sf::Vector2f size,
+    Panel(const sf::Vector2f& size,
           const ResourceManager& resourceManager,
           GameCore& gameCore,
-          const sf::Vector2f startPosition);
+          const sf::Vector2f& startPosition);
 
     void init();
     void update();
 
-    virtual void onLeftClick(const sf::Vector2i mousePosition) override;
+    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
 
 private:
     virtual void draw(sf::RenderTarget& target, 

@@ -1,6 +1,6 @@
 #include "Counter.hpp"
 
-Counter::Counter(const sf::Vector2f size, 
+Counter::Counter(const sf::Vector2f& size, 
                  const ResourceManager& resourceManager)
     : _resourceManager(resourceManager),
     _text(_resourceManager.getFont("digital-7.ttf"))

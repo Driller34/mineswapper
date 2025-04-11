@@ -14,13 +14,13 @@ public:
     Board(const GameData& gameData);
 
     void reset();
-    void setFlag(const sf::Vector2i position);
-    void unsetFlag(const sf::Vector2i position);
+    void setFlag(const sf::Vector2i& position);
+    void unsetFlag(const sf::Vector2i& position);
 
-    void showCell(const sf::Vector2i position);
-    const Cell& getCell(const sf::Vector2i position) const;
-    bool isCellInGrid(const sf::Vector2i position) const;
-    sf::Vector2i getCellFormPosition(const sf::Vector2i position) const;
+    void showCell(const sf::Vector2i& position);
+    const Cell& getCell(const sf::Vector2i& position) const;
+    bool isCellInGrid(const sf::Vector2i& position) const;
+    sf::Vector2i getCellFormPosition(const sf::Vector2i& position) const;
 
     void initializeMines(const sf::Vector2i& banedPosition);
 
@@ -30,9 +30,9 @@ private:
     void mixMines(const size_t bannedIndex);
     void setNumbers();
 
-    void addBombs(const sf::Vector2i position);
+    void addBombs(const sf::Vector2i& position);
 
-    size_t getIndex(const sf::Vector2i position) const;
+    size_t getIndex(const sf::Vector2i& position) const;
 
     const GameData& _gameData;
     std::vector<Cell> _grid;

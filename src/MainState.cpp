@@ -27,12 +27,12 @@ void MainState::draw(sf::RenderWindow& window)
     window.draw(_gameCore);
 }
 
-void MainState::onRightClick(const sf::Vector2i mousePosition)
+void MainState::onRightClick(const sf::Vector2i& mousePosition)
 {
     _gameCore.onRightClick(mousePosition); 
 }
 
-void MainState::onLeftClick(const sf::Vector2i mousePosition)
+void MainState::onLeftClick(const sf::Vector2i& mousePosition)
 {
     _gameCore.onLeftClick(mousePosition);
     _panel.onLeftClick(mousePosition);

@@ -17,10 +17,10 @@ public:
 
     void init();
 
-    virtual void onRightClick(const sf::Vector2i mousePosition) override;
-    virtual void onLeftClick(const sf::Vector2i mousePosition) override;
+    virtual void onRightClick(const sf::Vector2i& mousePosition) override;
+    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
 
-    void searchNearbyMines(const sf::Vector2i position);
+    void searchNearbyMines(const sf::Vector2i& position);
     bool isGameLost() const;
     bool isGameWin() const;
     bool isGameRunning() const;
@@ -30,7 +30,7 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
 
-    void addCell(const sf::Vector2i position) const;
+    void addCell(const sf::Vector2i& position) const;
 
     void setGameLost();
     void setGameWin();
@@ -38,7 +38,7 @@ private:
     void toggleFlag(const sf::Vector2i& position);
     bool checkExplosion(const sf::Vector2i& position);
 
-    sf::Vector2f getRealPosition(const sf::Vector2i position) const;
+    sf::Vector2f getRealPosition(const sf::Vector2i& position) const;
 
     const ResourceManager& _resourceManager;
     Board _board;
