@@ -5,6 +5,8 @@
 template<typename T>
 class Grid
 {
+    using iterator = typename std::vector<T>::iterator;
+    using const_iterator = typename std::vector<T>::const_iterator;
 public:
     Grid(const size_t rows,
          const size_t columns)
@@ -12,10 +14,7 @@ public:
         _columns(columns),
         _data(_rows * _columns){}
     
-    inline size_t size() const
-    {
-        return _data.size();
-    }
+    inline size_t size() const { return _data.size(); }
 
     inline bool inBounds(const sf::Vector2i& position) const
     {
@@ -24,7 +23,7 @@ public:
 
     inline T& at(const sf::Vector2i& position)
     {
-        return _data[index(position)];
+        return _data[index(position)]; 
     }
 
     inline const T& at(const sf::Vector2i& position) const
@@ -32,10 +31,15 @@ public:
         return _data[index(position)];
     }
 
-    inline std::vector<T>& raw()
-    {
-        return _data;
-    }
+    inline T& operator[](const sf::Vector2i& position){ return _data[index(position)]; }
+
+    inline const T& operator[](const sf::Vector2i& position) const { return _data[index(position)]; }
+
+    inline T& operator[](const size_t index){ return _data[index]; }
+
+    inline const T& operator[](const size_t index) const { return _data[index]; }
+
+    inline std::vector<T>& raw(){ return _data; }
 
     inline size_t index(const sf::Vector2i& position) const
     {
@@ -45,9 +49,6 @@ public:
     const size_t rows() const { return _rows; }
 
     const size_t columns() const { return _columns; }
-
-    using iterator = typename std::vector<T>::iterator;
-    using const_iterator = typename std::vector<T>::const_iterator;
 
     iterator begin() { return _data.begin(); }
     iterator end() { return _data.end(); }

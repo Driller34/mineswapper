@@ -33,8 +33,6 @@ private:
 
     void addMines(const sf::Vector2i& position);
 
-    size_t getIndex(const sf::Vector2i& position) const;
-
     const GameData& _gameData;
     Grid<Cell> _grid;
 };
