@@ -1,5 +1,5 @@
 #include "MainState.hpp"
-#include <iostream>
+
 
 MainState::MainState(const GameData& gameData,
                      const ResourceManager& resourceManager) 

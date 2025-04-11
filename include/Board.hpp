@@ -20,7 +20,7 @@ public:
     void showCell(const sf::Vector2i& position);
     const Cell& getCell(const sf::Vector2i& position) const;
     bool isCellInGrid(const sf::Vector2i& position) const;
-    sf::Vector2i getCellFormPosition(const sf::Vector2i& position) const;
+    sf::Vector2i getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const;
 
     void initializeMines(const sf::Vector2i& banedPosition);
 
@@ -30,7 +30,7 @@ private:
     void mixMines(const size_t bannedIndex);
     void setNumbers();
 
-    void addBombs(const sf::Vector2i& position);
+    void addMines(const sf::Vector2i& position);
 
     size_t getIndex(const sf::Vector2i& position) const;
 

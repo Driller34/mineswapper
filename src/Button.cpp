@@ -1,5 +1,4 @@
 #include "Button.hpp"
-#include <iostream>
 
 Button::Button(const sf::Vector2f& size, 
                const ResourceManager& resourceManager,

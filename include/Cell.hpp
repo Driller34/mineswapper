@@ -10,13 +10,13 @@ public:
     void setState(CellState state);
     CellState getState() const;
     void setNumber(const unsigned int number);
-    void addBomb();
+    void addMine();
     unsigned int getNumber() const;
-    void setBomb();
-    bool isBomb() const;
+    void setMine();
+    bool isMine() const;
     void reset();
 private:
-    bool _bomb{false};
+    bool _mine{false};
     unsigned int _number{0};
     CellState _state{CellState::HIDE};
 };

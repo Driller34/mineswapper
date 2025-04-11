@@ -44,7 +44,7 @@ void GameCore::toggleFlag(const sf::Vector2i& position)
 bool GameCore::checkExplosion(const sf::Vector2i& position)
 {
     const Cell& cell = _board.getCell(position);
-    if(cell.isBomb() && cell.getState() != CellState::FLAG)
+    if(cell.isMine() && cell.getState() != CellState::FLAG)
     {
         setGameLost();
         return true;
@@ -55,7 +55,7 @@ bool GameCore::checkExplosion(const sf::Vector2i& position)
 void GameCore::onRightClick(const sf::Vector2i& mousePosition)
 {
     if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
+    const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
     toggleFlag(cellPosition);    
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
 }
@@ -63,7 +63,7 @@ void GameCore::onRightClick(const sf::Vector2i& mousePosition)
 void GameCore::onLeftClick(const sf::Vector2i& mousePosition)
 {
     if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = _board.getCellFormPosition(mousePosition - sf::Vector2i(getPosition()));
+    const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
     if(!_firstMove)
     {
         _board.initializeMines(cellPosition);
@@ -83,7 +83,7 @@ void GameCore::searchNearbyMines(const sf::Vector2i& position)
         auto currentPosiotion = st.top();
         st.pop();
         const Cell& cell = _board.getCell(currentPosiotion);
-        if(cell.getState() != CellState::HIDE || cell.isBomb()){ continue; }
+        if(cell.getState() != CellState::HIDE || cell.isMine()){ continue; }
         _board.showCell(currentPosiotion);
         if(cell.getNumber() > 0){ continue; }
         for(const auto& direction : gridUtils::directions)
@@ -116,7 +116,7 @@ void GameCore::addCell(const sf::Vector2i& position) const
 {
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);
-    if(cell.isBomb() && isGameLost()){ texturePath = "mineCell.png"; }
+    if(cell.isMine() && isGameLost()){ texturePath = "mineCell.png"; }
     else if(cell.getState() == CellState::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
     else if(cell.getState() == CellState::FLAG){ texturePath = "flagCell.png"; }
             

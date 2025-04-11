@@ -8,7 +8,7 @@ Cell::Cell()
 void Cell::reset()
 {
     _state = CellState::HIDE;
-    _bomb = false;
+    _mine = false;
     _number = 0;
 }
 
@@ -32,17 +32,17 @@ unsigned int Cell::getNumber() const
     return _number;
 }
 
-void Cell::setBomb()
+void Cell::setMine()
 {
-    _bomb = true;
+    _mine = true;
 }
 
-bool Cell::isBomb() const
+bool Cell::isMine() const
 {
-    return _bomb;
+    return _mine;
 }
 
-void Cell::addBomb()
+void Cell::addMine()
 {
     _number++;
 }

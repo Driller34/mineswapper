@@ -1,5 +1,4 @@
 #include "Panel.hpp"
-#include <iostream>
 
 Panel::Panel(const sf::Vector2f& size,
              const ResourceManager& resourceManager,

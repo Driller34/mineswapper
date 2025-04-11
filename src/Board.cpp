@@ -1,5 +1,4 @@
 #include "Board.hpp"
-#include <iostream>
 
 Board::Board(const GameData& gameData)
      : _gameData(gameData),
@@ -50,7 +49,7 @@ void Board::setMines(const size_t bannedIndex)
     {
         if(index != bannedIndex)
         {
-            _grid[index].setBomb();
+            _grid[index].setMine();
             mines--;
         }
         index++;
@@ -77,17 +76,17 @@ void Board::setNumbers()
     {
         for(int j = 0; j < _gameData.columns; j++)
         {
-            if(_grid[getIndex({i, j})].isBomb()){ addBombs({i, j}); }
+            if(_grid[getIndex({i, j})].isMine()){ addMines({i, j}); }
         }
     }
 }
 
-void Board::addBombs(const sf::Vector2i& position)
+void Board::addMines(const sf::Vector2i& position)
 {
     for(const auto& direction : gridUtils::directions)
     {
         sf::Vector2i newPosition = position + direction;
-        if(isCellInGrid(newPosition)){ _grid[getIndex(newPosition)].addBomb(); }
+        if(isCellInGrid(newPosition)){ _grid[getIndex(newPosition)].addMine(); }
     }
 }
 
@@ -96,12 +95,10 @@ void Board::showCell(const sf::Vector2i& position)
     _grid[getIndex(position)].setState(CellState::UNHIDE);
 }
 
-sf::Vector2i Board::getCellFormPosition(const sf::Vector2i& position) const
+sf::Vector2i Board::getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const
 {
-    const sf::Vector2i relativePosition = position;
-    
-    const int column = relativePosition.x / _gameData.cellSize;
-    const int row = relativePosition.y / _gameData.cellSize;
+    const int column = pixelPosition.x / _gameData.cellSize;
+    const int row = pixelPosition.y / _gameData.cellSize;
 
     return { column, row };
 }
