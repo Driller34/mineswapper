@@ -84,14 +84,11 @@ void Board::setNumbers()
 
 void Board::addBombs(const sf::Vector2i position)
 {
-    if(isCellInGrid({position.x + 1, position.y})){ _grid[getIndex(position + sf::Vector2i(1, 0))].addBomb(); }
-    if(isCellInGrid({position.x + 1, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(1, 1))].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y})){ _grid[getIndex(position + sf::Vector2i(-1, 0))].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(-1, -1))].addBomb(); }
-    if(isCellInGrid({position.x, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(0, 1))].addBomb(); }
-    if(isCellInGrid({position.x, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(0, -1))].addBomb(); }
-    if(isCellInGrid({position.x - 1, position.y + 1})){ _grid[getIndex(position + sf::Vector2i(-1, 1))].addBomb(); }
-    if(isCellInGrid({position.x + 1, position.y - 1})){ _grid[getIndex(position + sf::Vector2i(1, -1))].addBomb(); }
+    for(const auto& direction : gridUtils::directions)
+    {
+        sf::Vector2i newPosition = position + direction;
+        if(isCellInGrid(newPosition)){ _grid[getIndex(newPosition)].addBomb(); }
+    }
 }
 
 void Board::showCell(const sf::Vector2i position)

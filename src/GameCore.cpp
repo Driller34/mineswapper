@@ -8,6 +8,14 @@ GameCore::GameCore(const GameData& gameData,
     _gameStatus(PlayState::RUN)
 {
     setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
+
+    _textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    _textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    _textureBatches["flagCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    for(int i = 0; i < _gameData.cellNumberTexture.size(); i++)
+    {
+        _textureBatches[_gameData.cellNumberTexture[i]] = sf::VertexArray(sf::PrimitiveType::Triangles);
+    }
 }
 
 void GameCore::init()
@@ -72,16 +80,16 @@ void GameCore::searchNearbyMines(const sf::Vector2i position)
     st.push(position);
     while(!st.empty())
     {
-        auto pos = st.top();
+        auto currentPosiotion = st.top();
         st.pop();
-        const Cell& cell = _board.getCell(pos);
+        const Cell& cell = _board.getCell(currentPosiotion);
         if(cell.getState() != CellState::HIDE || cell.isBomb()){ continue; }
-        _board.showCell(pos);
+        _board.showCell(currentPosiotion);
         if(cell.getNumber() > 0){ continue; }
-        for(const auto& dir : directions)
+        for(const auto& direction : gridUtils::directions)
         {
-            sf::Vector2i newPos = pos + dir;
-            if(_board.isCellInGrid(newPos)){ st.push(newPos); }
+            sf::Vector2i newPosition = currentPosiotion + direction;
+            if(_board.isCellInGrid(newPosition)){ st.push(newPosition); }
         }
     }
 }
@@ -104,8 +112,7 @@ sf::Vector2f GameCore::getRealPosition(const sf::Vector2i position) const
               (static_cast<float>(position.y) * _gameData.cellSize) };
 }
 
-void GameCore::addCell(const sf::Vector2i position,
-                       std::unordered_map<std::string, sf::VertexArray>& textureBatches) const
+void GameCore::addCell(const sf::Vector2i position) const
 {
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);
@@ -128,7 +135,7 @@ void GameCore::addCell(const sf::Vector2i position,
     sf::Vector2f texBottomLeft = sf::Vector2f(0.f, texSize.y);
     sf::Vector2f texBottomRight = sf::Vector2f(texSize.x, texSize.y);
             
-    auto& batch = textureBatches[texturePath];
+    auto& batch = _textureBatches[texturePath];
     batch.append(sf::Vertex(topLeft, sf::Color::White, texTopLeft));
     batch.append(sf::Vertex(bottomLeft, sf::Color::White, texBottomLeft));
     batch.append(sf::Vertex(bottomRight, sf::Color::White, texBottomRight));
@@ -142,23 +149,15 @@ void GameCore::draw(sf::RenderTarget& target,
                     sf::RenderStates states) const
 {
     states.transform *= getTransform();
-    _cells.clear();
-    std::unordered_map<std::string, sf::VertexArray> textureBatches;
-    textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
-    textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
-    textureBatches["flagCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
-    for(int i = 0; i < _gameData.cellNumberTexture.size(); i++)
-    {
-        textureBatches[_gameData.cellNumberTexture[i]] = sf::VertexArray(sf::PrimitiveType::Triangles);
-    }
+    for(auto& pair : _textureBatches){ pair.second.clear(); }
     for(int i = 0; i < _gameData.rows; i++)
     {
         for(int j = 0; j < _gameData.columns; j++)
         {
-            addCell({i, j}, textureBatches);
+            addCell({i, j});
         }
     }
-    for(const auto& pair : textureBatches) 
+    for(const auto& pair : _textureBatches) 
     {
         const std::string& texturePath = pair.first;
         const sf::VertexArray& batch = pair.second;

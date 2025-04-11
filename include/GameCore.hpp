@@ -30,8 +30,7 @@ private:
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
 
-    void addCell(const sf::Vector2i position,
-                 std::unordered_map<std::string, sf::VertexArray>& textureBatches) const;
+    void addCell(const sf::Vector2i position) const;
 
     void setGameLost();
     void setGameWin();
@@ -43,16 +42,12 @@ private:
 
     const ResourceManager& _resourceManager;
     Board _board;
+    PlayState _gameStatus;
     const GameData& _gameData;
     mutable sf::VertexArray _cells;
-    PlayState _gameStatus;
+    mutable std::unordered_map<std::string, sf::VertexArray> _textureBatches;
     
     size_t _flags{0};
 
     bool _firstMove{false};
-
-    static constexpr std::array<sf::Vector2i, 8> directions = {
-        sf::Vector2i(1, 0), sf::Vector2i(-1, 0), sf::Vector2i(0, 1), sf::Vector2i(0, -1), 
-        sf::Vector2i(1, 1), sf::Vector2i(-1, -1), sf::Vector2i(-1, 1), sf::Vector2i(1, -1)
-    };
 };
