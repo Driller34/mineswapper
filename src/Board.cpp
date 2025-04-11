@@ -14,7 +14,7 @@ void Board::reset()
 
 bool Board::isCellInGrid(const sf::Vector2i& position) const 
 {
-    return position.x >= 0 && position.x < _gameData.rows && position.y >= 0 && position.y < _gameData.columns;
+    return _grid.inBounds(position);
 }
 
 void Board::setFlag(const sf::Vector2i& position)

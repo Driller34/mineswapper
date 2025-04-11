@@ -68,9 +68,13 @@ add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
 target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component utils Grid ${SFML_DEPENDENCIES})
 
+add_library(GameLogic STATIC src/GameLogic.cpp)
+target_include_directories(GameLogic PUBLIC include)
+target_link_libraries(GameLogic PUBLIC GameData Cell Board utils ${SFML_DEPENDENCIES})
+
 add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)
-target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable utils ${SFML_DEPENDENCIES})
+target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable GameLogic utils ${SFML_DEPENDENCIES})
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)

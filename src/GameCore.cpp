@@ -5,7 +5,7 @@ GameCore::GameCore(const GameData& gameData,
     : _gameData(gameData),
     _resourceManager(resourceManager),
     _board(_gameData),
-    _gameStatus(PlayState::RUN)
+    _gameLogic(_gameData, _board)
 {
     setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
 
@@ -21,90 +21,42 @@ GameCore::GameCore(const GameData& gameData,
 void GameCore::reset()
 {
     _board.reset();
-    _gameStatus = PlayState::RUN;
-    _flags = 0;
-    _firstMove = false;
-}
-
-void GameCore::toggleFlag(const sf::Vector2i& position)
-{
-    const Cell& cell = _board.getCell(position);
-    if(cell.getState() == CellState::FLAG && _flags > 0)
-    { 
-        _board.unsetFlag(position); 
-        _flags--;
-    }
-    else if(cell.getState() == CellState::HIDE && _flags < _gameData.mines)
-    { 
-        _board.setFlag(position); 
-        _flags++;
-    }   
-}
-
-bool GameCore::checkExplosion(const sf::Vector2i& position)
-{
-    const Cell& cell = _board.getCell(position);
-    if(cell.isMine() && cell.getState() != CellState::FLAG)
-    {
-        setGameLost();
-        return true;
-    }
-    return false;
+    _gameLogic.reset();
 }
 
 void GameCore::onRightClick(const sf::Vector2i& mousePosition)
 {
-    if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
+    if(!isGameRunning() || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
-    toggleFlag(cellPosition);    
-    if(!_board.isAnyHiddenCell()){ setGameWin(); }
+    _gameLogic.toggleFlag(cellPosition);
 }
 
 void GameCore::onLeftClick(const sf::Vector2i& mousePosition)
 {
-    if(_gameStatus != PlayState::RUN || !isClicked(mousePosition)){ return; }
+    if(!isGameRunning() || !isClicked(mousePosition)){ return; }
     const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
-    if(!_firstMove)
-    {
-        _board.initializeMines(cellPosition);
-        _firstMove = true;
-    }
-    if(checkExplosion(cellPosition)){ return; }
-    searchNearbyMines(cellPosition);
-    if(!_board.isAnyHiddenCell()){ setGameWin(); }
+    _gameLogic.dig(cellPosition);
 }
 
-void GameCore::searchNearbyMines(const sf::Vector2i& position)
-{
-    std::stack<sf::Vector2i> st;
-    st.push(position);
-    while(!st.empty())
-    {
-        auto currentPosiotion = st.top();
-        st.pop();
-        const Cell& cell = _board.getCell(currentPosiotion);
-        if(cell.getState() != CellState::HIDE || cell.isMine()){ continue; }
-        _board.showCell(currentPosiotion);
-        if(cell.getNumber() > 0){ continue; }
-        for(const auto& direction : gridUtils::directions)
-        {
-            sf::Vector2i newPosition = currentPosiotion + direction;
-            if(_board.isCellInGrid(newPosition)){ st.push(newPosition); }
-        }
-    }
+bool GameCore::isGameLost() const
+{ 
+    return _gameLogic.getPlayState() == PlayState::LOST; 
 }
 
-void GameCore::setGameLost(){ _gameStatus = PlayState::LOST; }
+bool GameCore::isGameWin() const 
+{ 
+    return _gameLogic.getPlayState() == PlayState::WIN; 
+}
 
-void GameCore::setGameWin(){ _gameStatus = PlayState::WIN; }
+bool GameCore::isGameRunning() const 
+{ 
+    return _gameLogic.getPlayState() == PlayState::RUN; 
+}
 
-bool GameCore::isGameLost() const{ return _gameStatus == PlayState::LOST; }
-
-bool GameCore::isGameWin() const { return _gameStatus == PlayState::WIN; }
-
-bool GameCore::isGameRunning() const { return _gameStatus == PlayState::RUN; }
-
-size_t GameCore::countFlags() const { return _gameData.mines - _flags; }
+size_t GameCore::countFlags() const 
+{ 
+    return _gameLogic.countFlags(); 
+}
 
 sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
 {
