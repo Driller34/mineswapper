@@ -39,6 +39,9 @@ target_include_directories(Component INTERFACE ${CMAKE_SOURCE_DIR}/include)
 add_library(utils INTERFACE)
 target_include_directories(utils INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
+add_library(Grid INTERFACE)
+target_include_directories(Grid INTERFACE ${CMAKE_SOURCE_DIR}/include)
+
 add_library(Clickable INTERFACE)
 target_include_directories(Clickable INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
@@ -63,7 +66,7 @@ target_link_libraries(StopWatch PUBLIC Counter)
 
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
-target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component utils ${SFML_DEPENDENCIES})
+target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component utils Grid ${SFML_DEPENDENCIES})
 
 add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)

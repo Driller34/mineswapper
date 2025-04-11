@@ -7,6 +7,7 @@
 #include "GameData.hpp"
 #include "Component.hpp"
 #include "utils.hpp"
+#include "Grid.hpp"
 
 class Board
 {
@@ -35,5 +36,5 @@ private:
     size_t getIndex(const sf::Vector2i& position) const;
 
     const GameData& _gameData;
-    std::vector<Cell> _grid;
+    Grid<Cell> _grid;
 };
