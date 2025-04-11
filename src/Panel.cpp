@@ -9,7 +9,7 @@ Panel::Panel(const sf::Vector2f& size,
     _gameCore(gameCore),
     _flags({180.0f, 100.0f}, _resourceManager),
     _stopWatch({180.0f, 100.0f}, _resourceManager),
-    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){ _gameCore.init(); _stopWatch.restart(); })
+    _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){ _gameCore.reset(); _stopWatch.reset(); })
 {
     setSize(size);
     setPosition(startPosition);

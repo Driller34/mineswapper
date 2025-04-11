@@ -10,7 +10,7 @@ public:
               sf::Time delay = sf::seconds(1.0f));
 
     void update();
-    void restart();
+    void reset();
     void stop();
     void start();
 

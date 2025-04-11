@@ -15,7 +15,7 @@ public:
     GameCore(const GameData& gameData,
              const ResourceManager& resourceManager);
 
-    void init();
+    void reset();
 
     virtual void onRightClick(const sf::Vector2i& mousePosition) override;
     virtual void onLeftClick(const sf::Vector2i& mousePosition) override;

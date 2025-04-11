@@ -18,7 +18,7 @@ GameCore::GameCore(const GameData& gameData,
     }
 }
 
-void GameCore::init()
+void GameCore::reset()
 {
     _board.reset();
     _gameStatus = PlayState::RUN;

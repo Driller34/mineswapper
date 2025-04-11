@@ -16,9 +16,8 @@ public:
           GameCore& gameCore,
           const sf::Vector2f& startPosition);
 
-    void init();
     void update();
-
+    
     virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
 
 private:
