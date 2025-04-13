@@ -14,9 +14,9 @@ Panel::Panel(const sf::Vector2f& size,
 {
     setSize(size);
     setPosition(startPosition);
-    _restart.setPosition(_gameData.resetPosition);
-    _flags.setPosition(_gameData.flagCounterPosition);
-    _stopWatch.setPosition(_gameData.stopWatchPosition);
+    _restart.setPosition(_gameData.resetPosition());
+    _flags.setPosition(_gameData.flagCounterPosition());
+    _stopWatch.setPosition(_gameData.stopWatchPosition());
 }
 
 void Panel::update()

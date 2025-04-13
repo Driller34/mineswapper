@@ -3,9 +3,11 @@
 Game::Game()
  : _gameData(), 
    _resourceManager("../resources"),
-   _window(sf::VideoMode({_gameData.width, _gameData.height}), "Mineswapper"),
+   _window(sf::VideoMode({1000, 1000}), "Mineswapper"),
    _gameStateManager()
 {
+    _window.setSize({_gameData.width(), _gameData.height()});
+    _window.setView(sf::View(sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(_gameData.width(), _gameData.height()))));
     _gameStateManager.push(std::make_unique<MainState>(_gameData, _resourceManager));
 }
 
