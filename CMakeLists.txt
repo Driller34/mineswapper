@@ -80,13 +80,17 @@ add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
 target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter StopWatch Clickable ${SFML_DEPENDENCIES})
 
-add_library(MainState STATIC src/MainState.cpp)
-target_include_directories(MainState PUBLIC include)
+add_library(MainState STATIC src/state/MainState.cpp)
+target_include_directories(MainState PUBLIC include/state)
 target_link_libraries(MainState PUBLIC GameData GameState ResourceManager Panel GameCore ${SFML_DEPENDENCIES})
+
+add_library(GameStateManager STATIC src/state/GameStateManager.cpp)
+target_include_directories(GameStateManager PUBLIC include/state)
+target_link_libraries(GameStateManager PUBLIC GameState)
 
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)
-target_link_libraries(Game PUBLIC GameData MainState ResourceManager ${SFML_DEPENDENCIES})
+target_link_libraries(Game PUBLIC GameData MainState ResourceManager GameStateManager ${SFML_DEPENDENCIES})
 
 add_executable(main src/main.cpp)
 target_include_directories(main PRIVATE src)

@@ -19,9 +19,11 @@ public:
     virtual void update() override;
     virtual void draw(sf::RenderWindow& window) override;
 
+    virtual void inputHandler(const sf::Event& event, 
+                              sf::RenderWindow& window) override;
+private:
     void onRightClick(const sf::Vector2i& mousePosition);
     void onLeftClick(const sf::Vector2i& mousePosition);
-private:
 
     const ResourceManager& _resourceManager;
     const GameData& _gameData;

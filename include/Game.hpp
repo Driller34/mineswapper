@@ -3,6 +3,7 @@
 #include "GameData.hpp"
 #include "MainState.hpp"
 #include "ResourceManager.hpp"
+#include "GameStateManager.hpp"
 
 class Game
 {
@@ -17,5 +18,5 @@ private:
     sf::RenderWindow _window;
     ResourceManager _resourceManager;
     GameData _gameData;
-    MainState _mainState;
+    GameStateManager _gameStateManager;
 };

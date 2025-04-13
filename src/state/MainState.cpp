@@ -27,6 +27,22 @@ void MainState::draw(sf::RenderWindow& window)
     window.draw(_gameCore);
 }
 
+void MainState::inputHandler(const sf::Event& event, 
+                             sf::RenderWindow& window)
+{
+    if(const auto* mouseEvent = event.getIf<sf::Event::MouseButtonReleased>())
+    {
+        if(mouseEvent->button == sf::Mouse::Button::Right)
+        {
+            onRightClick(sf::Mouse::getPosition(window));
+        }
+        if(mouseEvent->button == sf::Mouse::Button::Left)
+        {
+            onLeftClick(sf::Mouse::getPosition(window));
+        }
+    }
+}
+
 void MainState::onRightClick(const sf::Vector2i& mousePosition)
 {
     _gameCore.onRightClick(mousePosition); 
