@@ -3,6 +3,7 @@
 Button::Button(const sf::Vector2f& size, 
                const ResourceManager& resourceManager,
                const std::string& text,
+               const sf::Vector2f& startPosition,
                std::function<void()> onClick)
     : _shape(size),
       _resourceManager(resourceManager),
@@ -10,6 +11,7 @@ Button::Button(const sf::Vector2f& size,
       _onClick(std::move(onClick))
 {
     setSize(size);
+    setPosition(startPosition);
     _shape.setFillColor(sf::Color::Red);
 }
 

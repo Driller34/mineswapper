@@ -1,23 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Button.hpp"
 #include "Component.hpp"
-#include "ResourceManager.hpp"
-#include "GameCore.hpp"
-#include "Counter.hpp"
-#include "StopWatch.hpp"
 #include "Clickable.hpp"
+#include "Updatable.hpp"
 
-class Container : public Component, public Clickable
+class Container : public Component, public Clickable, public Updatable
 {
 public:
-    Container(const sf::Vector2f& size)
+    Container(const sf::Vector2f& size);
 
     void push(std::unique_ptr<Component> component);
-    void update();
-    void draw();
+    virtual void update() override;
 
+    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
+
+    virtual void draw(sf::RenderTarget& target, 
+                      sf::RenderStates states) const override;
 private:
 
     std::vector<std::unique_ptr<Component>> _components;
+    std::vector<Clickable*> _clickables;
+    std::vector<Updatable*> _updatables;
 };

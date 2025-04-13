@@ -10,6 +10,7 @@ public:
     Button(const sf::Vector2f& size, 
            const ResourceManager& resourceManager,
            const std::string& text,
+           const sf::Vector2f& startPosition,
            std::function<void()> onClick);
 
     virtual void onLeftClick(const sf::Vector2i& mousePosition) override;

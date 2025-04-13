@@ -7,7 +7,9 @@
 #include "GameState.hpp"
 #include "ResourceManager.hpp"
 #include "GameCore.hpp"
-#include "Panel.hpp"
+#include "Container.hpp"
+#include "Button.hpp"
+#include "StopWatch.hpp"
 
 class MainState : public GameState
 {
@@ -28,5 +30,5 @@ private:
     const ResourceManager& _resourceManager;
     const GameData& _gameData;
     GameCore _gameCore;
-    Panel _panel;
+    Container _container;
 };
