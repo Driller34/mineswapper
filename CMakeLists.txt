@@ -66,7 +66,7 @@ target_link_libraries(StopWatch PUBLIC Counter)
 
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
-target_link_libraries(Board PUBLIC GameData Cell ResourceManager Component utils Grid ${SFML_DEPENDENCIES})
+target_link_libraries(Board PUBLIC GameData Cell utils Grid ${SFML_DEPENDENCIES})
 
 add_library(GameLogic STATIC src/GameLogic.cpp)
 target_include_directories(GameLogic PUBLIC include)
@@ -82,7 +82,7 @@ target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Cou
 
 add_library(MainState STATIC src/MainState.cpp)
 target_include_directories(MainState PUBLIC include)
-target_link_libraries(MainState PUBLIC GameData Cell Board GameState ResourceManager Panel GameCore ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData GameState ResourceManager Panel GameCore ${SFML_DEPENDENCIES})
 
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)

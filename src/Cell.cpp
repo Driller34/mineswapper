@@ -1,6 +1,9 @@
 #include "Cell.hpp"
 
 Cell::Cell()
+    : _mine(false),
+    _number(0),
+    _state(CellState::HIDE)
 {
     
 }

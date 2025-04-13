@@ -14,6 +14,7 @@ public:
     Panel(const sf::Vector2f& size,
           const ResourceManager& resourceManager,
           GameCore& gameCore,
+          const GameData& gameData,
           const sf::Vector2f& startPosition);
 
     void update();
@@ -25,6 +26,7 @@ private:
                       sf::RenderStates states) const override;
 
     const ResourceManager& _resourceManager;
+    const GameData& _gameData;
     GameCore& _gameCore;
     Button _restart;
     Counter _flags;

@@ -16,6 +16,6 @@ public:
 
 private:
     sf::Time _delay;
-    bool _stop{false};
+    bool _stop;
     sf::Clock _clock;
 };

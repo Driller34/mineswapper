@@ -16,7 +16,7 @@ public:
     bool isMine() const;
     void reset();
 private:
-    bool _mine{false};
-    unsigned int _number{0};
-    CellState _state{CellState::HIDE};
+    bool _mine;
+    unsigned int _number;
+    CellState _state;
 };

@@ -6,7 +6,7 @@ MainState::MainState(const GameData& gameData,
     : _gameData(gameData),
     _resourceManager(resourceManager),
     _gameCore(_gameData, _resourceManager),
-    _panel(sf::Vector2f(_gameData.PanelWidth, _gameData.PanelHeight), _resourceManager, _gameCore, {0.0f, 0.0f})
+    _panel(sf::Vector2f(_gameData.PanelWidth, _gameData.PanelHeight), _resourceManager, _gameCore, _gameData, _gameData.panelPosition)
 {
     _gameCore.setPosition(_gameData.startPosition);
 }

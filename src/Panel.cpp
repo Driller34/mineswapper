@@ -3,18 +3,20 @@
 Panel::Panel(const sf::Vector2f& size,
              const ResourceManager& resourceManager,
              GameCore& gameCore,
+             const GameData& gameData,
              const sf::Vector2f& startPosition)
     : _resourceManager(resourceManager), 
     _gameCore(gameCore),
+    _gameData(gameData),
     _flags({180.0f, 100.0f}, _resourceManager),
     _stopWatch({180.0f, 100.0f}, _resourceManager),
     _restart({100.0f, 60.0f}, _resourceManager, "Restart", [&](){ _gameCore.reset(); _stopWatch.reset(); })
 {
     setSize(size);
     setPosition(startPosition);
-    _restart.setPosition({40.0f, 20.0f});
-    _flags.setPosition({150.0f, 20.0f});
-    _stopWatch.setPosition({250.0f, 20.0f});
+    _restart.setPosition(_gameData.resetPosition);
+    _flags.setPosition(_gameData.flagCounterPosition);
+    _stopWatch.setPosition(_gameData.stopWatchPosition);
 }
 
 void Panel::update()

@@ -4,6 +4,7 @@ StopWatch::StopWatch(const sf::Vector2f& size,
                      const ResourceManager& resourceManager,
                      sf::Time delay)
     : Counter(size, resourceManager),
+    _stop(false),
     _delay(delay),
     _clock()
 {

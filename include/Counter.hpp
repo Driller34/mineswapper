@@ -19,6 +19,6 @@ private:
                       sf::RenderStates states) const override;
                       
     const ResourceManager& _resourceManager;
-    size_t _value{0};
+    size_t _value;
     mutable sf::Text _text;
 };
