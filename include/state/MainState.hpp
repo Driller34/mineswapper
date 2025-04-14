@@ -10,6 +10,7 @@
 #include "Container.hpp"
 #include "Button.hpp"
 #include "StopWatch.hpp"
+#include "FlagCounter.hpp"
 
 class MainState : public GameState
 {

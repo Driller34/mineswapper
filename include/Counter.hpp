@@ -8,6 +8,7 @@ class Counter : public Component
 {
 public:
     Counter(const sf::Vector2f& size, 
+            const sf::Vector2f& startPosition,
             const ResourceManager& resourceManager);
 
     void setValue(size_t newValue);

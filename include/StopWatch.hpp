@@ -7,8 +7,8 @@ class StopWatch : public Counter, public Updatable
 {
 public:
     StopWatch(const sf::Vector2f& size,
-              const ResourceManager& resourceManager,
               const sf::Vector2f& startPosition,
+              const ResourceManager& resourceManager,
               sf::Time delay = sf::seconds(1.0f));
 
     virtual void update() override;

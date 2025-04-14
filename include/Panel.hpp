@@ -1,4 +1,4 @@
-#pragma once
+/* #pragma once
 #include <SFML/Graphics.hpp>
 #include "Button.hpp"
 #include "Component.hpp"
@@ -31,4 +31,4 @@ private:
     Button _restart;
     Counter _flags;
     StopWatch _stopWatch;
-};
+}; */

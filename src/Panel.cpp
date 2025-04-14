@@ -1,4 +1,4 @@
-#include "Panel.hpp"
+/* #include "Panel.hpp"
 
 Panel::Panel(const sf::Vector2f& size,
              const ResourceManager& resourceManager,
@@ -9,7 +9,7 @@ Panel::Panel(const sf::Vector2f& size,
     _gameCore(gameCore),
     _gameData(gameData),
     _flags({180.0f, 100.0f}, _resourceManager),
-    _stopWatch({180.0f, 100.0f}, _resourceManager, _gameData.stopWatchPosition()),
+    _stopWatch({180.0f, 100.0f}, {180.0f, 100.0f}, _resourceManager, _gameData.stopWatchPosition()),
     _restart({100.0f, 60.0f}, _resourceManager, "Restart", _gameData.resetPosition(), [&](){ _gameCore.reset(); _stopWatch.reset(); })
 {
     setSize(size);
@@ -45,4 +45,4 @@ void Panel::draw(sf::RenderTarget& target,
 }
 
 
-    
+     */

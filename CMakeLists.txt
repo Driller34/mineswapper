@@ -65,6 +65,10 @@ add_library(StopWatch STATIC src/StopWatch.cpp)
 target_include_directories(StopWatch PUBLIC include)
 target_link_libraries(StopWatch PUBLIC Counter Updatable)
 
+add_library(FlagCounter STATIC src/FlagCounter.cpp)
+target_include_directories(FlagCounter PUBLIC include)
+target_link_libraries(FlagCounter PUBLIC Counter Updatable GameCore)
+
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
 target_link_libraries(Board PUBLIC GameData Cell utils Grid ${SFML_DEPENDENCIES})
@@ -75,7 +79,7 @@ target_link_libraries(GameLogic PUBLIC GameData Cell Board utils ${SFML_DEPENDEN
 
 add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)
-target_link_libraries(GameCore PUBLIC GameData Celsl ResourceManager Component Board Clickable GameLogic utils ${SFML_DEPENDENCIES})
+target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable GameLogic utils ${SFML_DEPENDENCIES})
 
 add_library(Panel STATIC src/Panel.cpp)
 target_include_directories(Panel PUBLIC include)
@@ -87,7 +91,7 @@ target_link_libraries(Container PUBLIC Component Clickable Updatable ${SFML_DEPE
 
 add_library(MainState STATIC src/state/MainState.cpp)
 target_include_directories(MainState PUBLIC include/state)
-target_link_libraries(MainState PUBLIC GameData GameState ResourceManager Panel GameCore Container Button StopWatch ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData GameState ResourceManager Panel GameCore Container Button StopWatch FlagCounter ${SFML_DEPENDENCIES})
 
 add_library(GameStateManager STATIC src/state/GameStateManager.cpp)
 target_include_directories(GameStateManager PUBLIC include/state)

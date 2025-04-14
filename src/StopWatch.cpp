@@ -1,15 +1,14 @@
 #include "StopWatch.hpp"
 
 StopWatch::StopWatch(const sf::Vector2f& size,
-                     const ResourceManager& resourceManager,
                      const sf::Vector2f& startPosition,
+                     const ResourceManager& resourceManager,
                      sf::Time delay)
-    : Counter(size, resourceManager),
+    : Counter(size, startPosition, resourceManager),
     _stop(false),
     _delay(delay),
     _clock()
 {
-    setPosition(startPosition);
 }
 
 

@@ -22,9 +22,16 @@ MainState::MainState(const GameData& gameData,
     ));
 
     _container.push(std::make_unique<StopWatch>(
-        sf::Vector2f(180.0f, 100.0f), 
+        sf::Vector2f(180.0f, 100.0f),
+        _gameData.stopWatchPosition(), 
+        _resourceManager
+    ));
+
+    _container.push(std::make_unique<FlagCounter>(
+        sf::Vector2f(180.0f, 100.0f),
+        _gameData.flagCounterPosition(),
         _resourceManager,
-        _gameData.stopWatchPosition()
+        _gameCore
     ));
 }
 
