@@ -4,6 +4,8 @@
 #include "Component.hpp"
 #include "ResourceManager.hpp"
 
+namespace gui
+{
 class Counter : public Component
 {
 public:
@@ -23,3 +25,4 @@ private:
     size_t _value;
     mutable sf::Text _text;
 };
+}

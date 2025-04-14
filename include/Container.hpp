@@ -4,6 +4,8 @@
 #include "Clickable.hpp"
 #include "Updatable.hpp"
 
+namespace gui
+{
 class Container : public Component, public Clickable, public Updatable
 {
 public:
@@ -23,3 +25,4 @@ private:
     std::vector<Clickable*> _clickables;
     std::vector<Updatable*> _updatables;
 };
+}

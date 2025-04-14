@@ -1,5 +1,7 @@
 #include "Counter.hpp"
 
+namespace gui
+{
 Counter::Counter(const sf::Vector2f& size, 
                  const sf::Vector2f& startPosition,
                  const ResourceManager& resourceManager)
@@ -24,4 +26,5 @@ void Counter::draw(sf::RenderTarget& target,
     std::string str = std::to_string(_value);
     _text.setString(str);
     target.draw(_text, states);
+}
 }

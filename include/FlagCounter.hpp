@@ -4,6 +4,8 @@
 #include "Updatable.hpp"
 #include "GameCore.hpp"
 
+namespace gui
+{
 class FlagCounter : public Counter, public Updatable
 {
 public:
@@ -18,3 +20,4 @@ private:
 
     GameCore& _gameCore;
 };
+}

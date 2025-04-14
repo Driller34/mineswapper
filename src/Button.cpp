@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+namespace gui
+{
 Button::Button(const sf::Vector2f& size, 
                const ResourceManager& resourceManager,
                const std::string& text,
@@ -27,4 +29,5 @@ void Button::draw(sf::RenderTarget& target,
     states.transform *= getTransform();
     target.draw(_shape, states);
     target.draw(_text, states);
+}
 }

@@ -64,7 +64,7 @@ void Board::mixMines(const size_t bannedIndex)
     for(int i = 0; i < _gameData.mines; i++)
     {
         int random_number = dis(gen);
-        if(random_number == bannedIndex){ continue; }
+        if(random_number == bannedIndex || _grid[random_number].getState() == CellState::FLAG){ continue; }
         std::swap(_grid[i], _grid[random_number]);
     }
 }

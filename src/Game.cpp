@@ -3,7 +3,7 @@
 Game::Game()
  : _gameData(), 
    _resourceManager("../resources"),
-   _window(sf::VideoMode({1000, 1000}), "Mineswapper"),
+   _window(sf::VideoMode({100, 100}), "Mineswapper"),
    _gameStateManager()
 {
     _window.setSize({_gameData.width(), _gameData.height()});

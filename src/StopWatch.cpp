@@ -1,5 +1,7 @@
 #include "StopWatch.hpp"
 
+namespace gui
+{
 StopWatch::StopWatch(const sf::Vector2f& size,
                      const sf::Vector2f& startPosition,
                      const ResourceManager& resourceManager,
@@ -30,3 +32,4 @@ void StopWatch::update()
 void StopWatch::stop(){ _stop = true; }
 
 void StopWatch::start(){ _stop = false; }
+}

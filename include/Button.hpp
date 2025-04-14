@@ -4,6 +4,8 @@
 #include "ResourceManager.hpp"
 #include "Clickable.hpp"
 
+namespace gui
+{
 class Button : public Component, public Clickable
 {
 public:
@@ -24,3 +26,4 @@ private:
     sf::RectangleShape _shape;
     std::function<void()> _onClick;
 };
+}

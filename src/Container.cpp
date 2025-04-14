@@ -1,5 +1,7 @@
 #include "Container.hpp"
 
+namespace gui
+{
 Container::Container(const sf::Vector2f& size)
 {
     setSize(size);
@@ -50,4 +52,5 @@ void Container::draw(sf::RenderTarget& target,
     {
         target.draw(*component, states);
     }
+}
 }

@@ -3,6 +3,8 @@
 #include "Counter.hpp"
 #include "Updatable.hpp"
 
+namespace gui
+{
 class StopWatch : public Counter, public Updatable
 {
 public:
@@ -21,3 +23,4 @@ private:
     bool _stop;
     sf::Clock _clock;
 };
+}

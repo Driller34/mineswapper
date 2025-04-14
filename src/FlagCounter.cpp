@@ -1,5 +1,7 @@
 #include "FlagCounter.hpp"
 
+namespace gui
+{
 FlagCounter::FlagCounter(const sf::Vector2f& size,
                          const sf::Vector2f& startPosition,
                          const ResourceManager& resourceManager,
@@ -13,4 +15,5 @@ FlagCounter::FlagCounter(const sf::Vector2f& size,
 void FlagCounter::update()
 {
     setValue(_gameCore.countFlags());
+}
 }

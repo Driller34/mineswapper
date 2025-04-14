@@ -11,7 +11,7 @@ MainState::MainState(const GameData& gameData,
 {
     _gameCore.setPosition(_gameData.startPosition());
     _panel.setPosition(_gameData.panelPosition);
-    auto stopWatch = std::make_unique<StopWatch>(
+    auto stopWatch = std::make_unique<gui::StopWatch>(
         sf::Vector2f(180.0f, 100.0f),
         _gameData.stopWatchPosition(), 
         _resourceManager
@@ -20,7 +20,7 @@ MainState::MainState(const GameData& gameData,
     _stopWatch = stopWatch.get(); 
     _panel.push(std::move(stopWatch));   
 
-    _panel.push(std::make_unique<Button>(
+    _panel.push(std::make_unique<gui::Button>(
         sf::Vector2f(100.0f, 60.0f),
         _resourceManager,
         "Restart",
@@ -28,7 +28,7 @@ MainState::MainState(const GameData& gameData,
         [&]() { _gameCore.reset(); _stopWatch->reset(); }
     ));
 
-    _panel.push(std::make_unique<FlagCounter>(
+    _panel.push(std::make_unique<gui::FlagCounter>(
         sf::Vector2f(180.0f, 100.0f),
         _gameData.flagCounterPosition(),
         _resourceManager,
