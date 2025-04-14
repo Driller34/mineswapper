@@ -1,9 +1,8 @@
 #include "Game.hpp"
 
 Game::Game()
- : _gameData(), 
-   _resourceManager("../resources"),
-   _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper"),
+ : _resourceManager("../resources"),
+   _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper", sf::Style::Titlebar),
    _windowService(_window),
    _gameStateManager()
 {

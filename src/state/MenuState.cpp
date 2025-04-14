@@ -12,9 +12,9 @@ MenuState::MenuState(GameStateManager& gameStateManager,
 
 void MenuState::init()
 {
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "10x10", sf::Vector2f(90.0f, 70.0f), [this](){ startGame1(); });
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "20x20", sf::Vector2f(90.0f, 140.0f), [this](){ startGame2(); });
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "40x40", sf::Vector2f(90.0f, 210.0f), [this](){ startGame3(); });
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Easy", sf::Vector2f(90.0f, 70.0f), [this](){ startGame(GameLevel::EASY); });
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Medium", sf::Vector2f(90.0f, 140.0f), [this](){ startGame(GameLevel::MEDIUM); });
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Hard", sf::Vector2f(90.0f, 210.0f), [this](){ startGame(GameLevel::HARD); });
     options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Exit",  sf::Vector2f(90.0f, 280.0f), [this](){ exitGame(); });
 }
 
@@ -61,30 +61,14 @@ void MenuState::onRightClick(const sf::Vector2i& mousePosition)
     }
 }
 
-void MenuState::startGame1()
+void MenuState::startGame(GameLevel level)
 {
     GameSettings gameSettings{10, 10, 10};
-    _windowService.setResolution({conf::cellSize * gameSettings.columns, 
-                                  conf::cellSize * gameSettings.rows + conf::panelHeight()});
+    if(level == GameLevel::MEDIUM){ gameSettings = {20, 20, 20}; }
+    else if(level == GameLevel::HARD){ gameSettings = {20, 30, 30}; }
+    _windowService.setResolution({gameSettings.width(), gameSettings.height()});
     _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));    
 }
-
-void MenuState::startGame2()
-{
-    GameSettings gameSettings{20, 20, 20};
-    _windowService.setResolution({conf::cellSize * gameSettings.columns, 
-                                  conf::cellSize * gameSettings.rows + conf::panelHeight()});
-    _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));      
-}
-
-void MenuState::startGame3()
-{
-    GameSettings gameSettings{40, 40, 40};
-    _windowService.setResolution({conf::cellSize * gameSettings.columns, 
-                                  conf::cellSize * gameSettings.rows + conf::panelHeight()});
-    _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));       
-}
-
 
 void MenuState::exitGame()
 {

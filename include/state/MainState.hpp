@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <stack>
-#include "GameData.hpp"
 #include "Board.hpp"
 #include "Cell.hpp"
 #include "GameState.hpp"

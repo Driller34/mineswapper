@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameData.hpp"
 #include "MainState.hpp"
 #include "MenuState.hpp"
 #include "ResourceManager.hpp"
@@ -20,7 +19,6 @@ private:
 
     sf::RenderWindow _window;
     ResourceManager _resourceManager;
-    GameData _gameData;
     GameStateManager _gameStateManager;
     WindowService _windowService;
 };

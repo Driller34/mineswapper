@@ -9,10 +9,10 @@
 #include "Button.hpp"
 #include "GameSettings.hpp"
 #include "WindowService.hpp"
-#include "utils.hpp"
 
 class MenuState : public GameState
 {
+    enum class GameLevel{EASY, MEDIUM, HARD};
 public:
     MenuState(GameStateManager& gameStateManager,
               const ResourceManager& resourceManager,
@@ -25,9 +25,7 @@ public:
                               sf::RenderWindow& window) override;
 
 private:
-    void startGame1();
-    void startGame2();
-    void startGame3();
+    void startGame(GameLevel level);
 
     void onLeftClick(const sf::Vector2i& mousePosition);
     void onRightClick(const sf::Vector2i& mousePosition);

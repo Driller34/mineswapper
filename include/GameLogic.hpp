@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include "Cell.hpp"
-#include "GameData.hpp"
 #include "Board.hpp"
 #include "GameSettings.hpp"
 

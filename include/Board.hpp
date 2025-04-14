@@ -4,7 +4,6 @@
 #include <utility>
 #include <unordered_map>
 #include "Cell.hpp"
-#include "GameData.hpp"
 #include "utils.hpp"
 #include "Grid.hpp"
 #include "GameSettings.hpp"

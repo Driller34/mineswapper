@@ -4,7 +4,6 @@
 #include "Component.hpp"
 #include "ResourceManager.hpp"
 #include "Cell.hpp"
-#include "GameData.hpp"
 #include "Board.hpp"
 #include "Clickable.hpp"
 #include "GameLogic.hpp"

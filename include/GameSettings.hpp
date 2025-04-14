@@ -7,6 +7,6 @@ struct GameSettings
     size_t columns;
     size_t mines;
 
-    size_t width() const { return columns * conf::cellSize; }
-    size_t height() const { return rows * conf::cellSize + conf::panelHeight(); }
+    unsigned int width() const { return columns * conf::cellSize; }
+    unsigned int height() const { return rows * conf::cellSize + conf::panelHeight(); }
 };
