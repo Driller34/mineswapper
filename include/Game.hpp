@@ -6,6 +6,7 @@
 #include "ResourceManager.hpp"
 #include "GameStateManager.hpp"
 #include "utils.hpp"
+#include "WindowService.hpp"
 
 class Game
 {
@@ -21,4 +22,5 @@ private:
     ResourceManager _resourceManager;
     GameData _gameData;
     GameStateManager _gameStateManager;
+    WindowService _windowService;
 };

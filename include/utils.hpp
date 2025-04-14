@@ -11,8 +11,8 @@ namespace gridUtils
 
 namespace conf
 {
-    constexpr unsigned int width{1000};
-    constexpr unsigned int height{1000};
+    constexpr unsigned int width{300};
+    constexpr unsigned int height{400};
 
     constexpr size_t cellSize{30};
     constexpr size_t counterFontSize{24};

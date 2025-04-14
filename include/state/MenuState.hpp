@@ -7,15 +7,16 @@
 #include "GameStateManager.hpp"
 #include "ResourceManager.hpp"
 #include "Button.hpp"
-#include "GameData.hpp"
 #include "GameSettings.hpp"
+#include "WindowService.hpp"
+#include "utils.hpp"
 
 class MenuState : public GameState
 {
 public:
     MenuState(GameStateManager& gameStateManager,
               const ResourceManager& resourceManager,
-            GameData& gameData);
+              WindowService& windowService);
 
     virtual void init() override;
     virtual void update() override;
@@ -24,13 +25,6 @@ public:
                               sf::RenderWindow& window) override;
 
 private:
-    GameStateManager& _gameStateManager;
-    const ResourceManager& _resourceManager;
-
-    GameData& _gameData;
-
-    std::vector<gui::Button> options;
-
     void startGame1();
     void startGame2();
     void startGame3();
@@ -39,4 +33,11 @@ private:
     void onRightClick(const sf::Vector2i& mousePosition);
 
     void exitGame();
+
+    GameStateManager& _gameStateManager;
+    const ResourceManager& _resourceManager;
+
+    WindowService& _windowService;
+
+    std::vector<gui::Button> options;
 };
