@@ -11,7 +11,8 @@ class Counter : public Component
 public:
     Counter(const sf::Vector2f& size, 
             const sf::Vector2f& startPosition,
-            const ResourceManager& resourceManager);
+            const ResourceManager& resourceManager,
+            const std::string& fontName = "digital-7.ttf");
 
     void setValue(size_t newValue);
     void incrementValue();

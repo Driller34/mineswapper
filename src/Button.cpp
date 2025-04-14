@@ -6,10 +6,13 @@ Button::Button(const sf::Vector2f& size,
                const ResourceManager& resourceManager,
                const std::string& text,
                const sf::Vector2f& startPosition,
-               std::function<void()> onClick)
+               std::function<void()> onClick,
+               const std::string& fontName,
+               const size_t fontSize,
+               const sf::Color color)
     : _shape(size),
       _resourceManager(resourceManager),
-      _text(_resourceManager.getFont("digital-7.ttf"), text, 24),
+      _text(_resourceManager.getFont(fontName), text, fontSize),
       _onClick(std::move(onClick))
 {
     setSize(size);

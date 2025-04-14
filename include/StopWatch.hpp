@@ -11,7 +11,8 @@ public:
     StopWatch(const sf::Vector2f& size,
               const sf::Vector2f& startPosition,
               const ResourceManager& resourceManager,
-              sf::Time delay = sf::seconds(1.0f));
+              sf::Time delay = sf::seconds(1.0f),
+              const std::string& fontName = "digital-7.ttf");
 
     virtual void update() override;
     void reset();

@@ -5,8 +5,9 @@ namespace gui
 FlagCounter::FlagCounter(const sf::Vector2f& size,
                          const sf::Vector2f& startPosition,
                          const ResourceManager& resourceManager,
-                         GameCore& gameCore)
-    : Counter(size, startPosition, resourceManager),
+                         GameCore& gameCore,
+                         const std::string& fontName)
+    : Counter(size, startPosition, resourceManager, fontName),
     _gameCore(gameCore)
 {
 

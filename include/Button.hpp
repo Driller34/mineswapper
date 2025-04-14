@@ -13,7 +13,10 @@ public:
            const ResourceManager& resourceManager,
            const std::string& text,
            const sf::Vector2f& startPosition,
-           std::function<void()> onClick);
+           std::function<void()> onClick,
+           const std::string& fontName = "digital-7.ttf",
+           const size_t fontSize = 24,
+           const sf::Color color = sf::Color::Red);
 
     virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
 
