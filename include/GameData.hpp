@@ -10,7 +10,7 @@ struct GameData
 
     size_t counterFontSize = 24;
 
-    std::array<std::string, 9> cellNumberTexture = {
+    static constexpr std::array<std::string, 9> cellNumberTexture = {
         "emptyCell.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png", "8.png"
     };
@@ -26,4 +26,13 @@ struct GameData
     sf::Vector2f flagCounterPosition() const { return {10.0f, panelHeight() / 2.0f - 20.0f}; }
     sf::Vector2f resetPosition() const { return {panelWidth() / 2.0f - 50.0f, panelHeight() / 2.0f - 20.0f}; }
     sf::Vector2f stopWatchPosition() const { return {panelWidth() - 50.0f, panelHeight() / 2.0f - 20.0f}; }
+
+    void setData(const unsigned int r,
+                 const unsigned int c,
+                 const unsigned int m)
+    {
+        rows = r;
+        columns = c;
+        mines = m;
+    }
 };

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameData.hpp"
 #include "MainState.hpp"
+#include "MenuState.hpp"
 #include "ResourceManager.hpp"
 #include "GameStateManager.hpp"
 

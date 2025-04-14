@@ -91,13 +91,17 @@ add_library(MainState STATIC src/state/MainState.cpp)
 target_include_directories(MainState PUBLIC include/state)
 target_link_libraries(MainState PUBLIC GameData GameState ResourceManager GameCore Container Button StopWatch FlagCounter ${SFML_DEPENDENCIES})
 
+add_library(MenuState STATIC src/state/MenuState.cpp)
+target_include_directories(MenuState PUBLIC include/state)
+target_link_libraries(MenuState PUBLIC GameData MainState GameState ResourceManager Button GameStateManager ${SFML_DEPENDENCIES})
+
 add_library(GameStateManager STATIC src/state/GameStateManager.cpp)
 target_include_directories(GameStateManager PUBLIC include/state)
 target_link_libraries(GameStateManager PUBLIC GameState)
 
 add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)
-target_link_libraries(Game PUBLIC GameData MainState ResourceManager GameStateManager ${SFML_DEPENDENCIES})
+target_link_libraries(Game PUBLIC GameData MainState MenuState ResourceManager GameStateManager ${SFML_DEPENDENCIES})
 
 add_executable(main src/main.cpp)
 target_include_directories(main PRIVATE src)
