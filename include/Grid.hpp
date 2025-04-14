@@ -18,7 +18,7 @@ public:
 
     inline bool inBounds(const sf::Vector2i& position) const
     {
-        return position.x >= 0 && position.y >= 0 && position.x < _rows && position.y < _columns;
+        return position.x >= 0 && position.y >= 0 && position.x < _columns && position.y < _rows;
     }
 
     inline T& at(const sf::Vector2i& position)

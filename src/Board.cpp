@@ -75,7 +75,7 @@ void Board::setNumbers()
     {
         for(int j = 0; j < _gameSettings.columns; j++)
         {
-            if(_grid[{i, j}].isMine()){ addMines({i, j}); }
+            if(_grid[{j, i}].isMine()){ addMines({j, i}); }
         }
     }
 }
@@ -92,14 +92,6 @@ void Board::addMines(const sf::Vector2i& position)
 void Board::showCell(const sf::Vector2i& position)
 {
     _grid[position].setState(CellState::UNHIDE);
-}
-
-sf::Vector2i Board::getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const
-{
-    const int column = pixelPosition.x / conf::cellSize;
-    const int row = pixelPosition.y / conf::cellSize;
-
-    return { column, row };
 }
 
 bool Board::isAnyHiddenCell() const

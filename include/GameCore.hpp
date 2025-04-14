@@ -33,6 +33,7 @@ private:
     void addCell(const sf::Vector2i& position) const;
 
     sf::Vector2f getRealPosition(const sf::Vector2i& position) const;
+    sf::Vector2i getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const;
 
     const ResourceManager& _resourceManager;
     const GameSettings& _gameSettings;

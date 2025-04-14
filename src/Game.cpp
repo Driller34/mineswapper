@@ -2,7 +2,7 @@
 
 Game::Game()
  : _resourceManager("../resources"),
-   _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper", sf::Style::Titlebar),
+   _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper"),
    _windowService(_window),
    _gameStateManager()
 {

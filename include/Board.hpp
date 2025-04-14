@@ -21,7 +21,6 @@ public:
     void showCell(const sf::Vector2i& position);
     const Cell& getCell(const sf::Vector2i& position) const;
     bool isCellInGrid(const sf::Vector2i& position) const;
-    sf::Vector2i getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const;
 
     void initializeMines(const sf::Vector2i& banedPosition);
 

@@ -65,7 +65,7 @@ void MenuState::startGame(GameLevel level)
 {
     GameSettings gameSettings{10, 10, 10};
     if(level == GameLevel::MEDIUM){ gameSettings = {20, 20, 20}; }
-    else if(level == GameLevel::HARD){ gameSettings = {20, 30, 30}; }
+    else if(level == GameLevel::HARD){ gameSettings = {20, 30, 40}; }
     _windowService.setResolution({gameSettings.width(), gameSettings.height()});
     _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));    
 }

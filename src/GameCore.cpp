@@ -7,7 +7,7 @@ GameCore::GameCore(const GameSettings& gameSettings,
     _board(_gameSettings),
     _gameLogic(_gameSettings, _board)
 {
-    setSize(sf::Vector2f(_gameSettings.rows * conf::cellSize, _gameSettings.columns * conf::cellSize));
+    setSize(sf::Vector2f(_gameSettings.columns * conf::cellSize, _gameSettings.rows * conf::cellSize));
 
     _textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
     _textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
@@ -27,14 +27,14 @@ void GameCore::reset()
 void GameCore::onRightClick(const sf::Vector2i& mousePosition)
 {
     if(!isGameRunning() || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
+    const sf::Vector2i cellPosition = getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
     _gameLogic.toggleFlag(cellPosition);
 }
 
 void GameCore::onLeftClick(const sf::Vector2i& mousePosition)
 {
     if(!isGameRunning() || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = _board.getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
+    const sf::Vector2i cellPosition = getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
     _gameLogic.dig(cellPosition);
 }
 
@@ -62,6 +62,14 @@ sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
 {
     return { (static_cast<float>(position.x) * conf::cellSize),
               (static_cast<float>(position.y) * conf::cellSize) };
+}
+
+sf::Vector2i GameCore::getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const
+{
+    const int column = pixelPosition.x / conf::cellSize;
+    const int row = pixelPosition.y / conf::cellSize;
+
+    return { column, row };
 }
 
 void GameCore::addCell(const sf::Vector2i& position) const
@@ -106,7 +114,7 @@ void GameCore::draw(sf::RenderTarget& target,
     {
         for(int j = 0; j < _gameSettings.columns; j++)
         {
-            addCell({i, j});
+            addCell({j, i});
         }
     }
     for(const auto& pair : _textureBatches) 
