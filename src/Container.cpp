@@ -34,6 +34,14 @@ void Container::onLeftClick(const sf::Vector2i& mousePosition)
     }
 }
 
+void Container::onRightClick(const sf::Vector2i& mousePosition)
+{
+    for(auto& component : _clickables)
+    {
+        component->onLeftClick(mousePosition);
+    }
+}
+
 void Container::draw(sf::RenderTarget& target, 
                      sf::RenderStates states) const
 {

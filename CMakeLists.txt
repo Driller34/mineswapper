@@ -31,8 +31,10 @@ function(add_game_library name type)
 endfunction()
 
 add_game_library(GameData INTERFACE)
-add_game_library(GameState INTERFACE)
 add_game_library(Updatable INTERFACE)
+
+add_library(GameState INTERFACE)
+target_include_directories(GameState INTERFACE Updatable ${CMAKE_SOURCE_DIR}/include)
 
 add_library(Component INTERFACE)
 target_include_directories(Component INTERFACE ${CMAKE_SOURCE_DIR}/include)
@@ -81,17 +83,13 @@ add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)
 target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable GameLogic utils ${SFML_DEPENDENCIES})
 
-add_library(Panel STATIC src/Panel.cpp)
-target_include_directories(Panel PUBLIC include)
-target_link_libraries(Panel PUBLIC Button Component ResourceManager GameCore Counter StopWatch Clickable ${SFML_DEPENDENCIES})
-
 add_library(Container STATIC src/Container.cpp)
 target_include_directories(Container PUBLIC include)
 target_link_libraries(Container PUBLIC Component Clickable Updatable ${SFML_DEPENDENCIES})
 
 add_library(MainState STATIC src/state/MainState.cpp)
 target_include_directories(MainState PUBLIC include/state)
-target_link_libraries(MainState PUBLIC GameData GameState ResourceManager Panel GameCore Container Button StopWatch FlagCounter ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData GameState ResourceManager GameCore Container Button StopWatch FlagCounter ${SFML_DEPENDENCIES})
 
 add_library(GameStateManager STATIC src/state/GameStateManager.cpp)
 target_include_directories(GameStateManager PUBLIC include/state)

@@ -13,6 +13,7 @@ public:
     virtual void update() override;
 
     virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
+    virtual void onRightClick(const sf::Vector2i& mousePosition) override;
 
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;

@@ -31,5 +31,6 @@ private:
     const ResourceManager& _resourceManager;
     const GameData& _gameData;
     GameCore _gameCore;
-    Container _container;
+    Container _panel;
+    StopWatch* _stopWatch;
 };

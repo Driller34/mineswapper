@@ -6,28 +6,29 @@ MainState::MainState(const GameData& gameData,
     : _gameData(gameData),
     _resourceManager(resourceManager),
     _gameCore(_gameData, _resourceManager),
-    _container(sf::Vector2f(_gameData.panelWidth(), _gameData.panelHeight()))
+    _panel(sf::Vector2f(_gameData.panelWidth(), _gameData.panelHeight()))
     
 {
-    //_panel(sf::Vector2f(_gameData.panelWidth(), _gameData.panelHeight()), _resourceManager, _gameCore, _gameData, _gameData.panelPosition)
     _gameCore.setPosition(_gameData.startPosition());
-    _container.setPosition(_gameData.panelPosition);
+    _panel.setPosition(_gameData.panelPosition);
+    auto stopWatch = std::make_unique<StopWatch>(
+        sf::Vector2f(180.0f, 100.0f),
+        _gameData.stopWatchPosition(), 
+        _resourceManager
+    );
 
-    _container.push(std::make_unique<Button>(
+    _stopWatch = stopWatch.get(); 
+    _panel.push(std::move(stopWatch));   
+
+    _panel.push(std::make_unique<Button>(
         sf::Vector2f(100.0f, 60.0f),
         _resourceManager,
         "Restart",
         _gameData.resetPosition(),
-        [&]() { _gameCore.reset(); }
+        [&]() { _gameCore.reset(); _stopWatch->reset(); }
     ));
 
-    _container.push(std::make_unique<StopWatch>(
-        sf::Vector2f(180.0f, 100.0f),
-        _gameData.stopWatchPosition(), 
-        _resourceManager
-    ));
-
-    _container.push(std::make_unique<FlagCounter>(
+    _panel.push(std::make_unique<FlagCounter>(
         sf::Vector2f(180.0f, 100.0f),
         _gameData.flagCounterPosition(),
         _resourceManager,
@@ -42,12 +43,14 @@ void MainState::init()
 
 void MainState::update()
 {
-    _container.update();
+    _panel.update();
+    if(!_gameCore.isGameRunning()){ _stopWatch->stop(); }
+    else{ _stopWatch->start(); }
 }
 
 void MainState::draw(sf::RenderWindow& window)
 {
-    window.draw(_container);
+    window.draw(_panel);
     window.draw(_gameCore);
 }
 
@@ -75,5 +78,5 @@ void MainState::onRightClick(const sf::Vector2i& mousePosition)
 void MainState::onLeftClick(const sf::Vector2i& mousePosition)
 {
     _gameCore.onLeftClick(mousePosition);
-    _container.onLeftClick(mousePosition);
+    _panel.onLeftClick(mousePosition);
 }
