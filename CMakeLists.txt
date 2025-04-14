@@ -32,6 +32,7 @@ endfunction()
 
 add_game_library(GameData INTERFACE)
 add_game_library(Updatable INTERFACE)
+add_game_library(GameSettings INTERFACE)
 
 add_library(GameState INTERFACE)
 target_include_directories(GameState INTERFACE Updatable ${CMAKE_SOURCE_DIR}/include)
@@ -73,15 +74,15 @@ target_link_libraries(FlagCounter PUBLIC Counter Updatable GameCore)
 
 add_library(Board STATIC src/Board.cpp)
 target_include_directories(Board PUBLIC include)
-target_link_libraries(Board PUBLIC GameData Cell utils Grid ${SFML_DEPENDENCIES})
+target_link_libraries(Board PUBLIC GameData Cell utils Grid GameSettings ${SFML_DEPENDENCIES})
 
 add_library(GameLogic STATIC src/GameLogic.cpp)
 target_include_directories(GameLogic PUBLIC include)
-target_link_libraries(GameLogic PUBLIC GameData Cell Board utils ${SFML_DEPENDENCIES})
+target_link_libraries(GameLogic PUBLIC GameData Cell Board utils GameSettings ${SFML_DEPENDENCIES})
 
 add_library(GameCore STATIC src/GameCore.cpp)
 target_include_directories(GameCore PUBLIC include)
-target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable GameLogic utils ${SFML_DEPENDENCIES})
+target_link_libraries(GameCore PUBLIC GameData Cell ResourceManager Component Board Clickable GameLogic utils GameSettings ${SFML_DEPENDENCIES})
 
 add_library(Container STATIC src/Container.cpp)
 target_include_directories(Container PUBLIC include)
@@ -89,11 +90,11 @@ target_link_libraries(Container PUBLIC Component Clickable Updatable ${SFML_DEPE
 
 add_library(MainState STATIC src/state/MainState.cpp)
 target_include_directories(MainState PUBLIC include/state)
-target_link_libraries(MainState PUBLIC GameData GameState ResourceManager GameCore Container Button StopWatch FlagCounter ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameData GameState ResourceManager GameCore Container Button StopWatch FlagCounter GameSettings ${SFML_DEPENDENCIES})
 
 add_library(MenuState STATIC src/state/MenuState.cpp)
 target_include_directories(MenuState PUBLIC include/state)
-target_link_libraries(MenuState PUBLIC GameData MainState GameState ResourceManager Button GameStateManager ${SFML_DEPENDENCIES})
+target_link_libraries(MenuState PUBLIC GameData MainState GameState ResourceManager Button GameStateManager GameSettings ${SFML_DEPENDENCIES})
 
 add_library(GameStateManager STATIC src/state/GameStateManager.cpp)
 target_include_directories(GameStateManager PUBLIC include/state)

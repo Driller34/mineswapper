@@ -7,11 +7,13 @@
 #include "GameData.hpp"
 #include "utils.hpp"
 #include "Grid.hpp"
+#include "GameSettings.hpp"
+#include "utils.hpp"
 
 class Board
 {
 public:
-    Board(const GameData& gameData);
+    Board(const GameSettings& gameSettings);
 
     void reset();
     void setFlag(const sf::Vector2i& position);
@@ -32,6 +34,6 @@ private:
 
     void addMines(const sf::Vector2i& position);
 
-    const GameData& _gameData;
+    const GameSettings& _gameSettings;
     Grid<Cell> _grid;
 };

@@ -3,13 +3,10 @@
 Game::Game()
  : _gameData(), 
    _resourceManager("../resources"),
-   _window(sf::VideoMode({1000, 1000}), "Mineswapper"),
+   _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper"),
    _gameStateManager()
 {
-    //_window.setSize({_gameData.width(), _gameData.height()});
-    //_window.setView(sf::View(sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(_gameData.width(), _gameData.height()))));
     _gameStateManager.push(std::make_unique<MenuState>(_gameStateManager, _resourceManager, _gameData));
-    //_gameStateManager.push(std::make_unique<MainState>(_gameData, _resourceManager));
 }
 
 void Game::run()
@@ -26,6 +23,13 @@ void Game::run()
 void Game::update()
 {
     _gameStateManager.update();
+
+    const sf::Vector2u size = _window.getSize();
+   /*  if(size.x != _gameData.width() || size.y != _gameData.height())
+    {
+        _window.setSize({_gameData.width(), _gameData.height()});
+        _window.setView(sf::View(sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(_gameData.width(), _gameData.height()))));
+    } */
 }
 
 void Game::render()

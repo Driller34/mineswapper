@@ -8,6 +8,7 @@
 #include "ResourceManager.hpp"
 #include "Button.hpp"
 #include "GameData.hpp"
+#include "GameSettings.hpp"
 
 class MenuState : public GameState
 {

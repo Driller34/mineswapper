@@ -1,20 +1,20 @@
 #include "GameCore.hpp"
 
-GameCore::GameCore(const GameData& gameData,
+GameCore::GameCore(const GameSettings& gameSettings,
                    const ResourceManager& resourceManager)
-    : _gameData(gameData),
+    : _gameSettings(gameSettings),
     _resourceManager(resourceManager),
-    _board(_gameData),
-    _gameLogic(_gameData, _board)
+    _board(_gameSettings),
+    _gameLogic(_gameSettings, _board)
 {
-    setSize(sf::Vector2f(_gameData.rows * _gameData.cellSize, _gameData.columns * _gameData.cellSize));
+    setSize(sf::Vector2f(_gameSettings.rows * conf::cellSize, _gameSettings.columns * conf::cellSize));
 
     _textureBatches["hiddenCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
     _textureBatches["mineCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
     _textureBatches["flagCell.png"] = sf::VertexArray(sf::PrimitiveType::Triangles);
-    for(int i = 0; i < _gameData.cellNumberTexture.size(); i++)
+    for(int i = 0; i < conf::cellNumberTexture.size(); i++)
     {
-        _textureBatches[_gameData.cellNumberTexture[i]] = sf::VertexArray(sf::PrimitiveType::Triangles);
+        _textureBatches[conf::cellNumberTexture[i]] = sf::VertexArray(sf::PrimitiveType::Triangles);
     }
 }
 
@@ -60,8 +60,8 @@ size_t GameCore::countFlags() const
 
 sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
 {
-    return { (static_cast<float>(position.x) * _gameData.cellSize),
-              (static_cast<float>(position.y) * _gameData.cellSize) };
+    return { (static_cast<float>(position.x) * conf::cellSize),
+              (static_cast<float>(position.y) * conf::cellSize) };
 }
 
 void GameCore::addCell(const sf::Vector2i& position) const
@@ -69,10 +69,10 @@ void GameCore::addCell(const sf::Vector2i& position) const
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);
     if(cell.isMine() && isGameLost()){ texturePath = "mineCell.png"; }
-    else if(cell.getState() == CellState::UNHIDE){ texturePath = _gameData.cellNumberTexture[cell.getNumber()]; }
+    else if(cell.getState() == CellState::UNHIDE){ texturePath = conf::cellNumberTexture[cell.getNumber()]; }
     else if(cell.getState() == CellState::FLAG){ texturePath = "flagCell.png"; }
             
-    sf::Vector2f size = { static_cast<float>(_gameData.cellSize - 2), static_cast<float>(_gameData.cellSize - 2) };
+    sf::Vector2f size = { static_cast<float>(conf::cellSize - 2), static_cast<float>(conf::cellSize - 2) };
     sf::Vector2f realPosition = getRealPosition(position);
 
     sf::Vector2f topLeft = realPosition;
@@ -102,9 +102,9 @@ void GameCore::draw(sf::RenderTarget& target,
 {
     states.transform *= getTransform();
     for(auto& pair : _textureBatches){ pair.second.clear(); }
-    for(int i = 0; i < _gameData.rows; i++)
+    for(int i = 0; i < _gameSettings.rows; i++)
     {
-        for(int j = 0; j < _gameData.columns; j++)
+        for(int j = 0; j < _gameSettings.columns; j++)
         {
             addCell({i, j});
         }

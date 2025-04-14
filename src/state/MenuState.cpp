@@ -63,20 +63,20 @@ void MenuState::onRightClick(const sf::Vector2i& mousePosition)
 
 void MenuState::startGame1()
 {
-    _gameData.setData(10, 10, 10);
-    _gameStateManager.push(std::make_unique<MainState>(_gameData, _resourceManager));    
+    GameSettings gameSettings{10, 10, 10};
+    _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));    
 }
 
 void MenuState::startGame2()
 {
-    _gameData.setData(20, 20, 20);
-    _gameStateManager.push(std::make_unique<MainState>(_gameData, _resourceManager));      
+    GameSettings gameSettings{20, 20, 20};
+    _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));      
 }
 
 void MenuState::startGame3()
 {
-    _gameData.setData(40, 40, 40);
-    _gameStateManager.push(std::make_unique<MainState>(_gameData, _resourceManager));       
+    GameSettings gameSettings{40, 40, 40};
+    _gameStateManager.push(std::make_unique<MainState>(gameSettings, _resourceManager));       
 }
 
 

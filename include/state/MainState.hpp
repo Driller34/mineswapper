@@ -11,11 +11,13 @@
 #include "Button.hpp"
 #include "StopWatch.hpp"
 #include "FlagCounter.hpp"
+#include "GameSettings.hpp"
+#include "utils.hpp"
 
 class MainState : public GameState
 {
 public:
-    MainState(const GameData& gameData,
+    MainState(const GameSettings& gameSettings,
               const ResourceManager& resourceManager);
 
     virtual void init() override;
@@ -29,7 +31,7 @@ private:
     void onLeftClick(const sf::Vector2i& mousePosition);
 
     const ResourceManager& _resourceManager;
-    const GameData& _gameData;
+    const GameSettings _gameSettings;
     GameCore _gameCore;
     gui::Container _panel;
     gui::StopWatch* _stopWatch;

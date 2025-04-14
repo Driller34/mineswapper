@@ -8,11 +8,13 @@
 #include "Board.hpp"
 #include "Clickable.hpp"
 #include "GameLogic.hpp"
+#include "GameSettings.hpp"
+#include "utils.hpp"
 
 class GameCore : public Component, public Clickable
 {
 public:
-    GameCore(const GameData& gameData,
+    GameCore(const GameSettings& gameSettings,
              const ResourceManager& resourceManager);
 
     void reset();
@@ -34,7 +36,7 @@ private:
     sf::Vector2f getRealPosition(const sf::Vector2i& position) const;
 
     const ResourceManager& _resourceManager;
-    const GameData& _gameData;
+    const GameSettings& _gameSettings;
     Board _board;
     GameLogic _gameLogic;
     mutable sf::VertexArray _cells;

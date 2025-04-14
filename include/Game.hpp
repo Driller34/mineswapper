@@ -5,6 +5,7 @@
 #include "MenuState.hpp"
 #include "ResourceManager.hpp"
 #include "GameStateManager.hpp"
+#include "utils.hpp"
 
 class Game
 {

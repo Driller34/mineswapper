@@ -1,19 +1,19 @@
 #include "MainState.hpp"
 
 
-MainState::MainState(const GameData& gameData,
+MainState::MainState(const GameSettings& gameSettings,
                      const ResourceManager& resourceManager) 
-    : _gameData(gameData),
+    : _gameSettings(gameSettings),
     _resourceManager(resourceManager),
-    _gameCore(_gameData, _resourceManager),
-    _panel(sf::Vector2f(_gameData.panelWidth(), _gameData.panelHeight()))
+    _gameCore(_gameSettings, _resourceManager),
+    _panel(sf::Vector2f(_gameSettings.width(), conf::panelHeight()))
     
 {
-    _gameCore.setPosition(_gameData.startPosition());
-    _panel.setPosition(_gameData.panelPosition);
+    _gameCore.setPosition(conf::startPosition());
+    _panel.setPosition(conf::panelPosition());
     auto stopWatch = std::make_unique<gui::StopWatch>(
         sf::Vector2f(180.0f, 100.0f),
-        _gameData.stopWatchPosition(), 
+        conf::stopWatchPosition(), 
         _resourceManager
     );
 
@@ -24,13 +24,13 @@ MainState::MainState(const GameData& gameData,
         sf::Vector2f(100.0f, 60.0f),
         _resourceManager,
         "Restart",
-        _gameData.resetPosition(),
+        conf::resetPosition(),
         [&]() { _gameCore.reset(); _stopWatch->reset(); }
     ));
 
     _panel.push(std::make_unique<gui::FlagCounter>(
         sf::Vector2f(180.0f, 100.0f),
-        _gameData.flagCounterPosition(),
+        conf::flagCounterPosition(),
         _resourceManager,
         _gameCore
     ));

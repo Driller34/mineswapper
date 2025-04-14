@@ -1,8 +1,8 @@
 #include "Board.hpp"
 
-Board::Board(const GameData& gameData)
-     : _gameData(gameData),
-     _grid(_gameData.rows, _gameData.columns)
+Board::Board(const GameSettings& gameSettings)
+     : _gameSettings(gameSettings),
+     _grid(_gameSettings.rows, _gameSettings.columns)
 {
     reset();
 }
@@ -43,7 +43,7 @@ void Board::initializeMines(const sf::Vector2i& banedPosition)
 void Board::setMines(const size_t bannedIndex)
 {
     int index = 0;
-    int mines = _gameData.mines;
+    int mines = _gameSettings.mines;
     const int n = _grid.size();
     while(index < n && mines > 0)
     {
@@ -61,7 +61,7 @@ void Board::mixMines(const size_t bannedIndex)
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, _grid.size() - 1);
-    for(int i = 0; i < _gameData.mines; i++)
+    for(int i = 0; i < _gameSettings.mines; i++)
     {
         int random_number = dis(gen);
         if(random_number == bannedIndex || _grid[random_number].getState() == CellState::FLAG){ continue; }
@@ -71,9 +71,9 @@ void Board::mixMines(const size_t bannedIndex)
 
 void Board::setNumbers()
 {
-    for(int i = 0; i < _gameData.rows; i++)
+    for(int i = 0; i < _gameSettings.rows; i++)
     {
-        for(int j = 0; j < _gameData.columns; j++)
+        for(int j = 0; j < _gameSettings.columns; j++)
         {
             if(_grid[{i, j}].isMine()){ addMines({i, j}); }
         }
@@ -96,8 +96,8 @@ void Board::showCell(const sf::Vector2i& position)
 
 sf::Vector2i Board::getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const
 {
-    const int column = pixelPosition.x / _gameData.cellSize;
-    const int row = pixelPosition.y / _gameData.cellSize;
+    const int column = pixelPosition.x / conf::cellSize;
+    const int row = pixelPosition.y / conf::cellSize;
 
     return { column, row };
 }

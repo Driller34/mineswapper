@@ -4,13 +4,14 @@
 #include "Cell.hpp"
 #include "GameData.hpp"
 #include "Board.hpp"
+#include "GameSettings.hpp"
 
 enum class PlayState {RUN, LOST, WIN};
 
 class GameLogic
 {
 public:
-    GameLogic(const GameData& gameData,
+    GameLogic(const GameSettings& gameSettings,
               Board& board);
 
     void searchNearbyMines(const sf::Vector2i& position);
@@ -28,7 +29,7 @@ private:
     
     Board& _board;
     PlayState _playState;
-    const GameData& _gameData;
+    const GameSettings& _gameSettings;
 
     size_t _flags;
     bool _firstMove;

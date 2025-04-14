@@ -1,8 +1,8 @@
 #include "GameLogic.hpp"
 
-GameLogic::GameLogic(const GameData& gameData,
+GameLogic::GameLogic(const GameSettings& gameSettings,
                      Board& board)
-    : _gameData(gameData),
+    : _gameSettings(gameSettings),
     _board(board),
     _flags(0),
     _firstMove(false),
@@ -28,7 +28,7 @@ void GameLogic::toggleFlag(const sf::Vector2i& position)
         _board.unsetFlag(position); 
         _flags--;
     }
-    else if(cell.getState() == CellState::HIDE && _flags < _gameData.mines)
+    else if(cell.getState() == CellState::HIDE && _flags < _gameSettings.mines)
     { 
         _board.setFlag(position); 
         _flags++;
@@ -91,5 +91,5 @@ void GameLogic::setGameWin()
 
 size_t GameLogic::countFlags() const 
 { 
-    return _gameData.mines - _flags; 
+    return _gameSettings.mines - _flags; 
 }
