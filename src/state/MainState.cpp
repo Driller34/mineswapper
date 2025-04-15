@@ -1,9 +1,11 @@
 #include "MainState.hpp"
 
 
-MainState::MainState(const GameSettings& gameSettings,
+MainState::MainState(GameStateManager& gameStateManager,
+                     const GameSettings& gameSettings,
                      const ResourceManager& resourceManager) 
-    : _gameSettings(gameSettings),
+    : _gameStateManager(gameStateManager),
+    _gameSettings(gameSettings),
     _resourceManager(resourceManager),
     _gameCore(_gameSettings, _resourceManager),
     _panel(sf::Vector2f(_gameSettings.width(), conf::panelHeight()))
@@ -13,7 +15,7 @@ MainState::MainState(const GameSettings& gameSettings,
     _panel.setPosition(conf::panelPosition());
     auto stopWatch = std::make_unique<gui::StopWatch>(
         sf::Vector2f(180.0f, 100.0f),
-        conf::stopWatchPosition(), 
+        conf::stopWatchPosition(_gameSettings.columns), 
         _resourceManager
     );
 
@@ -21,16 +23,24 @@ MainState::MainState(const GameSettings& gameSettings,
     _panel.push(std::move(stopWatch));   
 
     _panel.push(std::make_unique<gui::Button>(
-        sf::Vector2f(100.0f, 60.0f),
+        sf::Vector2f(40.0f, 40.0f),
         _resourceManager,
-        "Restart",
-        conf::resetPosition(),
+        "RST",
+        conf::resetPosition(_gameSettings.width()),
         [&]() { _gameCore.reset(); _stopWatch->reset(); }
+    ));
+
+    _panel.push(std::make_unique<gui::Button>(
+        sf::Vector2f(40.0f, 40.0f),
+        _resourceManager,
+        "ESC",
+        conf::escapePosition(_gameSettings.width()),
+        [&]() { _gameStateManager.pop(); }
     ));
 
     _panel.push(std::make_unique<gui::FlagCounter>(
         sf::Vector2f(180.0f, 100.0f),
-        conf::flagCounterPosition(),
+        conf::flagCounterPosition(_gameSettings.width()),
         _resourceManager,
         _gameCore
     ));

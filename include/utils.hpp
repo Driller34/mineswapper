@@ -37,7 +37,12 @@ namespace conf
 
     inline sf::Vector2f resetPosition(size_t windowWidth = width)
     {
-        return {static_cast<float>(windowWidth) / 2.0f - 50.0f, static_cast<float>(panelHeight()) / 2.0f - 20.0f};
+        return {static_cast<float>(windowWidth) / 2.0f, static_cast<float>(panelHeight()) / 2.0f - 20.0f};
+    }
+
+    inline sf::Vector2f escapePosition(size_t windowWidth = width)
+    {
+        return {static_cast<float>(windowWidth) / 2.0f - 60.0f, static_cast<float>(panelHeight()) / 2.0f - 20.0f};
     }
 
     inline sf::Vector2f startPosition()

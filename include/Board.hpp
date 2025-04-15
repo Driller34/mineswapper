@@ -7,7 +7,6 @@
 #include "utils.hpp"
 #include "Grid.hpp"
 #include "GameSettings.hpp"
-#include "utils.hpp"
 
 class Board
 {
