@@ -5,6 +5,8 @@
 #include "Board.hpp"
 #include "GameSettings.hpp"
 
+namespace mineswapper
+{
 enum class PlayState {RUN, LOST, WIN};
 
 class GameLogic
@@ -33,3 +35,4 @@ private:
     size_t _flags;
     bool _firstMove;
 };
+}

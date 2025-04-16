@@ -10,6 +10,8 @@
 #include "GameSettings.hpp"
 #include "utils.hpp"
 
+namespace mineswapper
+{
 class GameCore : public Component, public Clickable
 {
 public:
@@ -42,3 +44,4 @@ private:
     mutable sf::VertexArray _cells;
     mutable std::unordered_map<std::string, sf::VertexArray> _textureBatches;
 };
+}

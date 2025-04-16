@@ -1,5 +1,7 @@
 #include "Cell.hpp"
 
+namespace mineswapper
+{
 Cell::Cell()
     : _mine(false),
     _number(0),
@@ -49,4 +51,4 @@ void Cell::addMine()
 {
     _number++;
 }
-
+}

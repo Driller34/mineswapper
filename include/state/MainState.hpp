@@ -38,7 +38,7 @@ private:
     const ResourceManager& _resourceManager;
     WindowService& _windowService;
 
-    GameCore _gameCore;
+    mineswapper::GameCore _gameCore;
     gui::Container _panel;
     gui::StopWatch* _stopWatch;
 };

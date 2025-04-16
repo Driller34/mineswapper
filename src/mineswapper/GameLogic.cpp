@@ -1,5 +1,7 @@
 #include "GameLogic.hpp"
 
+namespace mineswapper
+{
 GameLogic::GameLogic(const GameSettings& gameSettings,
                      Board& board)
     : _gameSettings(gameSettings),
@@ -92,4 +94,5 @@ void GameLogic::setGameWin()
 size_t GameLogic::countFlags() const 
 { 
     return _gameSettings.mines - _flags; 
+}
 }

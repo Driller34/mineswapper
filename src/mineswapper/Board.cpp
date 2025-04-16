@@ -1,5 +1,7 @@
 #include "Board.hpp"
 
+namespace mineswapper
+{
 Board::Board(const GameSettings& gameSettings)
      : _gameSettings(gameSettings),
      _grid(_gameSettings.rows, _gameSettings.columns)
@@ -101,4 +103,5 @@ bool Board::isAnyHiddenCell() const
         if(cell.getState() == CellState::HIDE){ return true; }
     }
     return false;
+}
 }

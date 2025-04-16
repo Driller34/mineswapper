@@ -8,6 +8,8 @@
 #include "Grid.hpp"
 #include "GameSettings.hpp"
 
+namespace mineswapper
+{
 class Board
 {
 public:
@@ -34,3 +36,4 @@ private:
     const GameSettings& _gameSettings;
     Grid<Cell> _grid;
 };
+}

@@ -12,13 +12,13 @@ public:
     FlagCounter(const sf::Vector2f& size,
                 const sf::Vector2f& startPosition,
                 const ResourceManager& resourceManager,
-                GameCore& gameCore,
+                mineswapper::GameCore& gameCore,
                 const std::string& fontName = "digital-7.ttf");
 
     virtual void update() override;
 
 private:
 
-    GameCore& _gameCore;
+    mineswapper::GameCore& _gameCore;
 };
 }

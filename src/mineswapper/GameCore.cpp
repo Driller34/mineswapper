@@ -1,5 +1,7 @@
 #include "GameCore.hpp"
 
+namespace mineswapper
+{
 GameCore::GameCore(const GameSettings& gameSettings,
                    const ResourceManager& resourceManager)
     : _gameSettings(gameSettings),
@@ -127,4 +129,5 @@ void GameCore::draw(sf::RenderTarget& target,
         batchStates.texture = &_resourceManager.getTexture(texturePath);
         target.draw(batch, batchStates);
     }
+}
 }

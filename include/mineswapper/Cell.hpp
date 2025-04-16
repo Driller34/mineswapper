@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+namespace mineswapper
+{
 enum class CellState {HIDE, UNHIDE, FLAG};
 
 class Cell
@@ -20,3 +22,4 @@ private:
     unsigned int _number;
     CellState _state;
 };
+}
