@@ -28,19 +28,19 @@ void Container::update()
     }
 }
 
-void Container::onLeftClick(const sf::Vector2i& mousePosition)
+void Container::onLeftClick(const sf::Vector2f& cursorPosition)
 {
     for(auto& component : _clickables)
     {
-        component->onLeftClick(mousePosition);
+        component->onLeftClick(cursorPosition);
     }
 }
 
-void Container::onRightClick(const sf::Vector2i& mousePosition)
+void Container::onRightClick(const sf::Vector2f& cursorPosition)
 {
     for(auto& component : _clickables)
     {
-        component->onLeftClick(mousePosition);
+        component->onLeftClick(cursorPosition);
     }
 }
 

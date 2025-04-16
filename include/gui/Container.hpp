@@ -14,8 +14,8 @@ public:
     void push(std::unique_ptr<Component> component);
     virtual void update() override;
 
-    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
-    virtual void onRightClick(const sf::Vector2i& mousePosition) override;
+    virtual void onLeftClick(const sf::Vector2f& cursorPosition) override;
+    virtual void onRightClick(const sf::Vector2f& cursorPosition) override;
 
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;

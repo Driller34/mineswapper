@@ -18,8 +18,8 @@ public:
 
     void reset();
 
-    virtual void onRightClick(const sf::Vector2i& mousePosition) override;
-    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
+    virtual void onRightClick(const sf::Vector2f& cursorPosition) override;
+    virtual void onLeftClick(const sf::Vector2f& cursorPosition) override;
 
     bool isGameLost() const;
     bool isGameWin() const;
@@ -33,7 +33,7 @@ private:
     void addCell(const sf::Vector2i& position) const;
 
     sf::Vector2f getRealPosition(const sf::Vector2i& position) const;
-    sf::Vector2i getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const;
+    sf::Vector2i getGridCoordsFromPosition(const sf::Vector2f& cursorPosition) const;
 
     const ResourceManager& _resourceManager;
     const GameSettings& _gameSettings;

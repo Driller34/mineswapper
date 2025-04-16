@@ -27,8 +27,8 @@ public:
 private:
     void startGame(GameLevel level);
 
-    void onLeftClick(const sf::Vector2i& mousePosition);
-    void onRightClick(const sf::Vector2i& mousePosition);
+    void onLeftClick(const sf::Vector2f& cursorPosition);
+    void onRightClick(const sf::Vector2f& cursorPosition);
 
     void exitGame();
 

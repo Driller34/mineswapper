@@ -24,17 +24,17 @@ void GameCore::reset()
     _gameLogic.reset();
 }
 
-void GameCore::onRightClick(const sf::Vector2i& mousePosition)
+void GameCore::onRightClick(const sf::Vector2f& cursorPosition)
 {
-    if(!isGameRunning() || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
+    if(!isGameRunning() || !isClicked(cursorPosition)){ return; }
+    const sf::Vector2i cellPosition = getGridCoordsFromPosition(cursorPosition - getPosition());
     _gameLogic.toggleFlag(cellPosition);
 }
 
-void GameCore::onLeftClick(const sf::Vector2i& mousePosition)
+void GameCore::onLeftClick(const sf::Vector2f& cursorPosition)
 {
-    if(!isGameRunning() || !isClicked(mousePosition)){ return; }
-    const sf::Vector2i cellPosition = getGridCoordsFromPosition(mousePosition - sf::Vector2i(getPosition()));
+    if(!isGameRunning() || !isClicked(cursorPosition)){ return; }
+    const sf::Vector2i cellPosition = getGridCoordsFromPosition(cursorPosition - getPosition());
     _gameLogic.dig(cellPosition);
 }
 
@@ -64,10 +64,10 @@ sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
               (static_cast<float>(position.y) * conf::cellSize) };
 }
 
-sf::Vector2i GameCore::getGridCoordsFromPosition(const sf::Vector2i& pixelPosition) const
+sf::Vector2i GameCore::getGridCoordsFromPosition(const sf::Vector2f& cursorPosition) const
 {
-    const int column = pixelPosition.x / conf::cellSize;
-    const int row = pixelPosition.y / conf::cellSize;
+    const int column = cursorPosition.x / conf::cellSize;
+    const int row = cursorPosition.y / conf::cellSize;
 
     return { column, row };
 }

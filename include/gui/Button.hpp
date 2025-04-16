@@ -18,7 +18,7 @@ public:
            const size_t fontSize = 24,
            const sf::Color color = sf::Color::Red);
 
-    virtual void onLeftClick(const sf::Vector2i& mousePosition) override;
+    virtual void onLeftClick(const sf::Vector2f& cursorPosition) override;
 
 private:
     virtual void draw(sf::RenderTarget& target, 

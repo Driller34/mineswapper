@@ -28,8 +28,8 @@ public:
     virtual void inputHandler(const sf::Event& event, 
                               sf::RenderWindow& window) override;
 private:
-    void onRightClick(const sf::Vector2i& mousePosition);
-    void onLeftClick(const sf::Vector2i& mousePosition);
+    void onRightClick(const sf::Vector2f& cursorPosition);
+    void onLeftClick(const sf::Vector2f& cursorPosition);
 
     GameStateManager& _gameStateManager;
     const GameSettings _gameSettings;

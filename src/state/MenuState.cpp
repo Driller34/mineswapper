@@ -36,28 +36,32 @@ void MenuState::inputHandler(const sf::Event& event,
     {
         if(mouseEvent->button == sf::Mouse::Button::Right)
         {
-            onRightClick(sf::Mouse::getPosition(window));
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
+            onRightClick(worldPosition);
         }
         if(mouseEvent->button == sf::Mouse::Button::Left)
         {
-            onLeftClick(sf::Mouse::getPosition(window));
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
+            onLeftClick(worldPosition);
         }
     }
 }
 
-void MenuState::onLeftClick(const sf::Vector2i& mousePosition)
+void MenuState::onLeftClick(const sf::Vector2f& cursorPosition)
 {
     for(auto& option : options)
     {
-        option.onLeftClick(mousePosition);
+        option.onLeftClick(cursorPosition);
     }
 }
 
-void MenuState::onRightClick(const sf::Vector2i& mousePosition)
+void MenuState::onRightClick(const sf::Vector2f& cursorPosition)
 {
     for(auto& option : options)
     {
-        option.onRightClick(mousePosition);
+        option.onRightClick(cursorPosition);
     }
 }
 

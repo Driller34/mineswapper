@@ -71,22 +71,26 @@ void MainState::inputHandler(const sf::Event& event,
     {
         if(mouseEvent->button == sf::Mouse::Button::Right)
         {
-            onRightClick(sf::Mouse::getPosition(window));
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
+            onRightClick(worldPosition);
         }
         if(mouseEvent->button == sf::Mouse::Button::Left)
         {
-            onLeftClick(sf::Mouse::getPosition(window));
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
+            onLeftClick(worldPosition);
         }
     }
 }
 
-void MainState::onRightClick(const sf::Vector2i& mousePosition)
+void MainState::onRightClick(const sf::Vector2f& cursorPosition)
 {
-    _gameCore.onRightClick(mousePosition); 
+    _gameCore.onRightClick(cursorPosition); 
 }
 
-void MainState::onLeftClick(const sf::Vector2i& mousePosition)
+void MainState::onLeftClick(const sf::Vector2f& cursorPosition)
 {
-    _gameCore.onLeftClick(mousePosition);
-    _panel.onLeftClick(mousePosition);
+    _gameCore.onLeftClick(cursorPosition);
+    _panel.onLeftClick(cursorPosition);
 }
