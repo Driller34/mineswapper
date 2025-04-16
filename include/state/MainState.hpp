@@ -29,6 +29,7 @@ public:
     virtual void activateState() override;
     virtual void inputHandler(const sf::Event& event, 
                               sf::RenderWindow& window) override;
+                              
 private:
     void onRightClick(const sf::Vector2f& cursorPosition);
     void onLeftClick(const sf::Vector2f& cursorPosition);

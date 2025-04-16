@@ -21,6 +21,7 @@ public:
     {
         return getLocalBounds().contains(sf::Vector2f(cursorPosition));
     }
+    
 private:
     sf::Vector2f _size = {0.0f, 0.0f};
 };

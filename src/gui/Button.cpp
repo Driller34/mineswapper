@@ -17,7 +17,7 @@ Button::Button(const sf::Vector2f& size,
 {
     setSize(size);
     setPosition(startPosition);
-    _shape.setFillColor(sf::Color::Red);
+    _shape.setFillColor(color);
 }
 
 void Button::onLeftClick(const sf::Vector2f& cursorPosition)
