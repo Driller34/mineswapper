@@ -21,7 +21,6 @@ void GameStateManager::change(std::unique_ptr<GameState> state)
         states.pop();
     }
     states.push(std::move(state));
-    states.top()->activateState();
 }
 
 bool GameStateManager::empty() const

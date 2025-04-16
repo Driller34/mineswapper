@@ -17,6 +17,8 @@ namespace conf
     constexpr size_t cellSize{30};
     constexpr size_t counterFontSize{24};
 
+    constexpr unsigned int FRAMERATELIMIT = 60;
+
     constexpr std::array<std::string, 9> cellNumberTexture = {
         "emptyCell.png", "1.png", "2.png", "3.png", "4.png",
         "5.png", "6.png", "7.png", "8.png"

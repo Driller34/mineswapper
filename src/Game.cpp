@@ -7,6 +7,7 @@ Game::Game()
    _gameStateManager()
 {
     _gameStateManager.push(std::make_unique<MenuState>(_gameStateManager, _resourceManager, _windowService));
+    _window.setFramerateLimit(conf::FRAMERATELIMIT);
 }
 
 void Game::run()
