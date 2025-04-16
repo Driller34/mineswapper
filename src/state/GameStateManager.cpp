@@ -1,4 +1,4 @@
-#include "state/GameStateManager.hpp"
+#include "GameStateManager.hpp"
 
 GameStateManager::GameStateManager(){}
 
