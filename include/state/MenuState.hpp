@@ -21,6 +21,7 @@ public:
     virtual void init() override;
     virtual void update() override;
     virtual void draw(sf::RenderWindow& window) override;
+    virtual void activateState() override;
     virtual void inputHandler(const sf::Event& event, 
                               sf::RenderWindow& window) override;
 
@@ -34,7 +35,6 @@ private:
 
     GameStateManager& _gameStateManager;
     const ResourceManager& _resourceManager;
-
     WindowService& _windowService;
 
     std::vector<gui::Button> options;

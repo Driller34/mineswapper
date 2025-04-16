@@ -3,13 +3,20 @@
 
 MainState::MainState(GameStateManager& gameStateManager,
                      const GameSettings& gameSettings,
-                     const ResourceManager& resourceManager) 
+                     const ResourceManager& resourceManager,
+                     WindowService& windowService) 
     : _gameStateManager(gameStateManager),
     _gameSettings(gameSettings),
     _resourceManager(resourceManager),
+    _windowService(windowService),
     _gameCore(_gameSettings, _resourceManager),
     _panel(sf::Vector2f(_gameSettings.width(), conf::panelHeight()))
     
+{
+    init();
+}
+
+void MainState::init()
 {
     _gameCore.setPosition(conf::startPosition());
     _panel.setPosition(conf::panelPosition());
@@ -46,9 +53,9 @@ MainState::MainState(GameStateManager& gameStateManager,
     ));
 }
 
-void MainState::init()
+void MainState::activateState()
 {
-    
+    _windowService.setResolution({_gameSettings.width(), _gameSettings.height()});
 }
 
 void MainState::update()

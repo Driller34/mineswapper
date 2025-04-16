@@ -5,11 +5,13 @@ GameStateManager::GameStateManager(){}
 void GameStateManager::push(std::unique_ptr<GameState> state)
 {
     states.push(std::move(state));
+    states.top()->activateState();
 }
 
 void GameStateManager::pop()
 {
     if(!states.empty()){ states.pop(); }
+    if(!states.empty()){ states.top()->activateState(); }
 }
 
 void GameStateManager::change(std::unique_ptr<GameState> state)
@@ -19,6 +21,7 @@ void GameStateManager::change(std::unique_ptr<GameState> state)
         states.pop();
     }
     states.push(std::move(state));
+    states.top()->activateState();
 }
 
 bool GameStateManager::empty() const

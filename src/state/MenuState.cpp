@@ -18,6 +18,10 @@ void MenuState::init()
     options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Exit",  sf::Vector2f(90.0f, 280.0f), [this](){ exitGame(); });
 }
 
+void MenuState::activateState()
+{
+    _windowService.setResolution({conf::width, conf::height});
+}
 
 void MenuState::update(){}
 
@@ -70,8 +74,7 @@ void MenuState::startGame(GameLevel level)
     GameSettings gameSettings{10, 10, 10};
     if(level == GameLevel::MEDIUM){ gameSettings = {20, 20, 20}; }
     else if(level == GameLevel::HARD){ gameSettings = {20, 30, 40}; }
-    _windowService.setResolution({gameSettings.width(), gameSettings.height()});
-    _gameStateManager.push(std::make_unique<MainState>(_gameStateManager, gameSettings, _resourceManager));    
+    _gameStateManager.push(std::make_unique<MainState>(_gameStateManager, gameSettings, _resourceManager, _windowService));    
 }
 
 void MenuState::exitGame()

@@ -88,7 +88,7 @@ target_link_libraries(Container PUBLIC Component Clickable Updatable ${SFML_DEPE
 
 add_library(MainState STATIC src/state/MainState.cpp)
 target_include_directories(MainState PUBLIC include/state)
-target_link_libraries(MainState PUBLIC GameState ResourceManager GameCore Container Button StopWatch FlagCounter GameSettings ${SFML_DEPENDENCIES})
+target_link_libraries(MainState PUBLIC GameState ResourceManager GameCore Container Button StopWatch FlagCounter GameSettings WindowService ${SFML_DEPENDENCIES})
 
 add_library(MenuState STATIC src/state/MenuState.cpp)
 target_include_directories(MenuState PUBLIC include/state)
