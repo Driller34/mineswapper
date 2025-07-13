@@ -45,7 +45,7 @@ Contributions, bug reports, and suggestions are welcome! Please open an issue or
 
 ## License
 
-This project is open source. Please add a license file of your choice (e.g., MIT, GPL).
+MIT
 
 ---
 
