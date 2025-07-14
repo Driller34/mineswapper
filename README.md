@@ -43,6 +43,13 @@ MineSwapper is a modern C++ implementation of the classic Minesweeper game, feat
 
 Contributions, bug reports, and suggestions are welcome! Please open an issue or submit a pull request.
 
+## Fonts
+
+The project uses the Digital-7 font by Style-7.
+- License: Freeware for home and educational use only.
+- Author: Sizenko Alexander (http://www.styleseven.com)
+- Not for commercial use without a license.
+
 ## License
 
 MIT
