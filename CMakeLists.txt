@@ -102,8 +102,8 @@ add_library(Game STATIC src/Game.cpp)
 target_include_directories(Game PUBLIC include)
 target_link_libraries(Game PUBLIC MainState MenuState ResourceManager GameStateManager WindowService ${SFML_DEPENDENCIES})
 
-add_executable(main src/main.cpp)
-target_include_directories(main PRIVATE src)
-target_link_libraries(main PRIVATE Game)
+add_executable(mineswapper src/main.cpp)
+target_include_directories(mineswapper PRIVATE src)
+target_link_libraries(mineswapper PRIVATE Game)
 
-install(TARGETS main DESTINATION bin)
+install(TARGETS mineswapper DESTINATION bin)
