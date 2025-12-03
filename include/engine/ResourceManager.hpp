@@ -39,7 +39,7 @@ private:
             if(!condition)
             {
                 throw std::runtime_error(std::format("Failed to load {}", 
-                    _resources / subfolder / fileName));
+                    (_resources / subfolder / fileName).string()));
             }
         }
 
@@ -47,6 +47,7 @@ private:
     }
 
     const std::filesystem::path _resources;
+    
     mutable std::unordered_map<std::filesystem::path, sf::Font> _fonts;
     mutable std::unordered_map<std::filesystem::path, sf::SoundBuffer> _sounds;
     mutable std::unordered_map<std::filesystem::path, sf::Texture> _textures;

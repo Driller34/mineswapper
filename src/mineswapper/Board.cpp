@@ -76,9 +76,9 @@ void Board::mixMines(const size_t bannedIndex)
 
 void Board::setNumbers()
 {
-    for(unsigned int i = 0; i < _gameSettings.rows; i++)
+    for(int i = 0; i < _gameSettings.rows; i++)
     {
-        for(unsigned int j = 0; j < _gameSettings.columns; j++)
+        for(int j = 0; j < _gameSettings.columns; j++)
         {
             if(_grid[{j, i}].isMine()){ addMines({j, i}); }
         }
