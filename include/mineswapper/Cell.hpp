@@ -17,6 +17,7 @@ public:
     void setMine();
     bool isMine() const;
     void reset();
+    
 private:
     bool _mine;
     unsigned int _number;

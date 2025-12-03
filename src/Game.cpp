@@ -6,7 +6,10 @@ Game::Game()
    _windowService(_window),
    _gameStateManager()
 {
-    _gameStateManager.push(std::make_unique<MenuState>(_gameStateManager, _resourceManager, _windowService));
+    _gameStateManager.push(std::make_unique<MenuState>(_gameStateManager, 
+        _resourceManager, 
+        _windowService));
+
     _window.setFramerateLimit(conf::FRAMERATELIMIT);
 }
 
@@ -38,6 +41,7 @@ void Game::processEvent()
     while(const std::optional<sf::Event> event = _window.pollEvent())
     {
         if(event->is<sf::Event::Closed>()){ _window.close(); }
+        
         _gameStateManager.inputHandler(*event, _window);
     }
 }

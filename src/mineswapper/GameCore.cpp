@@ -29,6 +29,7 @@ void GameCore::reset()
 void GameCore::onRightClick(const sf::Vector2f& cursorPosition)
 {
     if(!isGameRunning() || !isClicked(cursorPosition)){ return; }
+    
     const sf::Vector2i cellPosition = getGridCoordsFromPosition(cursorPosition - getPosition());
     _gameLogic.toggleFlag(cellPosition);
 }
@@ -36,6 +37,7 @@ void GameCore::onRightClick(const sf::Vector2f& cursorPosition)
 void GameCore::onLeftClick(const sf::Vector2f& cursorPosition)
 {
     if(!isGameRunning() || !isClicked(cursorPosition)){ return; }
+
     const sf::Vector2i cellPosition = getGridCoordsFromPosition(cursorPosition - getPosition());
     _gameLogic.dig(cellPosition);
 }
@@ -62,8 +64,8 @@ size_t GameCore::countFlags() const
 
 sf::Vector2f GameCore::getRealPosition(const sf::Vector2i& position) const
 {
-    return { (static_cast<float>(position.x) * conf::cellSize),
-              (static_cast<float>(position.y) * conf::cellSize) };
+    return {(static_cast<float>(position.x) * conf::cellSize),
+            (static_cast<float>(position.y) * conf::cellSize)};
 }
 
 sf::Vector2i GameCore::getGridCoordsFromPosition(const sf::Vector2f& cursorPosition) const
@@ -71,13 +73,14 @@ sf::Vector2i GameCore::getGridCoordsFromPosition(const sf::Vector2f& cursorPosit
     const int column = cursorPosition.x / conf::cellSize;
     const int row = cursorPosition.y / conf::cellSize;
 
-    return { column, row };
+    return {column, row};
 }
 
 void GameCore::addCell(const sf::Vector2i& position) const
 {
     std::string texturePath = "hiddenCell.png";
     const Cell& cell = _board.getCell(position);
+
     if(cell.isMine() && isGameLost()){ texturePath = "mineCell.png"; }
     else if(cell.getState() == CellState::UNHIDE){ texturePath = conf::cellNumberTexture[cell.getNumber()]; }
     else if(cell.getState() == CellState::FLAG){ texturePath = "flagCell.png"; }
@@ -98,6 +101,7 @@ void GameCore::addCell(const sf::Vector2i& position) const
     sf::Vector2f texBottomRight = sf::Vector2f(texSize.x, texSize.y);
             
     auto& batch = _textureBatches[texturePath];
+
     batch.append(sf::Vertex(topLeft, sf::Color::White, texTopLeft));
     batch.append(sf::Vertex(bottomLeft, sf::Color::White, texBottomLeft));
     batch.append(sf::Vertex(bottomRight, sf::Color::White, texBottomRight));
@@ -111,13 +115,16 @@ void GameCore::draw(sf::RenderTarget& target,
                     sf::RenderStates states) const
 {
     states.transform *= getTransform();
+
     for(auto& pair : _textureBatches){ pair.second.clear(); }
+    
     for(int i = 0; i < _gameSettings.rows; i++)
     {
         for(int j = 0; j < _gameSettings.columns; j++)
         {
             addCell({j, i});
         }
+    
     }
     for(const auto& pair : _textureBatches) 
     {
@@ -125,6 +132,7 @@ void GameCore::draw(sf::RenderTarget& target,
         const sf::VertexArray& batch = pair.second;
         
         if(batch.getVertexCount() <= 0){ continue; }
+        
         sf::RenderStates batchStates = states;
         batchStates.texture = &_resourceManager.getTexture(texturePath);
         target.draw(batch, batchStates);

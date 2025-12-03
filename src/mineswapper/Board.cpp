@@ -37,6 +37,7 @@ const Cell& Board::getCell(const sf::Vector2i& position) const
 void Board::initializeMines(const sf::Vector2i& banedPosition)
 {
     const size_t index = _grid.index(banedPosition);
+    
     setMines(index);
     mixMines(index);
     setNumbers();
@@ -47,6 +48,7 @@ void Board::setMines(const size_t bannedIndex)
     int index = 0;
     int mines = _gameSettings.mines;
     const int n = _grid.size();
+
     while(index < n && mines > 0)
     {
         if(index != bannedIndex)
@@ -63,6 +65,7 @@ void Board::mixMines(const size_t bannedIndex)
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, _grid.size() - 1);
+
     for(int i = 0; i < _gameSettings.mines; i++)
     {
         int random_number = dis(gen);
@@ -73,9 +76,9 @@ void Board::mixMines(const size_t bannedIndex)
 
 void Board::setNumbers()
 {
-    for(int i = 0; i < _gameSettings.rows; i++)
+    for(unsigned int i = 0; i < _gameSettings.rows; i++)
     {
-        for(int j = 0; j < _gameSettings.columns; j++)
+        for(unsigned int j = 0; j < _gameSettings.columns; j++)
         {
             if(_grid[{j, i}].isMine()){ addMines({j, i}); }
         }
@@ -87,6 +90,7 @@ void Board::addMines(const sf::Vector2i& position)
     for(const auto& direction : gridUtils::directions)
     {
         sf::Vector2i newPosition = position + direction;
+        
         if(isCellInGrid(newPosition)){ _grid[newPosition].addMine(); }
     }
 }

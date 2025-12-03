@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <filesystem>
+#include <format>
 
 class ResourceManager
 {
@@ -37,7 +38,8 @@ private:
 
             if(!condition)
             {
-                throw std::runtime_error("Failed to load ");
+                throw std::runtime_error(std::format("Failed to load {}", 
+                    _resources / subfolder / fileName));
             }
         }
 

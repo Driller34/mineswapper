@@ -14,7 +14,6 @@ StopWatch::StopWatch(const sf::Vector2f& size,
 {
 }
 
-
 void StopWatch::reset()
 {
     setValue(0);

@@ -7,6 +7,7 @@ class Grid
 {
     using iterator = typename std::vector<T>::iterator;
     using const_iterator = typename std::vector<T>::const_iterator;
+
 public:
     Grid(const size_t rows,
          const size_t columns)
@@ -33,7 +34,10 @@ public:
 
     inline T& operator[](const sf::Vector2i& position){ return _data[index(position)]; }
 
-    inline const T& operator[](const sf::Vector2i& position) const { return _data[index(position)]; }
+    inline const T& operator[](const sf::Vector2i& position) const 
+    { 
+        return _data[index(position)]; 
+    }
 
     inline T& operator[](const size_t index){ return _data[index]; }
 

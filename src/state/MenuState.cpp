@@ -12,10 +12,37 @@ MenuState::MenuState(GameStateManager& gameStateManager,
 
 void MenuState::init()
 {
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Easy", sf::Vector2f(90.0f, 70.0f), [this](){ startGame(GameLevel::EASY); });
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Medium", sf::Vector2f(90.0f, 140.0f), [this](){ startGame(GameLevel::MEDIUM); });
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Hard", sf::Vector2f(90.0f, 210.0f), [this](){ startGame(GameLevel::HARD); });
-    options.emplace_back(sf::Vector2f(100.0f, 60.0f), _resourceManager, "Exit",  sf::Vector2f(90.0f, 280.0f), [this](){ exitGame(); });
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), 
+        _resourceManager, 
+        "Easy", 
+        sf::Vector2f(90.0f, 70.0f), 
+        [this](){ 
+            startGame(GameLevel::EASY); 
+    });
+    
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), 
+        _resourceManager, 
+        "Medium", 
+        sf::Vector2f(90.0f, 140.0f), 
+        [this](){ 
+            startGame(GameLevel::MEDIUM); 
+    });
+    
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), 
+        _resourceManager, 
+        "Hard", 
+        sf::Vector2f(90.0f, 210.0f), 
+        [this](){ 
+            startGame(GameLevel::HARD); 
+    });
+    
+    options.emplace_back(sf::Vector2f(100.0f, 60.0f), 
+        _resourceManager, 
+        "Exit",  
+        sf::Vector2f(90.0f, 280.0f), 
+        [this](){ 
+            exitGame(); 
+    });
 }
 
 void MenuState::activateState()
@@ -40,15 +67,12 @@ void MenuState::inputHandler(const sf::Event& event,
     {
         if(mouseEvent->button == sf::Mouse::Button::Right)
         {
-            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
-            onRightClick(worldPosition);
+            onRightClick(windowUtils::getWorldMousePosition(window));
         }
+        
         if(mouseEvent->button == sf::Mouse::Button::Left)
         {
-            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
-            onLeftClick(worldPosition);
+            onLeftClick(windowUtils::getWorldMousePosition(window));
         }
     }
 }
@@ -72,9 +96,14 @@ void MenuState::onRightClick(const sf::Vector2f& cursorPosition)
 void MenuState::startGame(GameLevel level)
 {
     GameSettings gameSettings{10, 10, 10};
+
     if(level == GameLevel::MEDIUM){ gameSettings = {20, 20, 20}; }
     else if(level == GameLevel::HARD){ gameSettings = {20, 30, 40}; }
-    _gameStateManager.push(std::make_unique<MainState>(_gameStateManager, gameSettings, _resourceManager, _windowService));    
+
+    _gameStateManager.push(std::make_unique<MainState>(_gameStateManager, 
+        gameSettings, 
+        _resourceManager, 
+        _windowService));    
 }
 
 void MenuState::exitGame()

@@ -25,6 +25,7 @@ PlayState GameLogic::getPlayState() const
 void GameLogic::toggleFlag(const sf::Vector2i& position)
 {
     const Cell& cell = _board.getCell(position);
+
     if(cell.getState() == CellState::FLAG && _flags > 0)
     { 
         _board.unsetFlag(position); 
@@ -35,6 +36,7 @@ void GameLogic::toggleFlag(const sf::Vector2i& position)
         _board.setFlag(position); 
         _flags++;
     }   
+
     if(!_board.isAnyHiddenCell()){ setGameWin(); }
 }
 
@@ -54,17 +56,24 @@ void GameLogic::searchNearbyMines(const sf::Vector2i& position)
 {
     std::stack<sf::Vector2i> st;
     st.push(position);
+
     while(!st.empty())
     {
         auto currentPosiotion = st.top();
         st.pop();
+
         const Cell& cell = _board.getCell(currentPosiotion);
+        
         if(cell.getState() != CellState::HIDE || cell.isMine()){ continue; }
+        
         _board.showCell(currentPosiotion);
+        
         if(cell.getNumber() > 0){ continue; }
+        
         for(const auto& direction : gridUtils::directions)
         {
             sf::Vector2i newPosition = currentPosiotion + direction;
+            
             if(_board.isCellInGrid(newPosition)){ st.push(newPosition); }
         }
     }
@@ -73,11 +82,13 @@ void GameLogic::searchNearbyMines(const sf::Vector2i& position)
 bool GameLogic::checkExplosion(const sf::Vector2i& position)
 {
     const Cell& cell = _board.getCell(position);
+
     if(cell.isMine() && cell.getState() != CellState::FLAG)
     {
         setGameLost();
         return true;
     }
+    
     return false;
 }
 

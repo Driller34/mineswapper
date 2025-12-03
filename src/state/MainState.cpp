@@ -20,6 +20,7 @@ void MainState::init()
 {
     _gameCore.setPosition(conf::startPosition());
     _panel.setPosition(conf::panelPosition());
+
     auto stopWatch = std::make_unique<gui::StopWatch>(
         sf::Vector2f(180.0f, 100.0f),
         conf::stopWatchPosition(_gameSettings.columns), 
@@ -61,6 +62,7 @@ void MainState::activateState()
 void MainState::update()
 {
     _panel.update();
+
     if(!_gameCore.isGameRunning()){ _stopWatch->stop(); }
     else{ _stopWatch->start(); }
 }
@@ -78,15 +80,11 @@ void MainState::inputHandler(const sf::Event& event,
     {
         if(mouseEvent->button == sf::Mouse::Button::Right)
         {
-            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
-            onRightClick(worldPosition);
+            onRightClick(windowUtils::getWorldMousePosition(window));
         }
         if(mouseEvent->button == sf::Mouse::Button::Left)
-        {
-            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
-            onLeftClick(worldPosition);
+        {   
+            onLeftClick(windowUtils::getWorldMousePosition(window));
         }
     }
 }

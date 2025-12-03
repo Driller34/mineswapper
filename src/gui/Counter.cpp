@@ -24,8 +24,11 @@ void Counter::draw(sf::RenderTarget& target,
                    sf::RenderStates states) const
 {
     states.transform *= getTransform();
+
     std::string str = std::to_string(_value);
+    
     _text.setString(str);
+    
     target.draw(_text, states);
 }
 }

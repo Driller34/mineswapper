@@ -19,8 +19,8 @@ public:
 
     virtual void draw(sf::RenderTarget& target, 
                       sf::RenderStates states) const override;
+                      
 private:
-
     std::vector<std::unique_ptr<Component>> _components;
     std::vector<Clickable*> _clickables;
     std::vector<Updatable*> _updatables;

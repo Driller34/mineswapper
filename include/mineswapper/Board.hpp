@@ -26,6 +26,7 @@ public:
     void initializeMines(const sf::Vector2i& banedPosition);
 
     bool isAnyHiddenCell() const;
+    
 private:
     void setMines(const size_t bannedIndex);
     void mixMines(const size_t bannedIndex);

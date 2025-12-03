@@ -9,6 +9,11 @@ namespace gridUtils
     };
 }
 
+namespace windowUtils
+{
+    sf::Vector2f getWorldMousePosition(const sf::RenderWindow& window);
+}
+
 namespace conf
 {
     constexpr unsigned int width{300};

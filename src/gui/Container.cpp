@@ -13,6 +13,7 @@ void Container::push(std::unique_ptr<Component> component)
     {
         _updatables.push_back(updatable);
     }
+    
     if(auto* clickable = dynamic_cast<Clickable*>(component.get()))
     {
         _clickables.push_back(clickable);
