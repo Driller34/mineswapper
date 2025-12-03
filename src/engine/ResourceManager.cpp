@@ -1,6 +1,6 @@
-#include "ResourceManager.hpp"
+#include "engine/ResourceManager.hpp"
 
-ResourceManager::ResourceManager(const std::string& resources)
+ResourceManager::ResourceManager(const std::filesystem::path& resources)
     : _resources(resources)
 {
 }
@@ -12,17 +12,17 @@ ResourceManager::~ResourceManager()
     _sounds.clear();
 }
 
-sf::Font& ResourceManager::getFont(const std::string& fileName) const
+sf::Font& ResourceManager::getFont(const std::filesystem::path& fileName) const
 {
-    return getResource<sf::Font>(fileName, _fonts, "/fonts/");
+    return getResource<sf::Font>(fileName, _fonts, "fonts");
 }
 
-sf::SoundBuffer& ResourceManager::getSound(const std::string& fileName) const
+sf::SoundBuffer& ResourceManager::getSound(const std::filesystem::path& fileName) const
 {
-    return getResource<sf::SoundBuffer>(fileName, _sounds, "/sounds/");
+    return getResource<sf::SoundBuffer>(fileName, _sounds, "sounds");
 }
 
-sf::Texture& ResourceManager::getTexture(const std::string& fileName) const
+sf::Texture& ResourceManager::getTexture(const std::filesystem::path& fileName) const
 {
-    return getResource<sf::Texture>(fileName, _textures, "/textures/");
+    return getResource<sf::Texture>(fileName, _textures, "textures");
 }

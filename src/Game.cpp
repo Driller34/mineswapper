@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game()
- : _resourceManager("../resources"),
+ : _resourceManager(std::filesystem::path(PROJECT_ROOT_DIR) / "resources"),
    _window(sf::VideoMode({conf::width, conf::height}), "Mineswapper"),
    _windowService(_window),
    _gameStateManager()

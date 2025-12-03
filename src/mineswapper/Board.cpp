@@ -1,4 +1,4 @@
-#include "Board.hpp"
+#include "mineswapper/Board.hpp"
 
 namespace mineswapper
 {

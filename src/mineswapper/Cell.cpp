@@ -1,4 +1,4 @@
-#include "Cell.hpp"
+#include "mineswapper/Cell.hpp"
 
 namespace mineswapper
 {

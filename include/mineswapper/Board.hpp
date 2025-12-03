@@ -3,10 +3,10 @@
 #include <random>
 #include <utility>
 #include <unordered_map>
-#include "Cell.hpp"
-#include "utils.hpp"
-#include "Grid.hpp"
-#include "GameSettings.hpp"
+#include "mineswapper/Cell.hpp"
+#include "engine/utils.hpp"
+#include "mineswapper/Grid.hpp"
+#include "mineswapper/GameSettings.hpp"
 
 namespace mineswapper
 {

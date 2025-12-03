@@ -1,4 +1,4 @@
-#include "GameCore.hpp"
+#include "mineswapper/GameCore.hpp"
 
 namespace mineswapper
 {

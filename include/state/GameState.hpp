@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Updatable.hpp"
+#include "engine/Updatable.hpp"
 
 class GameState : public Updatable
 {

@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "MainState.hpp"
-#include "MenuState.hpp"
-#include "ResourceManager.hpp"
-#include "GameStateManager.hpp"
-#include "utils.hpp"
+#include <filesystem>
+#include "state/MainState.hpp"
+#include "state/MenuState.hpp"
+#include "engine/ResourceManager.hpp"
+#include "state/GameStateManager.hpp"
+#include "engine/utils.hpp"
 #include "WindowService.hpp"
 
 class Game

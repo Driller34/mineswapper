@@ -1,18 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <stack>
-#include "Board.hpp"
-#include "Cell.hpp"
-#include "GameState.hpp"
-#include "ResourceManager.hpp"
-#include "GameCore.hpp"
-#include "Container.hpp"
-#include "Button.hpp"
-#include "StopWatch.hpp"
-#include "FlagCounter.hpp"
-#include "GameSettings.hpp"
-#include "utils.hpp"
-#include "GameStateManager.hpp"
+#include "mineswapper/Board.hpp"
+#include "mineswapper/Cell.hpp"
+#include "state/GameState.hpp"
+#include "engine/ResourceManager.hpp"
+#include "mineswapper/GameCore.hpp"
+#include "gui/Container.hpp"
+#include "gui/Button.hpp"
+#include "gui/StopWatch.hpp"
+#include "gui/FlagCounter.hpp"
+#include "mineswapper/GameSettings.hpp"
+#include "engine/utils.hpp"
+#include "state/GameStateManager.hpp"
 #include "WindowService.hpp"
 
 class MainState : public GameState

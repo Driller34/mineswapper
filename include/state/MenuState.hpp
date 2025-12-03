@@ -2,12 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 #include <string.h>
-#include "GameState.hpp"
-#include "MainState.hpp"
-#include "GameStateManager.hpp"
-#include "ResourceManager.hpp"
-#include "Button.hpp"
-#include "GameSettings.hpp"
+#include "state/GameState.hpp"
+#include "state/MainState.hpp"
+#include "state/GameStateManager.hpp"
+#include "engine/ResourceManager.hpp"
+#include "gui/Button.hpp"
+#include "mineswapper/GameSettings.hpp"
 #include "WindowService.hpp"
 
 class MenuState : public GameState

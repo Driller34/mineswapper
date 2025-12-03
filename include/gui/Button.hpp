@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Component.hpp"
-#include "ResourceManager.hpp"
-#include "Clickable.hpp"
+#include "engine/ResourceManager.hpp"
+#include "engine/Clickable.hpp"
 
 namespace gui
 {

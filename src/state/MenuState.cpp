@@ -1,4 +1,4 @@
-#include "MenuState.hpp"
+#include "state/MenuState.hpp"
 
 MenuState::MenuState(GameStateManager& gameStateManager,
                      const ResourceManager& resourceManager,

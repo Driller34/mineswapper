@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Counter.hpp"
-#include "Updatable.hpp"
+#include "gui/Counter.hpp"
+#include "engine/Updatable.hpp"
 
 namespace gui
 {

@@ -3,22 +3,23 @@
 #include <SFML/Audio.hpp>
 #include <unordered_map>
 #include <string>
+#include <filesystem>
 
 class ResourceManager
 {
 public:
-    ResourceManager(const std::string& resources);
+    ResourceManager(const std::filesystem::path& resources);
     ~ResourceManager();
 
-    sf::Font& getFont(const std::string& fileName) const;
-    sf::SoundBuffer& getSound(const std::string& fileName) const;
-    sf::Texture& getTexture(const std::string& fileName) const;
+    sf::Font& getFont(const std::filesystem::path& fileName) const;
+    sf::SoundBuffer& getSound(const std::filesystem::path& fileName) const;
+    sf::Texture& getTexture(const std::filesystem::path& fileName) const;
 
 private:
     template<typename T>
-    T& getResource(const std::string& fileName,
-                   std::unordered_map<std::string, T>& container,
-                   const std::string& subfolder) const
+    T& getResource(const std::filesystem::path& fileName,
+                   std::unordered_map<std::filesystem::path, T>& container,
+                   const std::filesystem::path& subfolder) const
     {
         if(!container.contains(fileName)) 
         {
@@ -27,24 +28,24 @@ private:
 
             if constexpr (std::is_same_v<T, sf::Font>)
             {
-                condition = resource.openFromFile(_resources + subfolder + fileName);
+                condition = resource.openFromFile(_resources / subfolder / fileName);
             }
             else
             {
-                condition = resource.loadFromFile(_resources + subfolder + fileName);
+                condition = resource.loadFromFile(_resources / subfolder / fileName);
             }
 
             if(!condition)
             {
-                throw std::runtime_error("Failed to load " + subfolder + " : " + fileName);
+                throw std::runtime_error("Failed to load ");
             }
         }
 
         return container[fileName];
     }
 
-    const std::string _resources;
-    mutable std::unordered_map<std::string, sf::Font> _fonts;
-    mutable std::unordered_map<std::string, sf::SoundBuffer> _sounds;
-    mutable std::unordered_map<std::string, sf::Texture> _textures;
+    const std::filesystem::path _resources;
+    mutable std::unordered_map<std::filesystem::path, sf::Font> _fonts;
+    mutable std::unordered_map<std::filesystem::path, sf::SoundBuffer> _sounds;
+    mutable std::unordered_map<std::filesystem::path, sf::Texture> _textures;
 };

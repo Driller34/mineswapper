@@ -1,4 +1,4 @@
-#include "FlagCounter.hpp"
+#include "gui/FlagCounter.hpp"
 
 namespace gui
 {

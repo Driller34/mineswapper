@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include <memory>
-#include "GameState.hpp"
+#include "state/GameState.hpp"
 
 class GameStateManager
 {

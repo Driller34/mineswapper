@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <stack>
-#include "Cell.hpp"
-#include "Board.hpp"
-#include "GameSettings.hpp"
+#include "mineswapper/Cell.hpp"
+#include "mineswapper/Board.hpp"
+#include "mineswapper/GameSettings.hpp"
 
 namespace mineswapper
 {

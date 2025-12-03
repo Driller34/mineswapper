@@ -1,4 +1,4 @@
-#include "MainState.hpp"
+#include "state/MainState.hpp"
 
 
 MainState::MainState(GameStateManager& gameStateManager,

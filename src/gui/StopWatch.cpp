@@ -1,4 +1,4 @@
-#include "StopWatch.hpp"
+#include "gui/StopWatch.hpp"
 
 namespace gui
 {

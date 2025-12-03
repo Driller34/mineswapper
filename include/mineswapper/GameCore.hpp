@@ -2,13 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include "Component.hpp"
-#include "ResourceManager.hpp"
-#include "Cell.hpp"
-#include "Board.hpp"
-#include "Clickable.hpp"
-#include "GameLogic.hpp"
-#include "GameSettings.hpp"
-#include "utils.hpp"
+#include "engine/ResourceManager.hpp"
+#include "mineswapper/Cell.hpp"
+#include "mineswapper/Board.hpp"
+#include "engine/Clickable.hpp"
+#include "mineswapper/GameLogic.hpp"
+#include "mineswapper/GameSettings.hpp"
+#include "engine/utils.hpp"
 
 namespace mineswapper
 {

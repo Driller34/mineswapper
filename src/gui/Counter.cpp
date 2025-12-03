@@ -1,4 +1,4 @@
-#include "Counter.hpp"
+#include "gui/Counter.hpp"
 
 namespace gui
 {

@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Component.hpp"
-#include "ResourceManager.hpp"
+#include "engine/ResourceManager.hpp"
 
 namespace gui
 {

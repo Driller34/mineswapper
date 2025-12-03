@@ -1,4 +1,4 @@
-#include "GameLogic.hpp"
+#include "mineswapper/GameLogic.hpp"
 
 namespace mineswapper
 {

@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Counter.hpp"
-#include "Updatable.hpp"
-#include "GameCore.hpp"
+#include "engine/Updatable.hpp"
+#include "mineswapper/GameCore.hpp"
 
 namespace gui
 {
